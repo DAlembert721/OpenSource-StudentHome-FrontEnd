@@ -28,22 +28,32 @@ export class StudentService {
   }
   // Create Student
   createStudent(student, userId): Observable<Student> {
-    return this.http.post<Student>(`${this.basePath}/${userId}/students`, JSON.stringify(student), this.httpOptions)
+    return this.http.post<Student>(`${this.basePath}/users/${userId}/students`, JSON.stringify(student), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Get Student By UserId
+  getStudentByUserId(userId): Observable<Student> {
+    return this.http.get<Student>(`${this.basePath}/users/${userId}/students`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Get Student By Id
-  getStudentByUserId(userId): Observable<Student> {
-    return this.http.get<Student>(`${this.basePath}/${userId}/students`, this.httpOptions)
+  getStudentByStudentId(studentId): Observable<Student> {
+    return this.http.get<Student>(`${this.basePath}/students/${studentId}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Get Student by UserId And StudentId
+  getStudentByUserIdAndStudentId(userId, studentId): Observable<Student> {
+    return this.http.get<Student>(`${this.basePath}/users/${userId}/students/${studentId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Update Student
   updateStudent(studentId, userId, student): Observable<Student> {
-    return this.http.put<Student>(`${this.basePath}/${userId}/students/${studentId}`, JSON.stringify(student), this.httpOptions)
+    return this.http.put<Student>(`${this.basePath}/users/${userId}/students/${studentId}`, JSON.stringify(student), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Delete Student
   deleteStudent(studentId, userId): Observable<any> {
-    return this.http.delete(`${this.basePath}/${userId}/students/${studentId}`, this.httpOptions)
+    return this.http.delete(`${this.basePath}/users/${userId}/students/${studentId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 

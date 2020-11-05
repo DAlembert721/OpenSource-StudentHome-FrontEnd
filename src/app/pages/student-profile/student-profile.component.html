@@ -1,1 +1,86 @@
-<p>student-profile works!</p>
+<mat-card>
+  <mat-grid-list cols="12" rowHeight="100px">
+
+    <mat-grid-tile colspan="3" rowspan="5">
+      <div class="internalMatGrid">
+        <mat-card>
+          <mat-grid-list cols="3" rowHeight="100px">
+            <mat-grid-tile colspan="3" rowspan="2">
+              <mat-card-content>
+                <img mat-card-image [src]="studentData.image" alt="Student photo">
+              </mat-card-content>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+              <div *ngIf="!isEditMode">
+                <button mat-button class="btn">Change Image</button>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+              <mat-card-subtitle>
+                Reviews
+              </mat-card-subtitle>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="9" rowspan="9">
+      <div class="internalMatGrid">
+        <mat-card>
+          <mat-grid-list cols="9" rowHeight="100px">
+            <mat-card-header>
+              <mat-grid-tile colspan="6" rowspan="1">
+                <mat-card-title class="name-title">
+                  Hi, my name is {{studentData.firstName}}
+                </mat-card-title>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="3" rowspan="1">
+                <mat-card-actions *ngIf="isEditMode">
+                  <button mat-button class="btn">Edit profile</button>
+                </mat-card-actions>
+              </mat-grid-tile>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-grid-tile colspan="9" rowspan="7">
+                <div class="description-text">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac nisl lobortis, porta mi vel,
+                    sagittis urna.
+                    Praesent mollis dolor euismod sem iaculis, vel bibendum lorem blandit. Fusce mattis consectetur
+                    tincidunt.
+                    Praesent elit dui, vulputate in porttitor ultricies, aliquam eu libero. Quisque ac turpis quis mi
+                    condimentum
+                    elementum et eget odio. Nullam consequat dignissim urna, vitae varius lorem placerat ac. Sed at
+                    accumsan enim.
+                    Nullam eu lectus ac nulla egestas lacinia vel quis arcu. Nam feugiat lectus sit amet risus feugiat
+                    venenatis.
+                    Integer tristique malesuada elementum. Praesent at odio ut purus elementum mollis. Suspendisse
+                    convallis sed
+                    dui pharetra viverra. Nullam tincidunt interdum augue, vel pharetra ex fermentum vel. Donec
+                    tincidunt finibus
+                    justo eget dapibus.
+
+                    Sed varius laoreet purus eu viverra. Etiam finibus, velit eu tempus venenatis, urna tortor semper
+                    nisi,
+                    aliquet efficitur orci odio luctus nisi. In posuere ipsum nec purus condimentum, ac dapibus est
+                    rutrum. Nam
+                    rhoncus erat vitae nunc vehicula semper. Mauris in cursus eros. Mauris ligula massa, iaculis ut
+                    mattis a,
+                    aliquet a turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id mi malesuada,
+                    pulvinar
+                    orci id, consequat neque. Morbi cursus purus velit, id scelerisque erat rutrum sed. Sed eget tempus
+                    est.
+                    Pellentesque eu nisl vel ex sollicitudin convallis sit amet eget elit. Pellentesque a turpis ex.
+                    Fusce
+                    hendrerit posuere turpis, at pharetra ante feugiat ac.
+                  </p>
+                </div>
+              </mat-grid-tile>
+            </mat-card-content>
+          </mat-grid-list>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</mat-card>

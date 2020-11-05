@@ -1,0 +1,23 @@
+.btn {
+  background-color: cornflowerblue;
+  color: white;
+}
+.btn-spacer {
+  flex: 1 1 auto;
+  margin-bottom: 10px;
+  padding-bottom: 30em;
+}
+.internalMatGrid{
+  min-width:90%;
+}
+.description-text {
+  margin-right: 10em;
+  margin-left: 5%;
+  margin-top: 10%;
+  border:1px solid red;
+}
+.name-title {
+  justify-self: left;
+  padding-right: 75%;
+  border:1px solid red;
+}

@@ -4,6 +4,7 @@ import {StudentProfileComponent} from './pages/student-profile/student-profile.c
 
 const routes: Routes = [
   { path: 'students/:id', component: StudentProfileComponent},
+  { path: 'users/:userId/students/:studentId', component: StudentProfileComponent},
 ];
 
 @NgModule({

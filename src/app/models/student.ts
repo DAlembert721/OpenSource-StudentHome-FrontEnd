@@ -9,4 +9,5 @@ export class Student {
   districtName: string;
   educationCenterName: string;
   districtId: number;
+  email: string;
 }

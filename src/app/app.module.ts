@@ -13,6 +13,7 @@ import {MatInputModule} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatList, MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FormsModule,
     HttpClientModule,
     MatGridListModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

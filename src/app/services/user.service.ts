@@ -10,7 +10,7 @@ import {User} from '../models/user';
 })
 export class UserService {
   // User endpoints
-  basePath = 'https://student-home-open-source.herokuapp.com/api/users';
+  basePath = 'http://localhost:8080/api/users';
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({
@@ -43,7 +43,7 @@ export class UserService {
       .pipe(retry(2), catchError(this.handleError));
   }
   // Delete User
-  deleteUser(studentId, userId): Observable<any> {
+  deleteUser(userId): Observable<any> {
     return this.http.delete(`${this.basePath}/${userId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }

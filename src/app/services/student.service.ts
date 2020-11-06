@@ -9,7 +9,7 @@ import {catchError, retry} from 'rxjs/operators';
 })
 export class StudentService {
   // Students endpoints
-  basePath = 'https://student-home-open-source.herokuapp.com/api/users';
+  basePath = 'http://localhost:8080/api';
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,7 +27,7 @@ export class StudentService {
     return throwError('Something happened with request, please try again later.');
   }
   // Create Student
-  createStudent(student, userId): Observable<Student> {
+  createStudent(userId, student): Observable<Student> {
     return this.http.post<Student>(`${this.basePath}/users/${userId}/students`, JSON.stringify(student), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
@@ -52,7 +52,7 @@ export class StudentService {
       .pipe(retry(2), catchError(this.handleError));
   }
   // Delete Student
-  deleteStudent(studentId, userId): Observable<any> {
+  deleteStudent(userId, studentId): Observable<any> {
     return this.http.delete(`${this.basePath}/users/${userId}/students/${studentId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }

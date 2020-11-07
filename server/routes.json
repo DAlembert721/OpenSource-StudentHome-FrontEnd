@@ -1,0 +1,4 @@
+{
+  "/api/*": "/$1",
+  "/landlords/:landlordId/properties": "/properties?landlordId=:landlordId"
+}

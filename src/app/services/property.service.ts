@@ -8,7 +8,7 @@ import {catchError, retry} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PropertyService {
-  basePath = 'http://localhost:3000/api/properties';
+  basePath = 'http://localhost:3000/api';
   constructor(private http: HttpClient) { }
   // Http Default Options
   httpOptions = {
@@ -27,27 +27,27 @@ export class PropertyService {
     return throwError('Something happened with request, please try again later.');
   }
   // Create Property
-  createItem(item): Observable<Property> {
-    return this.http.post<Property>(this.basePath, JSON.stringify(item), this.httpOptions)
+  createProperty(landlordId, property): Observable<Property> {
+    return this.http.post<Property>(`${this.basePath}/landlords/${landlordId}/properties`, JSON.stringify(property), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get Property by Id
-  getItem(id): Observable<Property> {
-    return this.http.get<Property>(`${this.basePath}/${id}`, this.httpOptions )
+  // Get all Properties
+  getProperty(): Observable<Property> {
+    return this.http.get<Property>(`${this.basePath}/properties`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get Property Data
-  getList(): Observable<Property>{
-    return this.http.get<Property>(this.basePath)
+  // Get Properties by LandlordId
+  getPropertiesByLandlordId(landlordId): Observable<Property>{
+    return this.http.get<Property>(`${this.basePath}/landlords/${landlordId}/properties`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Update Property
-  updateItem(id, item): Observable<Property>{
+  updateProperty(id, item): Observable<Property>{
     return this.http.put<Property>(`${this.basePath}/${id}`, JSON.stringify(item), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Delete Property
-  deleteItem(id): Observable<any> {
+  deleteProperty(id): Observable<any> {
     return this.http.delete<Property>(`${this.basePath}/${id}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }

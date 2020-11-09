@@ -4,4 +4,5 @@ export class Landlord {
   lastName: string;
   dni: string;
   phone: string;
+  userId: number;
 }

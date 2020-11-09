@@ -66,8 +66,8 @@
                 </p>
               </div>
             </mat-card-content>
-            <mat-card-actions *ngIf="!isEditMode" align="end">
-              <button mat-button class="edit-button">Edit profile</button>
+            <mat-card-actions align="end">
+              <button mat-button class="edit-button" (click)="navigateToLandlordProperties(landlordData.id)">View my properties</button>
             </mat-card-actions>
           </mat-card>
         </div>

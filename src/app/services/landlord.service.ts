@@ -8,9 +8,9 @@ import {catchError, retry} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LandlordService {
-  basePath = 'http://localhost:3000/api/landlords';
+  // Landlords endpoints
+  basePath = 'http://localhost:3000/api';
   constructor(private http: HttpClient) { }
-  // Http Default Options
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type' : 'application/json'
@@ -18,8 +18,8 @@ export class LandlordService {
   };
   // API Error Handling
   handleError(error: HttpErrorResponse): Observable<never> {
-    if (error.error instanceof ErrorEvent) {
-      console.log('An error occurred: ', error.error.message);
+    if (error.error instanceof  ErrorEvent) {
+      console.log('An error has ocurred: ', error.error.message);
     }
     else {
       console.log(`Backend returned code ${error.status}, body was: ${error.error}`);
@@ -27,28 +27,34 @@ export class LandlordService {
     return throwError('Something happened with request, please try again later.');
   }
   // Create Landlord
-  createItem(item): Observable<Landlord> {
-    return this.http.post<Landlord>(this.basePath, JSON.stringify(item), this.httpOptions)
+  createLandlord(userId, landlord): Observable<Landlord> {
+    return this.http.post<Landlord>(`${this.basePath}/users/${userId}/landlords`, JSON.stringify(landlord), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get Landlord by Id
-  getLandlordById(id): Observable<Landlord> {
-    return this.http.get<Landlord>(`${this.basePath}/${id}`, this.httpOptions )
+  // Get Landlord By UserId
+  getLandlordByUserId(userId): Observable<Landlord> {
+    return this.http.get<Landlord>(`${this.basePath}/users/${userId}/landlords`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get Landlord Data
-  getList(): Observable<Landlord>{
-    return this.http.get<Landlord>(this.basePath)
+  // Get Landlord By Id
+  getLandlordByLandlordId(landlordId): Observable<Landlord> {
+    return this.http.get<Landlord>(`${this.basePath}/landlords/${landlordId}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Get Landlord by UserId And LandlordId
+  getLandlordByUserIdAndLandlordId(userId, landlordId): Observable<Landlord> {
+    return this.http.get<Landlord>(`${this.basePath}/users/${userId}/landlords/${landlordId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Update Landlord
-  updateLandlord(id, landlord): Observable<Landlord>{
-    return this.http.put<Landlord>(`${this.basePath}/${id}`, JSON.stringify(landlord), this.httpOptions)
+  updateLandlord(landlordId, userId, landlord): Observable<Landlord> {
+    return this.http.put<Landlord>(`${this.basePath}/users/${userId}/landlords/${landlordId}`, JSON.stringify(landlord), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Delete Landlord
-  deleteItem(id): Observable<any> {
-    return this.http.delete<Landlord>(`${this.basePath}/${id}`, this.httpOptions)
+  deleteLandlord(userId, landlordId): Observable<any> {
+    return this.http.delete(`${this.basePath}/users/${userId}/landlords/${landlordId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
+
 }

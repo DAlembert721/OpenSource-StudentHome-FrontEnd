@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
 import {Landlord} from '../../models/landlord';
 import {LandlordService} from '../../services/landlord.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
+import {NgForm} from '@angular/forms';
+
 
 @Component({
   selector: 'app-landlord-profile',
@@ -16,9 +17,10 @@ export class LandlordProfileComponent implements OnInit {
   landlordData: Landlord = new Landlord();
   landlordId: number;
   isEditMode = false;
+  userId: number;
+
   constructor(private landlordDataService: LandlordService,
               private router: Router, private route: ActivatedRoute) {
-  //  this.landlordData = {} as Landlord;
   }
 
   ngOnInit(): void {
@@ -29,13 +31,22 @@ export class LandlordProfileComponent implements OnInit {
         console.log(id);
         this.retrieveLandlordByLandlordId(id);
         this.isEditMode = false;
+      } else
+      if (params.userId && params.landlordId) {
+        const userId = params.userId;
+        id = params.landlordId;
+        console.log(userId);
+        console.log(id);
+        this.retrieveLandlordByUserIdAndLandlordId(userId, id);
+        this.isEditMode = true;
+        this.userId = userId;
       }
       return id;
-    //  this.retrieveLandlordByLandlordId(2);
-   }));
+    }));
   }
+
   retrieveLandlordByLandlordId(id): void {
-    this.landlordDataService.getLandlordById(id)
+    this.landlordDataService.getLandlordByLandlordId(id)
       .subscribe((response: Landlord) => {
         this.landlordData = {} as Landlord;
         this.landlordData = _.cloneDeep(response);
@@ -43,8 +54,22 @@ export class LandlordProfileComponent implements OnInit {
         console.log(this.landlordData);
       });
   }
+
+  retrieveLandlordByUserIdAndLandlordId(userId, landlordId): void {
+    this.landlordDataService.getLandlordByUserIdAndLandlordId(userId, landlordId)
+      .subscribe((response: Landlord) => {
+        this.landlordData = {} as Landlord;
+        this.landlordData = _.cloneDeep(response);
+        console.log(response);
+        console.log(this.landlordData);
+      });
+  }
+
   updateLandlord(): void {
-    this.landlordDataService.updateLandlord(this.landlordData.id, this.landlordData as Landlord);
+    this.landlordDataService.updateLandlord(this.userId, this.landlordData.id, this.landlordData as Landlord);
+  }
+  navigateToLandlordProperties(landlordId): void{
+    this.router.navigate([`/landlords/${landlordId}/properties`]).then(() => null);
   }
   onSubmit(): void {
     if (this.landlordForm.form.valid) {

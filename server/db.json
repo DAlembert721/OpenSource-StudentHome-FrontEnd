@@ -145,6 +145,26 @@
       "place": 100,
       "landlordId": 4,
       "id": 9
+    },
+    {
+      "rooms": 9,
+      "size": 250,
+      "cost": 1500,
+      "active": true,
+      "address": "Example Avenue 123",
+      "place": 100,
+      "landlordId": 1,
+      "id": 10
+    },
+    {
+      "rooms": 6,
+      "size": 500,
+      "cost": 2000,
+      "active": true,
+      "address": "Somewhere Avenue",
+      "place": 100,
+      "landlordId": 3,
+      "id": 11
     }
   ]
 }

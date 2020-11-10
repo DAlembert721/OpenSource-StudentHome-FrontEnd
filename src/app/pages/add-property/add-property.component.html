@@ -7,17 +7,17 @@
       <p>
         <mat-form-field>
           <mat-label>Number of Rooms</mat-label>
-          <input matInput placeholder="Ex. 4" name="rooms" required [(ngModel)]="propertyData.rooms">
+          <input matInput placeholder="Ex. 4" name="rooms" type="number" required [(ngModel)]="propertyData.rooms">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Size</mat-label>
-          <input matInput placeholder="Ex. 200" name="size" required [(ngModel)]="propertyData.size">
+          <input matInput placeholder="Ex. 200" name="size" type="number" required [(ngModel)]="propertyData.size">
         </mat-form-field>
       </p>
       <p>
         <mat-form-field>
           <mat-label>Cost (S/.)</mat-label>
-          <input matInput placeholder="Ex. 1000" name="cost" required [(ngModel)]="propertyData.cost">
+          <input matInput placeholder="Ex. 1000" name="cost" type="number" required [(ngModel)]="propertyData.cost">
         </mat-form-field>
       </p>
       <p>
@@ -30,8 +30,8 @@
       </p>
     </form>
   </mat-card-content>
-  <ng-container>
+  <mat-card-actions align="end">
     <button mat-button class="edit-button" (click)="addProperty()">Add</button>
     <button mat-button class="edit-button" (click)="navigateToProperties()">Cancel</button>
-  </ng-container>
+  </mat-card-actions>
 </mat-card>

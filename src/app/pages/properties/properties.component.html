@@ -8,7 +8,7 @@
     <mat-card-actions align="end">
       <button mat-button class="edit-button" (click)="navigateToAddProperty()">Add property</button>
     </mat-card-actions>
-    <mat-grid-list cols="2" rowHeight="175px">
+    <mat-grid-list cols="2" rowHeight="190px">
       <mat-grid-tile *ngFor="let property of properties" colspan="1" rowspan="1">
         <mat-card class="prop-card">
           <mat-card-header>
@@ -23,6 +23,9 @@
               Its monthly price is S/.{{property["cost"]}}. This property is located in {{property["address"]}}</p>
             </div>
           </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-button class="edit-button" (click)="navigateToPropertyDetails(property)">See details</button>
+          </mat-card-actions>
         </mat-card>
       </mat-grid-tile>
 

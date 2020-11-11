@@ -9,7 +9,7 @@ import {catchError, retry} from 'rxjs/operators';
 })
 export class StudentService {
   // Students endpoints
-  basePath = 'http://localhost:8080/api';
+  basePath = 'https://student-home-open-source.herokuapp.com/api';
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({

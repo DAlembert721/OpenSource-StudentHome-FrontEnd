@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
-import {Opinion} from '../models/opinion';
+import {Property} from '../models/property';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OpinionService {
-
-  // Opinions endpoints
+export class PropertyService {
+// Students endpoints
   basePath = 'https://student-home-open-source.herokuapp.com/api';
   constructor(private http: HttpClient) { }
   httpOptions = {
@@ -27,9 +26,9 @@ export class OpinionService {
     }
     return throwError('Something happened with request, please try again later.');
   }
-  // Get Opinions By Student Id
-  getAllOpinionsByStudentId(studentId): Observable<Opinion> {
-    return this.http.get<Opinion>(`${this.basePath}/students/${studentId}/opinions`, this.httpOptions)
+  // Get Properties By LandLordId
+  getPropertiesByLandlordId(landLordId): Observable<Property> {
+    return this.http.get<Property>(`${this.basePath}/landlords/${landLordId}/properties`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

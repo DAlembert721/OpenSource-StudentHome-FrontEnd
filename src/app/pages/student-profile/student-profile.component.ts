@@ -20,7 +20,7 @@ export class StudentProfileComponent implements OnInit {
   studentId: number;
   isEditMode = false;
   userId: number;
-  opinions: Opinion[];
+  opinions: Opinion[] = [];
 
   constructor(private studentDataService: StudentService,
               private opinionService: OpinionService,
@@ -28,6 +28,9 @@ export class StudentProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initialize();
+  }
+  initialize(): void {
     this.studentId = Number(this.route.params.subscribe(params => {
       let id;
       if (params.id) {
@@ -49,7 +52,6 @@ export class StudentProfileComponent implements OnInit {
       return id;
     }));
   }
-
   retrieveStudentByStudentId(id): void {
     this.studentDataService.getStudentByStudentId(id)
       .subscribe((response: Student) => {

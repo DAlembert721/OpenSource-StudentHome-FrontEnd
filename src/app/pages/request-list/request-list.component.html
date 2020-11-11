@@ -1,0 +1,37 @@
+<mat-card class="principal-card">
+  <mat-card-content>
+    <div *ngIf="requests?.length === 0; else requestListView">
+      <h1 style="color: black; text-align: center;margin-top: 50px;font-size: 50px">You don't have any request</h1>
+    </div>
+
+    <ng-template #requestListView>
+      <div class="margin-card" *ngFor="let request of requests">
+        <div fxLayout="row" fxLayoutAlign="center">
+          <mat-card class="example-card">
+            <mat-card-header class="main-header">
+              <div fxLayout="row">
+                <mat-card-title style="margin-bottom: 0">Student Name:
+                  <h3>{{request.firstNameStudent}}  {{request.lastNameStudent}}</h3></mat-card-title>
+              </div>
+            </mat-card-header>
+            <mat-divider class="default-spacer"></mat-divider>
+            <mat-card-content>
+              <div fxLayoutAlign="right" fxLayout="column">
+                <h2 style="margin-bottom: 2px">Content:</h2>
+                <p style="margin-left: 5%">{{request.content}}</p>
+              </div>
+            </mat-card-content>
+            <mat-card-actions *ngIf="type === 'landlord'" fxLayoutAlign="end" style="margin-right: 20px;" align="right">
+              <button mat-button class="ok-btn" (click)="acceptRequest(request.id,request)">Accept</button>
+              <button mat-button class="deny-btn" (click)="deniedRequest(request.id,request)" style="margin-left: 5px">
+                Denied
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
+      </div>
+    </ng-template>
+  </mat-card-content>
+
+</mat-card>

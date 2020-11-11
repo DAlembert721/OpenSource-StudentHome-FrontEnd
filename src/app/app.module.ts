@@ -14,11 +14,17 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatList, MatListModule} from '@angular/material/list';
+import { RequestFormComponent } from './pages/request-form/request-form.component';
+import { RequestListComponent } from './pages/request-list/request-list.component';
+import {LayoutModule} from '@angular/cdk/layout';
+import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentProfileComponent
+    StudentProfileComponent,
+    RequestFormComponent,
+    RequestListComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +39,7 @@ import {MatList, MatListModule} from '@angular/material/list';
     HttpClientModule,
     MatGridListModule,
     MatListModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

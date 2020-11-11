@@ -18,13 +18,18 @@ import { RequestFormComponent } from './pages/request-form/request-form.componen
 import { RequestListComponent } from './pages/request-list/request-list.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
+import { ContractListComponent } from './pages/contract-list/contract-list.component';
+import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentProfileComponent,
     RequestFormComponent,
-    RequestListComponent
+    RequestListComponent,
+    ContractListComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,7 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
     MatGridListModule,
     MatListModule,
     FlexLayoutModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

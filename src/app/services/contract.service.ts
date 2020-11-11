@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
 import {Request} from '../models/request';
+import {catchError, retry} from 'rxjs/operators';
+import {Contract} from '../models/contract';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RequestService {
+export class ContractService {
 
-  // Request endpoints
+  // Contract endpoints
   basePath = 'https://student-home-open-source.herokuapp.com/api';
   constructor(private http: HttpClient) { }
   httpOptions = {
@@ -27,33 +28,33 @@ export class RequestService {
     }
     return throwError('Something happened with request, please try again later.');
   }
-  // Create Request
-  createRequest(studentId, propertyId, request): Observable<Request> {
-    return this.http.post<Request>(`${this.basePath}/students/${studentId}/properties/${propertyId}/requests`
-      , JSON.stringify(request), this.httpOptions)
+  // Create Contract
+  createContract(studentId, propertyId, contract): Observable<Contract> {
+    return this.http.post<Contract>(`${this.basePath}/students/${studentId}/properties/${propertyId}/contracts`
+      , JSON.stringify(contract), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get Request By StudentId
-  getRequestByStudentId(studentId): Observable<Request> {
-    return this.http.get<Request>(`${this.basePath}/students/${studentId}/requests`
+  // Get Contract By StudentId
+  getContractsByStudentId(studentId): Observable<Contract> {
+    return this.http.get<Contract>(`${this.basePath}/students/${studentId}/contracts`
       , this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get Request By PropertyId
-  getRequestByPropertyId(propertyId): Observable<Request> {
-    return this.http.get<Request>(`${this.basePath}/properties/${propertyId}/requests`
+  // Get Contract By PropertyId
+  getContractsByPropertyId(propertyId): Observable<Contract> {
+    return this.http.get<Contract>(`${this.basePath}/properties/${propertyId}/contracts`
       , this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Update Request
-  updateRequest(requestId, request): Observable<Request> {
-    return this.http.put<Request>(`${this.basePath}/requests/${requestId}`
-      , JSON.stringify(request), this.httpOptions)
+  // Update Contract
+  updateContract(contractsId, contract): Observable<Contract> {
+    return this.http.put<Contract>(`${this.basePath}/contracts/${contractsId}`
+      , JSON.stringify(contract), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Delete Request
-  deleteRequest(requestId): Observable<any> {
-    return this.http.delete(`${this.basePath}/requests/${requestId}`
+  deleteContract(contractsId): Observable<any> {
+    return this.http.delete(`${this.basePath}/contracts/${contractsId}`
       , this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }

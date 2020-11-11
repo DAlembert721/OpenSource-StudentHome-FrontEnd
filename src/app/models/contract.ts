@@ -1,6 +1,7 @@
-export class Request {
+export class Contract {
   id: number;
-  content: string;
+  description: string;
+  amount: number;
   state: boolean;
   createdAt: Date;
   firstNameStudent: string;

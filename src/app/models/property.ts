@@ -1,3 +1,5 @@
+import {Landlord} from "./landlord";
+
 export class Property {
   id: number;
   rooms: number;
@@ -7,5 +9,5 @@ export class Property {
   address: string;
   place: string;
   landlordId: number;
-  properties: Array<any>;
+  districtId: number;
 }

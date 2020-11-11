@@ -28,12 +28,12 @@ export class AddPropertyComponent implements OnInit {
       active: true,
       address: this.propertyData.address,
       place: 100,
-      landlordId: this.landlordId
     };
     this.propertyDataService.createProperty(this.landlordId, newProperty)
       .subscribe(() => {
         this.navigateToProperties();
       });
+    // this.navigateToProperties();
   }
   navigateToProperties(): void {
     this.router.navigate([`/landlords/${this.landlordId}/properties`]).then(() => null);

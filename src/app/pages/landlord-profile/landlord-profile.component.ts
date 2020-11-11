@@ -30,7 +30,7 @@ export class LandlordProfileComponent implements OnInit {
         id = params.id;
         console.log(id);
         this.retrieveLandlordByLandlordId(id);
-        this.isEditMode = false;
+        // this.isEditMode = false;
       } else
       if (params.userId && params.landlordId) {
         const userId = params.userId;
@@ -38,7 +38,7 @@ export class LandlordProfileComponent implements OnInit {
         console.log(userId);
         console.log(id);
         this.retrieveLandlordByUserIdAndLandlordId(userId, id);
-        this.isEditMode = true;
+ //       this.isEditMode = true;
         this.userId = userId;
       }
       return id;

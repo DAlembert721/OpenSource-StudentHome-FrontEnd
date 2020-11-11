@@ -6,8 +6,8 @@ import {AddPropertyComponent} from './pages/add-property/add-property.component'
 import {PropertyDetailsComponent} from './pages/property-details/property-details.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/landlords/1', pathMatch: 'full'},
-  {path: 'landlords', redirectTo: '/landlords/1', pathMatch: 'full'},
+  {path: '', redirectTo: '/users/61/landlords/101', pathMatch: 'full'},
+  {path: 'landlords', redirectTo: '/users/61/landlords/101', pathMatch: 'full'},
   {path: 'landlords/:id', component: LandlordProfileComponent },
   {path: 'users/:userId/landlords/:landlordId', component: LandlordProfileComponent},
   {path: 'landlords/:landlordId/properties', component: PropertiesComponent},

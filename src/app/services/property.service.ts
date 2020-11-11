@@ -8,7 +8,7 @@ import {catchError, retry} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PropertyService {
-  basePath = 'http://localhost:3000/api';
+  basePath = 'https://student-home-open-source.herokuapp.com/api';
   constructor(private http: HttpClient) { }
   // Http Default Options
   httpOptions = {

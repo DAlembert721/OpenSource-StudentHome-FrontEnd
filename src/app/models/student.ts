@@ -5,6 +5,7 @@ export class Student {
   dni: string;
   phone: number;
   image: string;
+  description: string;
   address: string;
   districtName: string;
   educationCenterName: string;

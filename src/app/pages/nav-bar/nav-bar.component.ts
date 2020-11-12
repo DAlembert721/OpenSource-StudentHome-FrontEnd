@@ -28,28 +28,29 @@ export class NavBarComponent implements OnInit {
     console.log(this.options);
   }
   redirectOption(option): void {
+    console.log(option)
     if (option.text === 'Home') {
       this.router.navigate(['/home']).then(() => null);
     }else if (option.text === 'Profile') {
       if (this.type === 'student') {
-        this.router.navigate([`/students/${this.id}`]).then(() => null);
+        this.router.navigate([`students/${this.id}`]).then(() => null);
       }
       else {
-        this.router.navigate([`/landlords/${this.id}`]).then(() => null);
+        this.router.navigate([`landlords/${this.id}`]).then(() => null);
       }
     }else if (option.text === 'Contracts') {
       if (this.type === 'student') {
-        this.router.navigate([`/students/${this.id}/contracts`]).then(() => null);
+        this.router.navigate([`students/${this.id}/contracts`]).then(() => null);
       }
       else {
-        this.router.navigate([`/landlords/${this.id}/contracts`]).then(() => null);
+        this.router.navigate([`landlords/${this.id}/contracts`]).then(() => null);
       }
     }else if (option.text === 'Requests') {
       if (this.type === 'student') {
-        this.router.navigate([`/students/${this.id}/requests`]).then(() => null);
+        this.router.navigate([`students/${this.id}/requests`]).then(() => null);
       }
       else {
-        this.router.navigate([`/landlords/${this.id}/requests`]).then(() => null);
+        this.router.navigate([`landlords/${this.id}/requests`]).then(() => null);
       }
     }
   }

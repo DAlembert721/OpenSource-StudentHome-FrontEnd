@@ -1,47 +1,56 @@
-<mat-card class="principal-card">
+<mat-card class="principal-card" (resize)="onResize($event)">
   <mat-card-content>
-    <mat-grid-list cols="12" rowHeight="110px">
-      <mat-grid-tile colspan="3" rowspan="12">
+    <mat-grid-list [cols]="windowsSize" rowHeight="60px" >
+      <mat-grid-tile [colspan]="photoCols" [rowspan]="photoRows">
         <div class="internalMatGrid">
           <mat-card>
-            <mat-grid-list cols="3" rowHeight="35px">
-              <mat-grid-tile colspan="3" rowspan="11">
+            <mat-grid-list [cols]="photoCols" [rowHeight]="photoHeight">
+              <mat-grid-tile [colspan]="photoCols" rowspan="11">
                 <mat-card-content>
                   <img mat-card-image [src]="studentData.image" alt="Student photo" class="avatar">
                 </mat-card-content>
               </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="1" style="margin-bottom: 5px">
+              <mat-grid-tile [colspan]="photoCols" rowspan="1" style="margin-bottom: 5px">
                 <div *ngIf="!isEditMode">
                   <button mat-button class="btn">Change Image</button>
                 </div>
               </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="1">
+              <mat-grid-tile [colspan]="photoCols" rowspan="1">
                 <div>
                   <mat-card-subtitle>
                     Reviews: {{opinions.length}}
                   </mat-card-subtitle>
                 </div>
               </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="1">
-                <mat-card-subtitle>
-                  {{studentData.firstName}}  {{studentData.lastName}}
-                </mat-card-subtitle>
+              <mat-grid-tile [colspan]="photoCols" rowspan="1">
+                <div fxLayout="row" fxLayoutAlign="center">
+                  <mat-icon style="margin-right: 2px">person</mat-icon>
+                  <mat-card-subtitle style="margin-top: 3px">
+                    {{studentData.firstName}}  {{studentData.lastName}}
+                  </mat-card-subtitle>
+                </div>
               </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="1">
-                <mat-card-subtitle>
-                  {{studentData.email}}
-                </mat-card-subtitle>
+              <mat-grid-tile [colspan]="photoCols" rowspan="1">
+                <div fxLayout="row" fxLayoutAlign="center">
+                  <mat-icon style="margin-right: 2px">contact_mail</mat-icon>
+                  <mat-card-subtitle style="margin-top: 3px">
+                    {{studentData.email}}
+                  </mat-card-subtitle>
+                </div>
               </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="1">
-                <mat-card-subtitle>
-                  {{studentData.phone}}
-                </mat-card-subtitle>
+              <mat-grid-tile [colspan]="photoCols" rowspan="1">
+                <div fxLayout="row" fxLayoutAlign="center">
+                  <mat-icon style="margin-right: 2px">contact_phone</mat-icon>
+                  <mat-card-subtitle style="margin-top: 3px">
+                    {{studentData.phone}}
+                  </mat-card-subtitle>
+                </div>
               </mat-grid-tile>
             </mat-grid-list>
           </mat-card>
         </div>
       </mat-grid-tile>
-      <mat-grid-tile colspan="9" rowspan="11">
+      <mat-grid-tile [colspan]="detailCols" [rowspan]="detailRows">
         <div class="internalMatGrid">
           <mat-card>
             <mat-card-header>
@@ -52,21 +61,7 @@
             <mat-card-content class="description-text">
               <div>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac nisl lobortis, porta mi vel,
-                  sagittis urna.
-                  Praesent mollis dolor euismod sem iaculis, vel bibendum lorem blandit. Fusce mattis consectetur
-                  tincidunt.
-                  Praesent elit dui, vulputate in porttitor ultricies, aliquam eu libero. Quisque ac turpis quis mi
-                  condimentum
-                  elementum et eget odio. Nullam consequat dignissim urna, vitae varius lorem placerat ac. Sed at
-                  accumsan enim.
-                  Nullam eu lectus ac nulla egestas lacinia vel quis arcu. Nam feugiat lectus sit amet risus feugiat
-                  venenatis.
-                  Integer tristique malesuada elementum. Praesent at odio ut purus elementum mollis. Suspendisse
-                  convallis sed
-                  dui pharetra viverra. Nullam tincidunt interdum augue, vel pharetra ex fermentum vel. Donec
-                  tincidunt finibus
-                  justo eget dapibus.
+                  {{studentData.description}}
                 </p>
               </div>
             </mat-card-content>
@@ -74,14 +69,18 @@
               <button mat-button class="edit-button">Edit profile</button>
             </mat-card-actions>
             <mat-card-footer style="margin-left: 5%; margin-bottom: 5%">
-                <mat-card-content>
-                  <div *ngFor="let opinion of opinions">
-                    <mat-card class="default-spacer list-cards">
-                      <mat-card-content>{{opinion.content}}</mat-card-content>
-                      <mat-card-footer class="opinions-footer">{{opinion.score}}</mat-card-footer>
-                    </mat-card>
-                  </div>
-                </mat-card-content>
+              <mat-card-content>
+                <div *ngFor="let opinion of opinions">
+                  <mat-card class="default-spacer list-cards">
+                    <mat-card-content>{{opinion.content}}</mat-card-content>
+                    <mat-card-footer class="opinions-footer" >
+                      <div fxLayout="row" fxLayoutAlign="end" style="margin-right: 5px">
+                        <mat-icon *ngFor="let index of generateArray(opinion.score)">star_rate</mat-icon>
+                      </div>
+                    </mat-card-footer>
+                  </mat-card>
+                </div>
+              </mat-card-content>
             </mat-card-footer>
           </mat-card>
         </div>

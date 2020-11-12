@@ -21,6 +21,12 @@ export class StudentProfileComponent implements OnInit {
   isEditMode = false;
   userId: number;
   opinions: Opinion[] = [];
+  windowsSize: number;
+  photoCols: number;
+  detailCols: number;
+  photoRows: number;
+  detailRows: number;
+  photoHeight: number;
 
   constructor(private studentDataService: StudentService,
               private opinionService: OpinionService,
@@ -29,6 +35,12 @@ export class StudentProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.initialize();
+    this.windowsSize = (window.innerHeight <= 360) ? 3 : 12;
+    this.detailCols = (window.innerHeight <= 360) ? 3 : 9;
+    this.photoCols = (window.innerHeight <= 360) ? 3 : 3;
+    this.photoRows = (window.innerHeight <= 360) ? 6 : 12;
+    this.detailRows = (window.innerHeight <= 360) ? 5 : 11;
+    this.photoHeight = (window.innerHeight <= 360) ? 10 : 35;
   }
   initialize(): void {
     this.studentId = Number(this.route.params.subscribe(params => {
@@ -51,6 +63,15 @@ export class StudentProfileComponent implements OnInit {
       }
       return id;
     }));
+  }
+  onResize(event): void {
+    console.log(event.target);
+    this.windowsSize = (event.target.innerHeight <= 360) ? 3 : 12;
+    this.detailCols = (event.target.innerHeight <= 360) ? 3 : 9;
+    this.photoCols = (event.target.innerHeight <= 360) ? 3 : 3;
+    this.photoRows = (event.target.innerHeight <= 360) ? 4 : 12;
+    this.detailRows = (event.target.innerHeight <= 360) ? 5 : 11;
+    this.photoHeight = (event.target.innerHeight <= 360) ? 10 : 35;
   }
   retrieveStudentByStudentId(id): void {
     this.studentDataService.getStudentByStudentId(id)
@@ -92,5 +113,12 @@ export class StudentProfileComponent implements OnInit {
     } else {
       console.log('Invalid Data');
     }
+  }
+  generateArray(score): number[]{
+    const array = [];
+    for (let i = 0; i < score; i++) {
+      array.push(i);
+    }
+    return array;
   }
 }

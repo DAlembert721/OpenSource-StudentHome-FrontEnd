@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Landlord} from '../models/landlord';
+import {Student} from '../models/student';
 import {catchError, retry} from 'rxjs/operators';
 import {User} from '../models/user';
 
@@ -10,7 +10,7 @@ import {User} from '../models/user';
 })
 export class UserService {
   // User endpoints
-  basePath = 'https://student-home-open-source.herokuapp.com/api';
+  basePath = 'https://student-home-open-source.herokuapp.com/api/users';
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({

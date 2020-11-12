@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "OpenSourceStudentHomeFrontEnd"
+  "defaultProject": "OpenSourceStudentHomeFrontEnd",
+  "cli": {
+    "analytics": false
+  }
 }

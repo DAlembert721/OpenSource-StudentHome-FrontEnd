@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,9 +20,16 @@ import { LandlordProfileComponent } from './pages/landlord-profile/landlord-prof
 import { PropertiesComponent } from './pages/properties/properties.component';
 import { PropertyDetailsComponent } from './pages/property-details/property-details.component';
 import { AddPropertyComponent } from './pages/add-property/add-property.component';
-import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
-
+import {StudentProfileComponent} from './pages/student-profile/student-profile.component';
+import {MatList, MatListModule} from '@angular/material/list';
+import { RequestFormComponent } from './pages/request-form/request-form.component';
+import { RequestListComponent } from './pages/request-list/request-list.component';
+import {LayoutModule} from '@angular/cdk/layout';
+import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
+import { ContractListComponent } from './pages/contract-list/contract-list.component';
+import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -30,13 +37,17 @@ import {MatSelectModule} from '@angular/material/select';
     LandlordProfileComponent,
     PropertiesComponent,
     PropertyDetailsComponent,
-    AddPropertyComponent
+    AddPropertyComponent,
+    StudentProfileComponent,
+    RequestFormComponent,
+    RequestListComponent,
+    ContractListComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
@@ -50,8 +61,16 @@ import {MatSelectModule} from '@angular/material/select';
     MatDialogModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    HttpClientModule,
+    MatGridListModule,
+    MatListModule,
+    FlexLayoutModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

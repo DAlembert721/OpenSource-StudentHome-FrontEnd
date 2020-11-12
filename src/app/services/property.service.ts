@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Property} from '../models/property';
 import {catchError, retry} from 'rxjs/operators';
+import {Property} from '../models/property';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyService {
+// Students endpoints
   basePath = 'https://student-home-open-source.herokuapp.com/api';
   constructor(private http: HttpClient) { }
-  // Http Default Options
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type' : 'application/json'
@@ -18,8 +18,8 @@ export class PropertyService {
   };
   // API Error Handling
   handleError(error: HttpErrorResponse): Observable<never> {
-    if (error.error instanceof ErrorEvent) {
-      console.log('An error occurred: ', error.error.message);
+    if (error.error instanceof  ErrorEvent) {
+      console.log('An error has ocurred: ', error.error.message);
     }
     else {
       console.log(`Backend returned code ${error.status}, body was: ${error.error}`);
@@ -49,6 +49,5 @@ export class PropertyService {
   // Delete Property
   deleteProperty(id): Observable<any> {
     return this.http.delete<Property>(`${this.basePath}/${id}`, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
   }
 }

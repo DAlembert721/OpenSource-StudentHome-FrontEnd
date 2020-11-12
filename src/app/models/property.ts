@@ -1,5 +1,3 @@
-import {Landlord} from "./landlord";
-
 export class Property {
   id: number;
   rooms: number;

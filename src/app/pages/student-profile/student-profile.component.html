@@ -1,9 +1,9 @@
 <mat-card class="principal-card" (resize)="onResize($event)">
-  <mat-card-content>
+  <mat-card-content >
     <mat-grid-list [cols]="windowsSize" rowHeight="60px" >
       <mat-grid-tile [colspan]="photoCols" [rowspan]="photoRows">
         <div class="internalMatGrid">
-          <mat-card>
+          <mat-card class="internal-card">
             <mat-grid-list [cols]="photoCols" [rowHeight]="photoHeight">
               <mat-grid-tile [colspan]="photoCols" rowspan="11">
                 <mat-card-content>
@@ -52,7 +52,7 @@
       </mat-grid-tile>
       <mat-grid-tile [colspan]="detailCols" [rowspan]="detailRows">
         <div class="internalMatGrid">
-          <mat-card>
+          <mat-card class="internal-card">
             <mat-card-header>
               <mat-card-title class="name-title">
                 Hi, my name is {{studentData.firstName}}
@@ -65,7 +65,7 @@
                 </p>
               </div>
             </mat-card-content>
-            <mat-card-actions *ngIf="!isEditMode" align="end">
+            <mat-card-actions *ngIf="!isEditMode" align="end" style="margin-right: 20px">
               <button mat-button class="edit-button">Edit profile</button>
             </mat-card-actions>
             <mat-card-footer style="margin-left: 5%; margin-bottom: 5%">

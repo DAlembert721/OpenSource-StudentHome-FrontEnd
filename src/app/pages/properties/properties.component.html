@@ -13,14 +13,18 @@
         <mat-card class="prop-card">
           <mat-card-header>
             <mat-card-title class="name-title">
-              Property {{property["id"]}}
+              Property {{property.id}}
             </mat-card-title>
+            <mat-card-subtitle>
+              {{property.title}}
+            </mat-card-subtitle>
           </mat-card-header>
           <mat-card-content class="description-text">
             <div>
               <p>This awesome property is probably one of your best choices. It offers
               {{property["rooms"]}} rooms and it has a size about {{property["size"]}} square meters.
-              Its monthly price is S/.{{property["cost"]}}. This property is located in {{property["address"]}}</p>
+              Its monthly price is S/.{{property["cost"]}}. This property is located in {{property["address"]}}
+              </p>
             </div>
           </mat-card-content>
           <mat-card-actions align="end">
@@ -28,7 +32,6 @@
           </mat-card-actions>
         </mat-card>
       </mat-grid-tile>
-
     </mat-grid-list>
   </mat-card-content>
 </mat-card>

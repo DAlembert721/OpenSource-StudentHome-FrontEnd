@@ -27,7 +27,57 @@
         </mat-form-field>
       </p>
       <p>
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input matInput placeholder="Ex. It's a title" name="title"  [(ngModel)]="propertyData.title">
+        </mat-form-field>
       </p>
+      <p>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput placeholder="Ex. It's a description" name="description"  [(ngModel)]="propertyData.description">
+        </mat-form-field>
+      </p>
+      <div>
+        <p>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Region</mat-label>
+            <mat-select
+              [(value)]="selectedRegion">
+              <mat-option *ngFor="let region of regions"
+                          (onSelectionChange)="retrieveProvinces(region.id)"
+                          [value]="region">
+                {{region.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Province</mat-label>
+            <mat-select
+              [(value)]="selectedProvince">
+              <mat-option *ngFor="let province of provinces"
+                          [value]="province"
+                          (onSelectionChange)="retrieveDistricts(province.id)">
+                {{province.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>District</mat-label>
+            <mat-select [(value)]="selectedDistrict">
+              <mat-option
+                [value]="district"
+                *ngFor="let district of districts">
+                {{district.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+      </div>
     </form>
   </mat-card-content>
   <mat-card-actions align="end">

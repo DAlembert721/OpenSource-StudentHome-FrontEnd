@@ -7,7 +7,10 @@ export class Property {
   cost: number;
   active: boolean;
   address: string;
-  place: string;
-  landlordId: number;
-  districtId: number;
+  place: number;
+  title: string;
+  description: string;
+  landLordId: number;
+  landLordFirstName: string;
+  landLordLastName: string;
 }

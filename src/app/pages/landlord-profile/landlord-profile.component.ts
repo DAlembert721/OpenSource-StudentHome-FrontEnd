@@ -4,6 +4,7 @@ import {LandlordService} from '../../services/landlord.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
 import {NgForm} from '@angular/forms';
+import {Property} from '../../models/property';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class LandlordProfileComponent implements OnInit {
   landlordId: number;
   isEditMode = false;
   userId: number;
+  properties: Property[];
 
   constructor(private landlordDataService: LandlordService,
               private router: Router, private route: ActivatedRoute) {
@@ -46,7 +48,7 @@ export class LandlordProfileComponent implements OnInit {
   }
 
   retrieveLandlordByLandlordId(id): void {
-    this.landlordDataService.getLandlordByLandlordId(id)
+    this.landlordDataService.getLandlordByUserId(id, id)
       .subscribe((response: Landlord) => {
         this.landlordData = {} as Landlord;
         this.landlordData = _.cloneDeep(response);
@@ -56,7 +58,7 @@ export class LandlordProfileComponent implements OnInit {
   }
 
   retrieveLandlordByUserIdAndLandlordId(userId, landlordId): void {
-    this.landlordDataService.getLandlordByUserIdAndLandlordId(userId, landlordId)
+    this.landlordDataService.getLandlordByUserId(userId, landlordId)
       .subscribe((response: Landlord) => {
         this.landlordData = {} as Landlord;
         this.landlordData = _.cloneDeep(response);

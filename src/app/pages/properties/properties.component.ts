@@ -13,7 +13,7 @@ export class PropertiesComponent implements OnInit {
   propertyData: Property;
   propertyId: number;
   landlordId: number;
-  properties: Array<any>;
+  properties: Property[] = [];
   constructor(private propertyDataService: PropertyService,
               private router: Router, private route: ActivatedRoute) { }
 
@@ -24,7 +24,7 @@ export class PropertiesComponent implements OnInit {
   retrievePropertiesByLandlordId(id): void {
     this.propertyDataService.getPropertiesByLandlordId(id)
       .subscribe((response: any) => {
-        this.properties = response;
+        this.properties = response.content;
       });
   }
   navigateToAddProperty(): void {

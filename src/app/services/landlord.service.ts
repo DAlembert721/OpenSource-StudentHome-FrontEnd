@@ -32,17 +32,7 @@ export class LandlordService {
       .pipe(retry(2), catchError(this.handleError));
   }
   // Get Landlord By UserId
-  getLandlordByUserId(userId): Observable<Landlord> {
-    return this.http.get<Landlord>(`${this.basePath}/users/${userId}/landlords`, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-  // Get Landlord By Id
-  getLandlordByLandlordId(landlordId): Observable<Landlord> {
-    return this.http.get<Landlord>(`${this.basePath}/landlords/${landlordId}`, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-  // Get Landlord by UserId And LandlordId
-  getLandlordByUserIdAndLandlordId(userId, landlordId): Observable<Landlord> {
+  getLandlordByUserId(userId, landlordId): Observable<Landlord> {
     return this.http.get<Landlord>(`${this.basePath}/users/${userId}/landlords/${landlordId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }

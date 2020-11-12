@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Landlord} from '../models/landlord';
 import {catchError, retry} from 'rxjs/operators';
-import {User} from '../models/user';
+import {Region} from '../models/region';
+import {Province} from '../models/province';
+import {District} from '../models/district';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  // User endpoints
+export class LocationService {
+
+  // Location endpoints
   basePath = 'https://student-home-open-source.herokuapp.com/api';
   constructor(private http: HttpClient) { }
   httpOptions = {
@@ -27,24 +29,19 @@ export class UserService {
     }
     return throwError('Something happened with request, please try again later.');
   }
-  // Create User
-  createUser(user): Observable<User> {
-    return this.http.post<User>(`${this.basePath}`, JSON.stringify(user), this.httpOptions)
+  // Get Regions
+  getRegionById(): Observable<Region> {
+    return this.http.get<Region>(`${this.basePath}/regions`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get User By Id
-  getUserById(userId): Observable<User> {
-    return this.http.get<User>(`${this.basePath}/${userId}`, this.httpOptions)
+  // Get Provinces By RegionId
+  getProvincesByRegionId(regionId): Observable<Province> {
+    return this.http.get<Province>(`${this.basePath}/regions/${regionId}/provinces`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Update User
-  updateUser(userId, user): Observable<User> {
-    return this.http.put<User>(`${this.basePath}/${userId}`, JSON.stringify(user), this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-  // Delete User
-  deleteUser(userId): Observable<any> {
-    return this.http.delete(`${this.basePath}/${userId}`, this.httpOptions)
+  // Get Districts By ProvinceId
+  getDistrictsByProvinceId(provinceId): Observable<District> {
+    return this.http.get<District>(`${this.basePath}/provinces/${provinceId}/districts`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

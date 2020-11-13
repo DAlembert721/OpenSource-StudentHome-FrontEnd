@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
 import {NgForm} from '@angular/forms';
 import {Property} from '../../models/property';
+import {PropertyService} from '../../services/property.service';
 
 
 @Component({
@@ -22,13 +23,16 @@ export class LandlordProfileComponent implements OnInit {
   properties: Property[];
 
   constructor(private landlordDataService: LandlordService,
-              private router: Router, private route: ActivatedRoute) {
+              private propertyService: PropertyService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.landlordId = Number(this.route.params.subscribe(params => {
       let id;
       if (params.id) {
+        console.log('un solo id');
         id = params.id;
         console.log(id);
         this.retrieveLandlordByLandlordId(id);
@@ -43,6 +47,7 @@ export class LandlordProfileComponent implements OnInit {
  //       this.isEditMode = true;
         this.userId = userId;
       }
+      this.retrievePropertiesByLandlordId(id);
       return id;
     }));
   }
@@ -64,6 +69,13 @@ export class LandlordProfileComponent implements OnInit {
         this.landlordData = _.cloneDeep(response);
         console.log(response);
         console.log(this.landlordData);
+      });
+  }
+  retrievePropertiesByLandlordId(landlordId): void {
+    this.propertyService.getPropertiesByLandlordId(landlordId)
+      .subscribe((response: any) => {
+        this.properties = response.content;
+        console.log(this.properties);
       });
   }
 

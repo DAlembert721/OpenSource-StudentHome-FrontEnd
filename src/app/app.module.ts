@@ -22,14 +22,15 @@ import { PropertyDetailsComponent } from './pages/property-details/property-deta
 import { AddPropertyComponent } from './pages/add-property/add-property.component';
 import {MatSelectModule} from '@angular/material/select';
 import {StudentProfileComponent} from './pages/student-profile/student-profile.component';
-import {MatList, MatListModule} from '@angular/material/list';
+import {MatListModule} from '@angular/material/list';
 import { RequestFormComponent } from './pages/request-form/request-form.component';
 import { RequestListComponent } from './pages/request-list/request-list.component';
-import {LayoutModule} from '@angular/cdk/layout';
-import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import { ContractListComponent } from './pages/contract-list/contract-list.component';
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { HomeComponent } from './pages/home/home.component';
+import { PropertiesListComponent } from './pages/properties-list/properties-list.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     RequestFormComponent,
     RequestListComponent,
     ContractListComponent,
-    NavBarComponent
+    NavBarComponent,
+    HomeComponent,
+    PropertiesListComponent,
   ],
   imports: [
     BrowserModule,

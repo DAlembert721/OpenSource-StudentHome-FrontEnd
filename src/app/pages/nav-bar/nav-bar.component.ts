@@ -12,11 +12,11 @@ export class NavBarComponent implements OnInit {
   id: string;
   type: string;
   options: Array<any>;
+  userId: string;
   constructor(private router: Router) {this.initializeOptions(); }
 
   ngOnInit(): void {
-    this.id = localStorage.getItem('id');
-    this.type = localStorage.getItem('type');
+    this.change();
     console.log('here');
   }
   initializeOptions(): void {
@@ -27,16 +27,29 @@ export class NavBarComponent implements OnInit {
     this.options.push({text: 'Requests', icon: 'receipt'});
     console.log(this.options);
   }
+  change(): void {
+    this.id = localStorage.getItem('id');
+    this.userId = localStorage.getItem('userId');
+    this.type = localStorage.getItem('type');
+  }
+  changeNull(): void {
+    this.router.navigate(['home']).then(() => {
+      localStorage.setItem('id', '');
+      localStorage.setItem('userId', '');
+      localStorage.setItem('type', null);
+    });
+  }
   redirectOption(option): void {
-    console.log(option)
+    this.change();
+    console.log(option);
     if (option.text === 'Home') {
-      this.router.navigate(['/home']).then(() => null);
+      this.router.navigate(['home']).then(() => null);
     }else if (option.text === 'Profile') {
       if (this.type === 'student') {
-        this.router.navigate([`students/${this.id}`]).then(() => null);
+        this.router.navigate([`users/${this.userId}/students/${this.id}`]).then(() => null);
       }
       else {
-        this.router.navigate([`landlords/${this.id}`]).then(() => null);
+        this.router.navigate([`users/${this.userId}/landlords/${this.id}`]).then(() => null);
       }
     }else if (option.text === 'Contracts') {
       if (this.type === 'student') {

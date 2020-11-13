@@ -1,5 +1,6 @@
 .property-card {
-  max-width: 400px;
+  max-width: 60%;
+  max-height: 60%;
 }
 
 .property-icon {

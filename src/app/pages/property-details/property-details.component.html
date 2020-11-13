@@ -1,1 +1,26 @@
-<p>property-details works!</p>
+<div class="main-div">
+  <mat-card class="property-card">
+      <mat-card-header>
+        <div mat-card-avatar class="property-icon"></div>
+        <mat-card-title>{{propertyData.title}}</mat-card-title>
+        <mat-card-subtitle>Property offered by {{propertyData.landLordFirstName}} {{propertyData.landLordLastName}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://thumbnails.trvl-media.com/4lHYcVp1zF-KThpkhYr9pkoL3Wk=/500x333/smart/filters:quality(80)/images.trvl-media.com/hotels/39000000/38770000/38768300/38768271/93b018fe_z.jpg"
+           alt="Property reference photo">
+      <mat-card-content>
+        <p>
+          {{propertyData.description}}
+        </p>
+        <p>
+          Number of rooms: {{propertyData.rooms}}<br>
+          Size: {{propertyData.size}}<br>
+          Cost: S/.{{propertyData.cost}}<br>
+          Location: {{propertyData.address}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>RENT</button>
+      </mat-card-actions>
+    </mat-card>
+
+</div>

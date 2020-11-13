@@ -36,6 +36,10 @@ export class PropertyService {
     return this.http.get<Property>(`${this.basePath}/properties`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
+  getPropertyById(propertyId): Observable<Property> {
+    return this.http.get<Property>(`${this.basePath}/properties/${propertyId}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
   // Get Properties by LandlordId
   getPropertiesByLandlordId(landlordId): Observable<Property>{
     return this.http.get<Property>(`${this.basePath}/landlords/${landlordId}/properties`, this.httpOptions)

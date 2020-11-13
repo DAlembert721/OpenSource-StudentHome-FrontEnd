@@ -1,0 +1,14 @@
+.property-card {
+  max-width: 400px;
+}
+
+.property-icon {
+  background-image: url('https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/home-512.png');
+  background-size: cover;
+}
+.main-div {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

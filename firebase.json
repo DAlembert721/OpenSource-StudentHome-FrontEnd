@@ -14,7 +14,7 @@
     ],
     "redirects": [ {
       "source": "**",
-      "destination": "/index.html",
+      "destination": "/home",
       "type": 301
     } ]
 

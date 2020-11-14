@@ -73,7 +73,7 @@ export class AddPropertyComponent implements OnInit {
     // this.navigateToProperties();
   }
   navigateToProperties(): void {
-    this.router.navigate([`/landlords/${this.landlordId}/properties`]).then(() => null);
+    this.router.navigate([`/home`]).then(() => null);
   }
   onSubmit(): void {
     if (this.propertyForm.form.valid) {

@@ -1,0 +1,170 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "email1@gmail.com",
+      "password": "pass1"
+    },
+    {
+      "id": 2,
+      "email": "email2@gmail.com",
+      "password": "pass2"
+    },
+    {
+      "id": 3,
+      "email": "email3@gmail.com",
+      "password": "pass3"
+    },
+    {
+      "id": 4,
+      "email": "email4@gmail.com",
+      "password": "pass4"
+    }
+  ],
+  "landlords": [
+    {
+      "id": 1,
+      "firstName": "Juan",
+      "lastName": "Guaido",
+      "dni": "010203045",
+      "phone": "987123654",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "firstName": "Jose",
+      "lastName": "Mamani",
+      "dni": "0103215045",
+      "phone": "934176345",
+      "userId": 2
+    },
+    {
+      "id": 3,
+      "firstName": "Julio",
+      "lastName": "Hurtado",
+      "dni": "032132145",
+      "phone": "956186243",
+      "userId": 3
+    },
+    {
+      "id": 4,
+      "firstName": "Guillermo",
+      "lastName": "Valenzuela",
+      "dni": "356203045",
+      "phone": "904912498",
+      "userId": 4
+    }
+  ],
+  "properties": [
+    {
+      "id": 1,
+      "rooms": 4,
+      "size": 200,
+      "cost": 1400,
+      "active": true,
+      "address": "Jr. Avenida 123",
+      "place": 100,
+      "landlordId": 1
+    },
+    {
+      "id": 2,
+      "rooms": 7,
+      "size": 600,
+      "cost": 2300,
+      "active": false,
+      "address": "Jr. Jiron 123",
+      "place": 110,
+      "landlordId": 1
+    },
+    {
+      "id": 3,
+      "rooms": 2,
+      "size": 100,
+      "cost": 1200,
+      "active": true,
+      "address": "Jr. Calle 123",
+      "place": 120,
+      "landlordId": 2
+    },
+    {
+      "id": 4,
+      "rooms": 5,
+      "size": 400,
+      "cost": 1800,
+      "active": true,
+      "address": "Jr. Ciudad 123",
+      "place": 130,
+      "landlordId": 2
+    },
+    {
+      "id": 5,
+      "rooms": 1,
+      "size": 100,
+      "cost": 1000,
+      "active": true,
+      "address": "Jr. Valle 123",
+      "place": 140,
+      "landlordId": 1
+    },
+    {
+      "rooms": "5",
+      "size": "130",
+      "cost": "1000",
+      "active": true,
+      "address": "Jr. Somewhere",
+      "place": 100,
+      "landlordId": 1,
+      "id": 6
+    },
+    {
+      "rooms": "9",
+      "size": "500",
+      "cost": "2100",
+      "active": true,
+      "address": "Jr. BestPlace 123",
+      "place": 100,
+      "landlordId": 1,
+      "id": 7
+    },
+    {
+      "rooms": "10",
+      "size": "1000",
+      "cost": "4500",
+      "active": true,
+      "address": "Besthome Avenue 123",
+      "place": 100,
+      "landlordId": 2,
+      "id": 8
+    },
+    {
+      "rooms": "3",
+      "size": "400",
+      "cost": "1400",
+      "active": true,
+      "address": "Avenue The Roses",
+      "place": 100,
+      "landlordId": 4,
+      "id": 9
+    },
+    {
+      "rooms": 9,
+      "size": 250,
+      "cost": 1500,
+      "active": true,
+      "address": "Example Avenue 123",
+      "place": 100,
+      "landlordId": 1,
+      "id": 10
+    },
+    {
+      "rooms": 6,
+      "size": 500,
+      "cost": 2000,
+      "active": true,
+      "address": "Somewhere Avenue",
+      "place": 100,
+      "landlordId": 3,
+      "id": 11
+    }
+  ]
+}

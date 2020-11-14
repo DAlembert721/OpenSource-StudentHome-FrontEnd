@@ -8,6 +8,8 @@ import {AppComponent} from './app.component';
 import {StudentProfileComponent} from './pages/student-profile/student-profile.component';
 import {RequestListComponent} from './pages/request-list/request-list.component';
 import {ContractListComponent} from './pages/contract-list/contract-list.component';
+import {SearchPropertyComponent} from "./pages/search-property/search-property.component";
+import {FoundPropertyComponent} from "./pages/found-property/found-property.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -24,7 +26,8 @@ const routes: Routes = [
   { path: 'landlords/:id/requests', component: RequestListComponent},
   { path: 'students/:id/contracts', component: ContractListComponent},
   { path: 'landlords/:id/contracts', component: ContractListComponent},
-
+  { path: 'students/:id/search-properties', component: SearchPropertyComponent},
+  { path: 'students/:id/search-properties/:propertyId', component: FoundPropertyComponent},
 ];
 
 @NgModule({

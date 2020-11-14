@@ -25,6 +25,7 @@ export class NavBarComponent implements OnInit {
     this.options.push({text: 'Profile', icon: 'perm_identity'});
     this.options.push({text: 'Contracts', icon: 'book'});
     this.options.push({text: 'Requests', icon: 'receipt'});
+    this.options.push({text: 'Search', icon: 'search'});
     console.log(this.options);
   }
   redirectOption(option): void {
@@ -52,6 +53,11 @@ export class NavBarComponent implements OnInit {
       else {
         this.router.navigate([`landlords/${this.id}/requests`]).then(() => null);
       }
+    }else if (option.text === 'Search') {
+      if (this.type === 'student') {
+        this.router.navigate([`students/${this.id}/search-properties`]).then(() => null);
+      }
+      else{}
     }
   }
 

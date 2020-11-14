@@ -1,0 +1,13 @@
+.searchContainer{
+  display: flex;
+}
+.filters{
+  width: 300px;
+}
+.filters .mat-label{
+  color: #868ee7;
+}
+.filters .mat-form-field{
+  display: flex;
+}
+.result{ width: 500px;}

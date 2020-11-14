@@ -1,0 +1,157 @@
+
+<!--  List of filters
+<div class="searchContainer">
+
+<mat-card class="filters">
+  <mat-card-header>
+    <mat-card-title>Advanced search</mat-card-title>
+    <mat-card-subtitle>Filters</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()" #propertyForm="ngForm">
+      <div>
+        <h3>Number of Rooms</h3>
+        <mat-form-field>
+          <mat-label>Min</mat-label>
+          <input matInput placeholder="Ex. 4" name="minRooms" type="number" required [(ngModel)]="minRooms">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Max</mat-label>
+          <input matInput placeholder="Ex. 4" name="maxRooms" type="number" required [(ngModel)]="maxRooms">
+        </mat-form-field>
+      </div>
+      <div>
+        <h3>Price of the rent</h3>
+        <mat-form-field>
+          <mat-label>Min S/. </mat-label>
+          <input matInput placeholder="Ex. 400" name="minCost" type="number" required [(ngModel)]="minCost">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Max</mat-label>
+          <input matInput placeholder="Ex. 2000" name="maxCost" type="number" required [(ngModel)]="maxCost">
+        </mat-form-field>
+      </div>
+      <div>
+        <h3>Size of the Property</h3>
+        <mat-form-field>
+          <mat-label>Min</mat-label>
+          <input matInput placeholder="Ex. 200" name="minSize" type="number" required [(ngModel)]="minSize">
+          <p> m<sup>2</sup></p>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Max</mat-label>
+          <input matInput placeholder="Ex. 1000" name="maxSize" type="number" required [(ngModel)]="maxSize">
+          m<sup>2</sup>
+        </mat-form-field>
+      </div>
+      <div>
+        <h3>Services</h3>
+        <mat-divider *ngFor="let service of services">
+            <mat-checkbox [(ngModel)]="servicesSelected[service.id]">
+              {{service.name}}
+            </mat-checkbox>
+        </mat-divider>
+      </div>
+      <div>
+        <h3>Filter by Address </h3>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Region</mat-label>
+          <mat-select [(value)]="selectedRegion">
+            <mat-option *ngFor="let region of regions"
+                        (onSelectionChange)="retrieveProvinces(region.id)"
+                        [value]="region">
+              {{region.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Province</mat-label>
+          <mat-select [(value)]="selectedProvince">
+            <mat-option *ngFor="let province of provinces"
+                        [value]="province"
+                        (onSelectionChange)="retrieveDistricts(province.id)">
+              {{province.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>District</mat-label>
+          <mat-select [(value)]="selectedDistrict">
+            <mat-option [value]="district"
+              *ngFor="let district of districts">
+              {{district.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-chip *ngFor="let district of districtsSelected"
+                    [selectable]="selectable"
+                    [removable]="removable"
+                    (removed)="removeSelectedDistrict(district)">
+            {{district}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+        </mat-form-field>
+
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button class="" (click)="filter()">Apply Filters</button>
+  </mat-card-actions>
+</mat-card>
+
+<!--  List of results  -->
+
+<mat-card class="result">
+  <mat-card-header>
+    <mat-card-title>Search Property</mat-card-title>
+    <mat-card-subtitle>Find your ideal place</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="100px">
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-label>Filter Results</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. UPC" #input>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> {{ element.title }}</td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{ element.description }}</td>
+      </ng-container>
+      <ng-container matColumnDef="cost">
+        <th mat-header-cell *matHeaderCellDef> Cost </th>
+        <td mat-cell *matCellDef="let element"> {{ element.cost}}</td>
+      </ng-container>
+      <ng-container matColumnDef="size">
+        <th mat-header-cell *matHeaderCellDef> Size </th>
+        <td mat-cell *matCellDef="let element"> {{ element.size }}</td>
+      </ng-container>
+      <ng-container matColumnDef="rooms">
+        <th mat-header-cell *matHeaderCellDef> rooms </th>
+        <td mat-cell *matCellDef="let element"> {{ element.rooms}}</td>
+      </ng-container>
+      <ng-container matColumnDef="view">
+        <td mat-cell *matCellDef="let element">
+          <button mat-button class="view-button" (click)="navigateToPropertyDetails(element)">View</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</mat-card>
+
+</div>
+-->

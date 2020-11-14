@@ -45,6 +45,11 @@ export class PropertyService {
     return this.http.get<Property>(`${this.basePath}/landlords/${landlordId}/properties`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
+  // Get Properties by ServiceId
+  getPropertiesByServiceId(serviceId): Observable<Property>{
+    return this.http.get<Property>(`${this.basePath}/services/${serviceId}/properties`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
   // Update Property
   updateProperty(id, item): Observable<Property>{
     return this.http.put<Property>(`${this.basePath}/${id}`, JSON.stringify(item), this.httpOptions)
@@ -52,6 +57,6 @@ export class PropertyService {
   }
   // Delete Property
   deleteProperty(id): Observable<any> {
-    return this.http.delete<Property>(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.delete<Property>(`${this.basePath}/${id}`, this.httpOptions);
   }
 }

@@ -30,7 +30,6 @@ import { ContractListComponent } from './pages/contract-list/contract-list.compo
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { HomeComponent } from './pages/home/home.component';
-import { PropertiesListComponent } from './pages/properties-list/properties-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +44,6 @@ import { PropertiesListComponent } from './pages/properties-list/properties-list
     ContractListComponent,
     NavBarComponent,
     HomeComponent,
-    PropertiesListComponent,
   ],
   imports: [
     BrowserModule,

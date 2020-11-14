@@ -1,14 +1,14 @@
 <mat-card class="principal-card">
-  <mat-card-content>
-    <mat-card-header>
-      <mat-card-title class="name-title">
-        Your properties
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-actions align="end">
-      <button mat-button class="edit-button" (click)="navigateToAddProperty()">Add property</button>
-    </mat-card-actions>
-    <mat-grid-list cols="2" rowHeight="190px">
+  <mat-card-header>
+    <mat-card-title class="name-title">
+      Your properties
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-actions align="end">
+    <button mat-button class="edit-button" (click)="navigateToAddProperty()">Add property</button>
+  </mat-card-actions>
+  <mat-card-content [style]="contentStyle">
+    <mat-grid-list cols="2" [rowHeight]="190"style="height: auto" >
       <mat-grid-tile *ngFor="let property of properties" colspan="1" rowspan="1">
         <mat-card class="prop-card">
           <mat-card-header>

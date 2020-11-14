@@ -29,9 +29,11 @@
 }
 .principal-card {
   width: 70%;
-  height: 110%;
+  height: 100%;
   margin-right: 15%;
   margin-left: 15%;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 .default-spacer {
   margin-bottom: 1em;
@@ -50,5 +52,5 @@
 }
 .prop-card {
   max-width: 400px;
-  max-height: 200px;
+  max-height: 100%;
 }

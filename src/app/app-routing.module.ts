@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'landlords/:id', component: LandlordProfileComponent },
   { path: 'users/:userId/landlords/:landlordId', component: LandlordProfileComponent},
-  { path: 'landlords/:landlordId/properties', component: PropertiesComponent},
+  // { path: 'landlords/:landlordId/properties', component: PropertiesComponent},
   { path: 'landlords/:landlordId/properties/add', component: AddPropertyComponent},
   { path: 'landlords/:landlordId/properties/:propertyId', component: PropertyDetailsComponent},
   { path: 'students/:id', component: StudentProfileComponent},

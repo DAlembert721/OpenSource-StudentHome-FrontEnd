@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "student-home-ver1-fe"
+  },
+  "targets": {
+    "student-home-ver1-fe": {
+      "hosting": {
+        "OpenSourceStudentHomeFrontEnd": [
+          "student-home-ver1-fe"
+        ]
+      }
+    }
   }
 }

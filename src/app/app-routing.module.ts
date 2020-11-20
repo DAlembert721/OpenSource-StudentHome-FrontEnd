@@ -8,6 +8,8 @@ import {StudentProfileComponent} from './pages/student-profile/student-profile.c
 import {RequestListComponent} from './pages/request-list/request-list.component';
 import {ContractListComponent} from './pages/contract-list/contract-list.component';
 import {HomeComponent} from './pages/home/home.component';
+import {RequestFormComponent} from './pages/request-form/request-form.component';
+import {ContractComponent} from './pages/contract/contract.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'landlords/:id/requests', component: RequestListComponent},
   { path: 'students/:id/contracts', component: ContractListComponent},
   { path: 'landlords/:id/contracts', component: ContractListComponent},
+  { path: 'students/:studentId/requests/:propertyId', component: RequestFormComponent},
+  { path: 'landlords/:landlordId/requests/:requestId', component: ContractComponent},
 
 ];
 

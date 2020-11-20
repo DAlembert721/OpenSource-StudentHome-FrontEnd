@@ -1,1 +1,38 @@
-<p>request-form works!</p>
+<div>
+  <mat-card class="principal-card">
+    <mat-card-header>
+      <mat-card-title>Making request</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="sub-container">
+        <img mat-card-image src="https://thumbnails.trvl-media.com/4lHYcVp1zF-KThpkhYr9pkoL3Wk=/500x333/smart/filters:quality(80)/images.trvl-media.com/hotels/39000000/38770000/38768300/38768271/93b018fe_z.jpg"
+             alt="Property reference photo">
+        <p>
+          {{propertyData.description}}
+        </p>
+        <p>
+          Number of rooms: {{propertyData.rooms}}<br>
+          Size: {{propertyData.size}}<br>
+          Cost: S/.{{propertyData.cost}}<br>
+          Location: {{propertyData.address}}
+        </p>
+      </div>
+      <form (ngSubmit)="onSubmit()" #requestForm="ngForm">
+        <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
+         <p>
+            <mat-form-field>
+              <mat-label>Content</mat-label>
+              <textarea matInput placeholder="Ex. I'm a quiet student. I want to live near The University, this place seems to be wonderful. I'm interested in this property, but I have a pet (it's an small dog) Can I live here with it? If I can, please accept my request." name="content" required [(ngModel)]="requestData.content">
+              </textarea>
+            </mat-form-field>
+          </p>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end" style="height: auto; padding-bottom: 10px">
+      <button mat-button class="edit-button" (click)="sendRequest()">Add</button>
+      <button mat-button class="edit-button" (click)="navigateToProperties()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

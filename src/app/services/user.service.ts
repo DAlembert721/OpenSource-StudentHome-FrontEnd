@@ -10,7 +10,7 @@ import {User} from '../models/user';
 })
 export class UserService {
   // User endpoints
-  basePath = 'https://student-home-open-source.herokuapp.com/api/users';
+  basePath = 'http://localhost:3000/api/users';
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({

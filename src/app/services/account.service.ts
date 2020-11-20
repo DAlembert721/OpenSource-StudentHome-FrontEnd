@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Landlord} from '../models/landlord';
+import {Account} from '../models/account';
 import {catchError, retry} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LandlordService {
-  // Landlords endpoints
+export class AccountService {
   basePath = 'http://localhost:3000/api';
   constructor(private http: HttpClient) { }
   httpOptions = {
@@ -26,25 +25,24 @@ export class LandlordService {
     }
     return throwError('Something happened with request, please try again later.');
   }
-  // Create Landlord
-  createLandlord(userId, landlord): Observable<Landlord> {
-    return this.http.post<Landlord>(`${this.basePath}/users/${userId}/landlords`, JSON.stringify(landlord), this.httpOptions)
+  // Create Account
+  createAccount(userId, account): Observable<Account> {
+    return this.http.post<Account>(`${this.basePath}/users/${userId}/accounts`, JSON.stringify(account), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get Landlord By UserId
-  getLandlordByUserId(userId, landlordId): Observable<Landlord> {
-    return this.http.get<Landlord>(`${this.basePath}/users/${userId}/landlords/${landlordId}`, this.httpOptions)
+  // Get Account By Id and UserId
+  getAccountByUserId(userId, accountId): Observable<Account> {
+    return this.http.get<Account>(`${this.basePath}/users/${userId}/accounts/${accountId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Update Landlord
-  updateLandlord(landlordId, userId, landlord): Observable<Landlord> {
-    return this.http.put<Landlord>(`${this.basePath}/users/${userId}/landlords/${landlordId}`, JSON.stringify(landlord), this.httpOptions)
+  // Update Account
+  updateAccount(accountId, userId, account): Observable<Account> {
+    return this.http.put<Account>(`${this.basePath}/users/${userId}/accounts/${accountId}`, JSON.stringify(account), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Delete Landlord
-  deleteLandlord(userId, landlordId): Observable<any> {
-    return this.http.delete(`${this.basePath}/users/${userId}/landlords/${landlordId}`, this.httpOptions)
+  // Delete Account
+  deleteAccount(userId, accountId): Observable<any> {
+    return this.http.delete(`${this.basePath}/users/${userId}/accounts/${accountId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-
 }

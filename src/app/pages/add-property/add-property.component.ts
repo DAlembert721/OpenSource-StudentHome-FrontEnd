@@ -70,7 +70,6 @@ export class AddPropertyComponent implements OnInit {
         console.log(response);
         this.navigateToProperties();
       });
-    // this.navigateToProperties();
   }
   navigateToProperties(): void {
     this.router.navigate([`/landlords/${this.landlordId}/properties`]).then(() => null);

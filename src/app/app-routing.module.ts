@@ -8,10 +8,14 @@ import {AppComponent} from './app.component';
 import {StudentProfileComponent} from './pages/student-profile/student-profile.component';
 import {RequestListComponent} from './pages/request-list/request-list.component';
 import {ContractListComponent} from './pages/contract-list/contract-list.component';
+import {LoginFormComponent} from './pages/login-form/login-form.component';
+import {RegisterFormComponent} from './pages/register-form/register-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: AppComponent},
+  { path: 'home', component: LoginFormComponent},
+  { path: 'login', component: LoginFormComponent},
+  { path: 'register', component: RegisterFormComponent},
   { path: 'landlords', redirectTo: 'users/61/landlords/101', pathMatch: 'full'},
   { path: 'landlords/:id', component: LandlordProfileComponent },
   { path: 'users/:userId/landlords/:landlordId', component: LandlordProfileComponent},

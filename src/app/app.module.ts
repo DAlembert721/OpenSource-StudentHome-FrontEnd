@@ -30,6 +30,9 @@ import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import { ContractListComponent } from './pages/contract-list/contract-list.component';
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { LoginFormComponent } from './pages/login-form/login-form.component';
+import { RegisterFormComponent } from './pages/register-form/register-form.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     RequestFormComponent,
     RequestListComponent,
     ContractListComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoginFormComponent,
+    RegisterFormComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatListModule,
     FlexLayoutModule,
     MatSidenavModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,8 @@
   "/api/*": "/$1",
   "/landlords/:landlordId/properties": "/properties?landlordId=:landlordId",
   "/users/:userId/landlords": "/landlords?userId=:userId",
+  "/users/:userId/accounts": "/accounts?userId=:userId",
+  "/users/:userId/students": "/students?userId=:userId",
   "/users/:userId/landlords/:landlordId": "/landlords?userId=:userId&id=:landlordId",
   "/landlords\\?userId=:userId&id=:landlordId": "/landlords/:landlordId",
   "/landlords/:landlordId/properties/:propertyId": "/"

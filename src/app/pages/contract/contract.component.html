@@ -1,0 +1,44 @@
+<div>
+  <mat-card class="principal-card">
+    <mat-card-header>
+      <mat-card-title>Accept request - Make Contract </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="sub-container">
+        <img mat-card-image src="https://thumbnails.trvl-media.com/4lHYcVp1zF-KThpkhYr9pkoL3Wk=/500x333/smart/filters:quality(80)/images.trvl-media.com/hotels/39000000/38770000/38768300/38768271/93b018fe_z.jpg"
+             alt="Property reference photo">
+        <h3> Request </h3>
+        <p>
+          {{requestData.content}}<br>
+          Created at: {{requestData.createdAt}}<br>
+        </p>
+        <p>
+          Sender: {{studentData.firstName}} {{studentData.lastName}}<br>
+          Dni: {{studentData.dni}}<br>
+          Phone: {{studentData.phone}}<br>
+          Email: {{studentData.email}}
+        </p>
+        <img mat-card-image [src]="studentData.image">
+      </div>
+      <form (ngSubmit)="onSubmit()" #contractForm="ngForm">
+        <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
+          <p>
+            <mat-form-field>
+              <mat-label>Description</mat-label>
+              <textarea matInput placeholder="Ex. I accept... ." name="content" required [(ngModel)]="contractData.description">
+              </textarea>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Amount (S/.)</mat-label>
+              <input matInput placeholder="Ex. 1000" name="cost" type="number" required [(ngModel)]="contractData.amount">
+            </mat-form-field>
+          </p>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end" style="height: auto; padding-bottom: 10px">
+      <button mat-button class="edit-button" (click)="acceptRequest()">Add</button>
+      <button mat-button class="edit-button" (click)="navigateToRequests()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

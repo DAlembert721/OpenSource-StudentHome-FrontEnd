@@ -47,9 +47,9 @@
       <div>
         <h3>Services</h3>
         <mat-divider *ngFor="let service of services">
-            <mat-checkbox [(ngModel)]="servicesSelected[service.id]">
+            <mat-pseudo-checkbox [(ngModel)]="servicesSelected[service.id]">
               {{service.name}}
-            </mat-checkbox>
+            </mat-pseudo-checkbox>
         </mat-divider>
       </div>
       <div>
@@ -85,17 +85,15 @@
               {{district.name}}
             </mat-option>
           </mat-select>
+          <div class="districtsSelected">
+            <li *ngFor="let district of districtsSelected">
+              <p>{{district.name}}</p>
+              <button mat-button>
+                <mat-icon matChipRemove (click)="removeSelectedDistrict(district)">cancel</mat-icon>
+              </button>
+            </li>
+          </div>
         </mat-form-field>
-        <mat-form-field>
-          <mat-chip *ngFor="let district of districtsSelected"
-                    [selectable]="selectable"
-                    [removable]="removable"
-                    (removed)="removeSelectedDistrict(district)">
-            {{district}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-        </mat-form-field>
-
       </div>
     </form>
   </mat-card-content>
@@ -103,6 +101,7 @@
     <button mat-button class="" (click)="filter()">Apply Filters</button>
   </mat-card-actions>
 </mat-card>
+
 
 <!--  List of results  -->
 

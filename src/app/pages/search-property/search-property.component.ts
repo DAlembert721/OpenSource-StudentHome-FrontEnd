@@ -19,7 +19,7 @@ import {LocationService} from '../../services/location.service';
   styleUrls: ['./search-property.component.css']
 })
 export class SearchPropertyComponent implements OnInit {
-  @ViewChild('propertyForm', { static: false })
+   @ViewChild('propertyForm', { static: false })
   studentId: number;
   propertyForm: NgForm;
   properties: Property[] = [];
@@ -43,7 +43,6 @@ export class SearchPropertyComponent implements OnInit {
   servicesSelected: boolean[] = [];
   districtsSelected: District[] = [];
   selectable = true;
-  removable = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -77,9 +76,10 @@ export class SearchPropertyComponent implements OnInit {
         console.log(response.content);
       });
   }
-
   navigateToPropertyDetails(element: Property): void {
-    this.router.navigate([`students/${this.studentId}/search-properties/${element.id}`]).then(() => null);
+    if (element.active) {
+      this.router.navigate([`students/${this.studentId}/search-properties/${element.id}`]).then(() => null);
+    }
   }
   filter(): void{
     this.filterByCost();
@@ -116,18 +116,21 @@ export class SearchPropertyComponent implements OnInit {
     this.locationService.getRegionById()
       .subscribe((response: any) => {
         this.regions = response.content;
+        console.log(response);
       });
   }
   retrieveProvinces(regionId): void {
     this.locationService.getProvincesByRegionId(regionId)
       .subscribe((response: any) => {
         this.provinces = response.content;
+        console.log(response);
       });
   }
   retrieveDistricts(provinceId): void {
     this.locationService.getDistrictsByProvinceId(provinceId)
       .subscribe((response: any) => {
         this.districts = response.content;
+        console.log(response);
       });
   }
   removeSelectedDistrict(district): void{

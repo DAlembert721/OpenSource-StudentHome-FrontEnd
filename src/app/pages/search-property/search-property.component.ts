@@ -25,7 +25,8 @@ export class SearchPropertyComponent implements OnInit {
   properties: Property[] = [];
   propertyData: Property = new Property();
   dataSource = new MatTableDataSource();
-  displayedColumns: string[] = ['title', 'description', 'cost', 'size', 'rooms', 'view'];
+  displayedColumns: string[] = ['id', 'rooms', 'size', 'cost', 'active', 'address', 'place', 'title',
+                        'description', 'landLordId', 'landLordFirstName', 'landLordLastName', 'actions'];
   minCost: number;
   maxCost: number;
   minSize: number;
@@ -72,7 +73,8 @@ export class SearchPropertyComponent implements OnInit {
   getAllProperties(): void {
     this.propertyDataService.getProperty()
       .subscribe((response: any) => {
-        this.dataSource.data = response;
+        this.dataSource.data = response.content;
+        console.log(response.content);
       });
   }
 

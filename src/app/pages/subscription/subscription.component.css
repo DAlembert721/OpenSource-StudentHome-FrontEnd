@@ -1,8 +1,38 @@
 .subcribe-side{
-  margin-left: -20%;
-  background-image: url("https://source.unsplash.com/600x500/?invest,money");
-  height: 600px;
-  width: 500px;
-  background-attachment: fixed;
-  background-size: cover;
+  margin-left: -10%;
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  object-fit: cover;
+  top: 0;
+  z-index: -1;
+}
+.details-container mat-card{
+  margin-bottom: 15px;
+}
+.details-card.subscription mat-card-header{
+  background-color: whitesmoke;
+  border-radius: 50px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.subscription .details-container{
+  cursor: pointer;
+}
+.header-plan{
+  text-align: start;
+}
+.details-card.subscription mat-card-header .head-icon{
+  font-size: 70px;
+  color: darkgray;
+  margin-left: -30px;
+  margin-top: -10px;
+  padding-bottom: 40px;
+  padding-right: 60px;
+}
+.bullets span{
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  color: black;
 }

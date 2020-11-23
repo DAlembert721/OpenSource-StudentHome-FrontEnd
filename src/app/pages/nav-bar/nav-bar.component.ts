@@ -26,14 +26,12 @@ export class NavBarComponent implements OnInit {
     this.options.push({text: 'Contracts', icon: 'book'});
     this.options.push({text: 'Requests', icon: 'receipt'});
     console.log(this.options);
+    this.options.push({text: 'Subscription', icon: 'monetization_on'});
   }
   change(): void {
     this.id = localStorage.getItem('id');
     this.userId = localStorage.getItem('userId');
     this.type = localStorage.getItem('type');
-    if (this.type === 'lordland'){
-      this.options.push({text: 'Subscription', icon: 'monetization_on'});
-    }
   }
   changeNull(): void {
     this.router.navigate(['home']).then(() => {
@@ -70,7 +68,7 @@ export class NavBarComponent implements OnInit {
       }
     }
     else if (option.text === 'Subscription'){
-      this.router.navigate([`landlords/${this.id}/subscription`]).then(() => null);
+        this.router.navigate([`landlords/${this.id}/subscription`]).then(() => null);
     }
   }
 

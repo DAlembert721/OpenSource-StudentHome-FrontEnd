@@ -117,14 +117,10 @@
       <mat-card-title>Search Property</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-grid-list cols="2" rowHeight="100px">
-        <mat-grid-tile>
-          <mat-form-field class="long-field">
-            <mat-label>Filter Results</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. UPC" #input>
-          </mat-form-field>
-        </mat-grid-tile>
-      </mat-grid-list>
+      <mat-form-field style="width: 80%">
+        <mat-label>Filter Results</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. UPC" #input>
+      </mat-form-field>
       <table mat-table [dataSource]="dataSource" align="center" >
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef ></th>

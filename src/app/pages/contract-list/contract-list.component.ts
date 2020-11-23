@@ -22,6 +22,20 @@ export class ContractListComponent implements OnInit {
   ngOnInit(): void {
     this.contracts = [];
     this.initialize();
+    this.contracts.push({
+        amount: 100,
+        createdAt: new Date(),
+        description: 'Having met the requirements\n' +
+          'I ... Name, Surname, confirm the contract of ... Student Student Last name\n' +
+          'The monthly charge will be S / XXX.XX ....\n' +
+          'Additional clauses are...',
+        firstNameLandlord: 'Mephisto',
+        firstNameStudent: 'Samael',
+        lastNameLandlord: 'Pheles',
+        lastNameStudent: 'Veracruz',
+        state: false,
+        id: 1
+    });
   }
   initialize(): void {
     this.id = Number(this.route.params.subscribe(params => {

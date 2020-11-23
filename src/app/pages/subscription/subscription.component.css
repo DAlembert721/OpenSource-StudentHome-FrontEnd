@@ -1,0 +1,8 @@
+.subcribe-side{
+  margin-left: -20%;
+  background-image: url("https://source.unsplash.com/600x500/?invest,money");
+  height: 600px;
+  width: 500px;
+  background-attachment: fixed;
+  background-size: cover;
+}

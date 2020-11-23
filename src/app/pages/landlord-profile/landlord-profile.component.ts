@@ -21,6 +21,8 @@ export class LandlordProfileComponent implements OnInit {
   isEditMode = false;
   userId: number;
   properties: Property[];
+  type: any;
+  imgUrl = 'https://source.unsplash.com/1600x900/?room,house,home';
 
   constructor(private landlordDataService: LandlordService,
               private propertyService: PropertyService,
@@ -29,6 +31,7 @@ export class LandlordProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.type = localStorage.getItem('type');
     this.landlordId = Number(this.route.params.subscribe(params => {
       let id;
       if (params.id) {
@@ -94,5 +97,8 @@ export class LandlordProfileComponent implements OnInit {
     } else {
       console.log('Invalid Data');
     }
+  }
+  navigateToPropertyDetails(element: Property): void {
+    this.router.navigate([`/landlords/${this.landlordId}/properties/${element.id}`]).then(() => null);
   }
 }

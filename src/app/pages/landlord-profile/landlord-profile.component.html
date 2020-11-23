@@ -1,93 +1,56 @@
-<mat-card class="principal-card">
-  <mat-card-content>
-    <mat-grid-list cols="13" rowHeight="28px">
-      <mat-grid-tile colspan="3" rowspan="20">
-        <div class="internalMatGrid">
-          <mat-card>
-            <mat-grid-list cols="3" rowHeight="35px">
-              <mat-grid-tile colspan="3" rowspan="7">
-                <mat-card-content>
-                  <img mat-card-image src="https://happytravel.viajes/wp-content/uploads/2020/04/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
-                       alt="Landlord profile pic" class="avatar">
-                </mat-card-content>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="2" style="margin-bottom: 5px">
-                <div *ngIf="!isEditMode">
-                  <button mat-button class="btn">Change profile picture</button>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="1">
-                <div>
-                  <mat-card-subtitle>
-                    Properties: 0
-                  </mat-card-subtitle>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="2">
-                <mat-card-subtitle>
-                  Name: {{landlordData.firstName}}<br>{{landlordData.lastName}}
-                </mat-card-subtitle>
-              </mat-grid-tile>
-              <mat-grid-tile colspan="3" rowspan="1">
-                <mat-card-subtitle>
-                  Phone: {{landlordData.phone}}
-                </mat-card-subtitle>
-              </mat-grid-tile>
-            </mat-grid-list>
-          </mat-card>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="10" rowspan="11">
-        <div class="internalMatGrid">
-          <mat-card>
+<div class="section-header">
+  <div  class="name-title">
+    <mat-icon>perm_identity</mat-icon>
+    <span *ngIf="type==='landlord'">Welcome {{landlordData.firstName}} {{landlordData.lastName}}!</span>
+    <span *ngIf="type==='student'">Welcome to {{landlordData.firstName}} {{landlordData.lastName}} profile!</span>
+  </div>
+</div>
+
+<div class="details-container">
+  <mat-card class="details-card profile-card">
+    <mat-card-header align="center">
+      <mat-card-title>
+        <img class="profile" src="https://happytravel.viajes/wp-content/uploads/2020/04/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+             alt="Landlord profile pic">
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="info">
+      <div>
+        <button mat-flat-button class="card-button" *ngIf="!isEditMode">Change picture</button>
+      </div>
+        <p><mat-icon>home</mat-icon> Properties: 0</p>
+        <p><mat-icon>phone</mat-icon> Phone: {{landlordData.phone}}</p>
+        <p><mat-icon>email</mat-icon> Email: {{landlordData.email}}</p>
+      <br>
+    </mat-card-content>
+  </mat-card>
+  <div class="subDetails">
+    <mat-card style="width: 90%">
+      <mat-card-header>
+        <mat-card-title>
+          Hi, my name is {{landlordData.firstName}}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="description-text">
+        <p>  {{landlordData.description}}  </p>
+      </mat-card-content>
+    </mat-card>
+    <div style="width: 100%">
+      <div class="section-header">
+        <p class="name-title"> Advertisements </p>
+      </div>
+      <div  class="subDetails" >
+          <mat-card class="mini-grid" *ngFor="let property of properties">
             <mat-card-header>
-              <mat-card-title class="name-title">
-                Hi, my name is {{landlordData.firstName}}
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="description-text">
-              <div>
-                <p>
-                  {{landlordData.description}}
-                </p>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="10" rowspan="13">
-        <div class="internalMatGrid">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title class="name-title">
-                Advertisements
+              <mat-card-title>
+                {{property.title}}
               </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <mat-grid-list cols="10" rowHeight="12px">
-                <mat-grid-tile colspan="5" rowspan="10"  *ngFor="let property of properties">
-                  <div class="internalMatGrid">
-                  <mat-card>
-                    <mat-card-header>
-                      <mat-card-title class="name-title">
-                        {{property.title}}
-                      </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content class="description-text">
-                      <div>
-                        <p>
-                          {{property.description}}
-                        </p>
-                      </div>
-                    </mat-card-content>
-                  </mat-card>
-                  </div>
-                </mat-grid-tile>
-              </mat-grid-list>
+              <img (click)="navigateToPropertyDetails(property)" [src]="imgUrl" [alt]="property.description">
             </mat-card-content>
           </mat-card>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </mat-card-content>
-</mat-card>
+      </div>
+    </div>
+  </div>
+</div>

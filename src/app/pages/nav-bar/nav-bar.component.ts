@@ -31,6 +31,9 @@ export class NavBarComponent implements OnInit {
     this.id = localStorage.getItem('id');
     this.userId = localStorage.getItem('userId');
     this.type = localStorage.getItem('type');
+    if (this.type === 'lordland'){
+      this.options.push({text: 'Subscription', icon: 'monetization_on'});
+    }
   }
   changeNull(): void {
     this.router.navigate(['home']).then(() => {
@@ -65,6 +68,9 @@ export class NavBarComponent implements OnInit {
       else {
         this.router.navigate([`landlords/${this.id}/requests`]).then(() => null);
       }
+    }
+    else if (option.text === 'Subscription'){
+      this.router.navigate([`landlords/${this.id}/subscription`]).then(() => null);
     }
   }
 

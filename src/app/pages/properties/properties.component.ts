@@ -13,34 +13,33 @@ export class PropertiesComponent implements OnInit {
   @ViewChild('propertyForm', {static: false})
   propertyData: Property;
   propertyId: number;
-  landlordId: number;
-  contentStyle: any;
+  id: number;
+  type: any;
+  imgUrl = 'https://source.unsplash.com/1600x900/?bedroom,house';
   properties: Property[] = [];
   constructor(private propertyDataService: PropertyService,
               private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // this.landlordId = Number(this.route.snapshot.paramMap.get('landlordId'));
-    this.landlordId = Number(localStorage.getItem('id'));
-    this.retrievePropertiesByLandlordId(this.landlordId);
-  }
-  styleConstructor(): void {
-    const height = this.properties.length * 190;
-    this.contentStyle = `height: ${height}px; `;
+    this.id = Number(localStorage.getItem('id'));
+    this.retrievePropertiesByLandlordId(this.id);
+    this.type = localStorage.getItem('type');
   }
   retrievePropertiesByLandlordId(id): void {
     this.propertyDataService.getPropertiesByLandlordId(id)
       .subscribe((response: any) => {
         this.properties = response.content;
-        this.styleConstructor();
       });
   }
   navigateToAddProperty(): void {
-    this.router.navigate([`/landlords/${this.landlordId}/properties/add`]).then(() => null);
+    if (this.type === 'landlord') {
+      this.router.navigate([`/landlords/${this.id}/properties/add`]).then(() => null);
+    }
   }
   navigateToPropertyDetails(element: Property): void {
     this.propertyId = element.id;
-    this.router.navigate([`/landlords/${this.landlordId}/properties/${this.propertyId}`]).then(() => null);
+    this.router.navigate([`/landlords/${this.id}/properties/${this.propertyId}`]).then(() => null);
   }
 }
 

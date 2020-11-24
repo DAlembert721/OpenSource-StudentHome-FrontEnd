@@ -1,37 +1,39 @@
-<mat-card class="principal-card">
-  <mat-card-content>
-    <div *ngIf="requests?.length === 0; else requestListView">
-      <h1 style="color: black; text-align: center;margin-top: 50px;font-size: 50px">You don't have any request</h1>
+<div class="principal-card request">
+  <div class="section-header">
+    <div  class="name-title">
+      <mat-icon>receipt</mat-icon>
+      <span>Your requests</span>
     </div>
-
+  </div>
+  <div  class="content section-grid">
+    <div class="name-title" *ngIf="requests?.length === 0; else requestListView">
+      <span >You don't have any request</span>
+    </div>
     <ng-template #requestListView>
-      <div class="margin-card" *ngFor="let request of requests">
-        <div fxLayout="row" fxLayoutAlign="center">
-          <mat-card class="example-card">
-            <mat-card-header class="main-header">
-              <div fxLayout="row">
-                <mat-card-title style="margin-bottom: 0">Student Name:
-                  <h3>{{request.firstNameStudent}}  {{request.lastNameStudent}}</h3></mat-card-title>
-              </div>
+      <mat-card class="grid-card" *ngFor="let request of requests">
+        <div>
+            <mat-card-header  class="grid-title">
+              <mat-card-title>{{request.firstNameStudent}}  {{request.lastNameStudent}}</mat-card-title>
+              <mat-card-subtitle>{{request.createdAt}}</mat-card-subtitle>
             </mat-card-header>
-            <mat-divider class="default-spacer"></mat-divider>
-            <mat-card-content>
-              <div fxLayoutAlign="right" fxLayout="column">
-                <h2 style="margin-bottom: 2px">Content:</h2>
-                <p style="margin-left: 5%">{{request.content}}</p>
-              </div>
+            <mat-divider></mat-divider>
+            <br>
+            <mat-card-content class="grid-content" style="margin-left: 15px">
+              {{request.content}}
             </mat-card-content>
-            <mat-card-actions *ngIf="type === 'landlord'" fxLayoutAlign="end" style="margin-right: 20px;" align="right">
-              <button mat-button class="ok-btn" (click)="acceptRequest(request.id,request)">Accept</button>
-              <button mat-button class="deny-btn" (click)="deniedRequest(request.id,request)" style="margin-left: 5px">
-                Denied
-              </button>
+        </div>
+            <mat-card-actions *ngIf="type === 'landlord'" align="end">
+              <button mat-flat-button  class="card-button" (click)="acceptRequest(request.id,request)">
+                <mat-icon>done</mat-icon> Accept</button>
+              <button mat-flat-button  class="card-button" (click)="deniedRequest(request.id,request)">
+                <mat-icon>clear</mat-icon> Denied</button>
+            </mat-card-actions>
+            <mat-card-actions *ngIf="type === 'student'" align="end">
+              <button mat-flat-button  class="card-button" (click)="deniedRequest(request.id,request)">
+                <mat-icon>clear</mat-icon> Cancel</button>
             </mat-card-actions>
           </mat-card>
-        </div>
-
-      </div>
     </ng-template>
-  </mat-card-content>
+  </div>
 
-</mat-card>
+</div>

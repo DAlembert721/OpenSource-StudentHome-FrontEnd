@@ -23,6 +23,7 @@ export class ContractComponent implements OnInit {
   landlordId: number;
   studentId: number;
   propertyId: number;
+  studentImage = 'https://source.unsplash.com/900x900/?face,young';
   requestData = {
     content: 'Some content here',
     createdAt: new Date(),

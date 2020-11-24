@@ -14,6 +14,7 @@ export class RequestListComponent implements OnInit {
   requests: Request[];
   id: number;
   type: any;
+  landLordId: number;
   constructor(private requestService: RequestService,
               private propertyService: PropertyService,
               private router: Router,
@@ -35,6 +36,7 @@ export class RequestListComponent implements OnInit {
       }
       else {
         this.retrievePropertiesByLandLordId(id);
+        this.landLordId = id;
       }
       return id;
     }));
@@ -65,15 +67,13 @@ export class RequestListComponent implements OnInit {
       });
   }
   acceptRequest(requestId, request): void {
-    this.requestService.updateRequest(requestId, request)
+    /*this.requestService.updateRequest(requestId, request)
       .subscribe(() => {
-        if (this.type === 'student') {
+        if (this.type !== 'student') {
           this.retrieveRequestByStudentId(this.id);
         }
-        else {
-          this.retrievePropertiesByLandLordId(this.id);
-        }
-      });
+      });*/
+    this.router.navigate([`/landlords/${this.landLordId}/requests/${requestId}`]).then(() => null);
   }
   deniedRequest(requestId, request): void {
     this.requestService.updateRequest(requestId, request)

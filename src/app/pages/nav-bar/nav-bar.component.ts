@@ -26,6 +26,7 @@ export class NavBarComponent implements OnInit {
     this.options.push({text: 'Contracts', icon: 'book'});
     this.options.push({text: 'Requests', icon: 'receipt'});
     console.log(this.options);
+    this.options.push({text: 'Subscription', icon: 'monetization_on'});
   }
   change(): void {
     this.id = localStorage.getItem('id');
@@ -65,6 +66,9 @@ export class NavBarComponent implements OnInit {
       else {
         this.router.navigate([`landlords/${this.id}/requests`]).then(() => null);
       }
+    }
+    else if (option.text === 'Subscription'){
+        this.router.navigate([`landlords/${this.id}/subscription`]).then(() => null);
     }
   }
 

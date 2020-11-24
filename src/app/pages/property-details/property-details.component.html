@@ -1,26 +1,88 @@
-<div class="main-div" fxLayout="center">
-  <mat-card class="property-card">
+<div class="section-header">
+  <div  class="name-title">
+    <mat-icon>house</mat-icon>
+    <span>Property Details</span>
+  </div>
+</div>
+<div class="details-container property">
+  <div class="side-images">
+    <div *ngFor="let image of imgUrls" class="side-image">
+      <img (click)="changeImage(image)" [src]="image" alt="property img">
+      <div *ngIf="image === selectedIng" class="selected-img">Selected image</div>
+    </div>
+  </div>
+  <div class="details-main-div">
+    <mat-card class="details-card" style="height: 100%">
       <mat-card-header>
-        <div mat-card-avatar class="property-icon"></div>
-        <mat-card-title>{{propertyData.title}}</mat-card-title>
+        <mat-card-title> Title of Property<!--{{propertyData.title}}--> </mat-card-title>
         <mat-card-subtitle>Property offered by {{propertyData.landLordFirstName}} {{propertyData.landLordLastName}}</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image src="https://thumbnails.trvl-media.com/4lHYcVp1zF-KThpkhYr9pkoL3Wk=/500x333/smart/filters:quality(80)/images.trvl-media.com/hotels/39000000/38770000/38768300/38768271/93b018fe_z.jpg"
-           alt="Property reference photo">
-      <mat-card-content>
-        <p>
-          {{propertyData.description}}
+      <img mat-card-image [src]="selectedIng" class="main-img" alt="Property image">
+      <mat-card-content class="subDetails">
+        <p class="description">
+          {{propertyData.description}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         </p>
-        <p>
-          Number of rooms: {{propertyData.rooms}}<br>
-          Size: {{propertyData.size}}<br>
-          Cost: S/.{{propertyData.cost}}<br>
-          Location: {{propertyData.address}}
-        </p>
+        <div class="details-container">
+          <div>
+            <h3>More info</h3>
+            <p>Number of rooms: {{propertyData.rooms}}</p>
+            <p>Size: {{propertyData.size}}</p>
+            <p>Cost: S/.{{propertyData.cost}}</p>
+            <p>Location: {{propertyData.address}}</p>
+          </div>
+          <mat-divider [vertical]="true"></mat-divider>
+          <div>
+            <h3>Services</h3>
+            <p *ngFor="let service of services">
+              &#10004; {{service}}
+            </p>
+          </div>
+        </div>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>RENT</button>
+      <mat-card-actions align="center">
+        <button mat-flat-button class="card-button" *ngIf="!showQualification" (click)="showQualification = true">
+          <mat-icon>comment</mat-icon> Show comments </button>
+        <button mat-flat-button class="card-button" *ngIf="showQualification" (click)="showQualification = false">
+          <mat-icon>comment</mat-icon> Hide comments </button>
+        <button mat-flat-button class="card-button"  (click)="navigateToRequest()" *ngIf="type==='student'">RENT</button>
+        <button mat-flat-button class="card-button"  (click)="navigateToEdit()"  *ngIf="type==='landlord'">Edit</button>
+        <br><br>
       </mat-card-actions>
+      <mat-card-footer class="comments"  align="center">
+        <div *ngIf="showQualification">
+          <div class="comment" *ngFor="let propertyComment of propertyComments">
+            <div  class="comment-info">
+              <img class="profile" [src]="studentImage"
+                   [alt]="propertyComment.studentFirstName+' '+propertyComment.studentLastName+' profile image'">
+                <p> <b>{{propertyComment.studentFirstName}} {{propertyComment.studentLastName}}</b></p>
+                <p>{{propertyComment.createdAt}}</p>
+                <div class="comment-star">
+                  <div *ngIf="propertyComment.score<1000">
+                    <mat-icon>star</mat-icon><mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon>
+                    <mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon>
+                  </div>
+                  <div *ngIf="propertyComment.score>=1000 && propertyComment.score<2000">
+                    <mat-icon>star</mat-icon>  <mat-icon>star</mat-icon>
+                    <mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon>
+                  </div>
+                  <div *ngIf="propertyComment.score>=2000 && propertyComment.score<3000">
+                    <mat-icon>star</mat-icon><mat-icon>star</mat-icon><mat-icon>star</mat-icon>
+                    <mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon>
+                  </div>
+                  <div *ngIf="propertyComment.score>=3000 && propertyComment.score<4000">
+                    <mat-icon>star</mat-icon><mat-icon>star</mat-icon><mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon><mat-icon>star_border</mat-icon>
+                  </div>
+                  <div *ngIf="propertyComment.score>=4000">
+                    <mat-icon>star</mat-icon><mat-icon>star</mat-icon><mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon><mat-icon>star</mat-icon>
+                  </div>
+                </div>
+            </div>
+            <p class="comment-description">{{propertyComment.comment}}</p>
+          </div>
+        </div>
+      </mat-card-footer>
     </mat-card>
-
+  </div>
 </div>

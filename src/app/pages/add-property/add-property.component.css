@@ -1,56 +1,32 @@
-.btn {
-  background-color: cornflowerblue;
-  color: white;
+.property-editORadd .details-card {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 30px;
 }
-.edit-button {
-  background-color: cornflowerblue;
-  color: white;
-  alignment: right;
-}
-.actions {
-  justify-content: right;
+.side-images{
   display: flex;
+  flex-wrap: wrap;
 }
-.btn-spacer {
-  flex: 1 1 auto;
-  margin-bottom: 10px;
-  padding-bottom: 30em;
+.side-images img{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 5px;
 }
-.internalMatGrid{
-  min-width:90%;
-  height: 100%;
+.side-images .delete{
+  cursor: pointer;
+  background-color: whitesmoke;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  margin-top: -105px;
+  position: absolute;
+  text-align: center;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  box-shadow: darkgray;
 }
-.description-text {
-  margin-left: 5%;
+@media only screen and (max-width: 1200px){
+  .property-editORadd .details-card { width: 100%;}
 }
-.name-title {
-  margin-left: 5%;
-  width: 100%;
-}
-.principal-card {
-  width: 70%;
-  height: 70%;
-  padding-top: 10px;
-  margin-left: 15%;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-.default-spacer {
-  margin-bottom: 1em;
-}
-.opinions-footer {
-  justify-content: left;
-  flex: auto;
-}
-.list-cards {
-  border: 1px solid cornflowerblue;
-}
-.avatar {
-  min-height: 100%;
-  max-height: 380px;
-  min-width: 10%;
-}
-.prop-card {
-  max-width: 400px;
-  max-height: 200px;
-}
+

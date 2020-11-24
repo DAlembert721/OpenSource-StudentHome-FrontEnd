@@ -8,6 +8,10 @@ import {StudentProfileComponent} from './pages/student-profile/student-profile.c
 import {RequestListComponent} from './pages/request-list/request-list.component';
 import {ContractListComponent} from './pages/contract-list/contract-list.component';
 import {HomeComponent} from './pages/home/home.component';
+import {RequestFormComponent} from './pages/request-form/request-form.component';
+import {ContractComponent} from './pages/contract/contract.component';
+import {SearchPropertyComponent} from "./pages/search-property/search-property.component";
+import {SubscriptionComponent} from "./pages/subscription/subscription.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -16,14 +20,19 @@ const routes: Routes = [
   { path: 'users/:userId/landlords/:landlordId', component: LandlordProfileComponent},
   // { path: 'landlords/:landlordId/properties', component: PropertiesComponent},
   { path: 'landlords/:landlordId/properties/add', component: AddPropertyComponent},
-  { path: 'landlords/:landlordId/properties/:propertyId', component: PropertyDetailsComponent},
+  { path: 'landlords/:id/properties/:propertyId', component: PropertyDetailsComponent},
+  { path: 'landlords/:id/properties/:propertyId/edit', component: AddPropertyComponent},
+  { path: 'students/:id/properties/:propertyId', component: PropertyDetailsComponent},
   { path: 'students/:id', component: StudentProfileComponent},
   { path: 'users/:userId/students/:studentId', component: StudentProfileComponent},
   { path: 'students/:id/requests', component: RequestListComponent},
   { path: 'landlords/:id/requests', component: RequestListComponent},
   { path: 'students/:id/contracts', component: ContractListComponent},
   { path: 'landlords/:id/contracts', component: ContractListComponent},
-
+  { path: 'students/:studentId/requests/:propertyId', component: RequestFormComponent},
+  { path: 'landlords/:landlordId/requests/:requestId', component: ContractComponent},
+  { path: 'students/:id/search_property', component: SearchPropertyComponent},
+  { path: 'landlords/:id/subscription', component: SubscriptionComponent},
 ];
 
 @NgModule({

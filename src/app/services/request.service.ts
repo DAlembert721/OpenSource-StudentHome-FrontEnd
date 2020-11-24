@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {Request} from '../models/request';
+import {Property} from "../models/property";
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,11 @@ export class RequestService {
   getRequestByPropertyId(propertyId): Observable<Request> {
     return this.http.get<Request>(`${this.basePath}/properties/${propertyId}/requests`
       , this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Get Request By Id
+  getRequestById(requestId): Observable<Request> {
+    return this.http.get<Request>(`${this.basePath}/properties/${requestId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Update Request

@@ -30,6 +30,9 @@ import { ContractListComponent } from './pages/contract-list/contract-list.compo
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { HomeComponent } from './pages/home/home.component';
+import { ContractComponent } from './pages/contract/contract.component';
+import { SearchPropertyComponent } from './pages/search-property/search-property.component';
+import { SubscriptionComponent } from './pages/subscription/subscription.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { HomeComponent } from './pages/home/home.component';
     ContractListComponent,
     NavBarComponent,
     HomeComponent,
+    ContractComponent,
+    SearchPropertyComponent,
+    SubscriptionComponent,
   ],
   imports: [
     BrowserModule,

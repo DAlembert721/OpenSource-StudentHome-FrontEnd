@@ -1,90 +1,65 @@
-<mat-card class="principal-card" (resize)="onResize($event)">
-  <mat-card-content >
-    <mat-grid-list [cols]="windowsSize" rowHeight="60px" >
-      <mat-grid-tile [colspan]="photoCols" [rowspan]="photoRows">
-        <div class="internalMatGrid">
-          <mat-card class="internal-card">
-            <mat-grid-list [cols]="photoCols" [rowHeight]="photoHeight">
-              <mat-grid-tile [colspan]="photoCols" rowspan="11">
-                <mat-card-content>
-                  <img mat-card-image [src]="studentData.image" alt="Student photo" class="avatar">
-                </mat-card-content>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="photoCols" rowspan="1" style="margin-bottom: 5px">
-                <div *ngIf="isEditMode">
-                  <button mat-button class="btn">Change Image</button>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="photoCols" rowspan="1">
-                <div>
-                  <mat-card-subtitle>
-                    Reviews: {{opinions.length}}
-                  </mat-card-subtitle>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="photoCols" rowspan="1">
-                <div fxLayout="row" fxLayoutAlign="center">
-                  <mat-icon style="margin-right: 2px">person</mat-icon>
-                  <mat-card-subtitle style="margin-top: 3px">
-                    {{studentData.firstName}}  {{studentData.lastName}}
-                  </mat-card-subtitle>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="photoCols" rowspan="1">
-                <div fxLayout="row" fxLayoutAlign="center">
-                  <mat-icon style="margin-right: 2px">contact_mail</mat-icon>
-                  <mat-card-subtitle style="margin-top: 3px">
-                    {{studentData.email}}
-                  </mat-card-subtitle>
-                </div>
-              </mat-grid-tile>
-              <mat-grid-tile [colspan]="photoCols" rowspan="1">
-                <div fxLayout="row" fxLayoutAlign="center">
-                  <mat-icon style="margin-right: 2px">contact_phone</mat-icon>
-                  <mat-card-subtitle style="margin-top: 3px">
-                    {{studentData.phone}}
-                  </mat-card-subtitle>
-                </div>
-              </mat-grid-tile>
-            </mat-grid-list>
-          </mat-card>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="detailCols" [rowspan]="detailRows">
-        <div class="internalMatGrid">
-          <mat-card class="internal-card">
-            <mat-card-header>
-              <mat-card-title class="name-title">
-                Hi, my name is {{studentData.firstName}}
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="description-text">
-              <div>
-                <p>
-                  {{studentData.description}}
-                </p>
-              </div>
-            </mat-card-content>
-            <mat-card-actions *ngIf="isEditMode" align="end" style="margin-right: 20px">
-              <button mat-button class="edit-button">Edit profile</button>
-            </mat-card-actions>
-            <mat-card-footer style="margin-left: 5%; margin-bottom: 5%">
-              <mat-card-content>
-                <div *ngFor="let opinion of opinions">
-                  <mat-card class="default-spacer list-cards">
-                    <mat-card-content>{{opinion.content}}</mat-card-content>
-                    <mat-card-footer class="opinions-footer" >
-                      <div fxLayout="row" fxLayoutAlign="end" style="margin-right: 5px">
-                        <mat-icon *ngFor="let index of generateArray(opinion.score)">star_rate</mat-icon>
-                      </div>
-                    </mat-card-footer>
-                  </mat-card>
-                </div>
-              </mat-card-content>
-            </mat-card-footer>
-          </mat-card>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </mat-card-content>
-</mat-card>
+<div class="section-header">
+  <div  class="name-title">
+    <mat-icon>perm_identity</mat-icon>
+    <span *ngIf="type==='student'">Welcome {{studentData.firstName}} {{studentData.lastName}}!</span>
+    <span *ngIf="type==='landlord'">Welcome to {{studentData.firstName}} {{studentData.lastName}} profile!</span>
+  </div>
+</div>
+
+<div class="details-container">
+  <mat-card class="details-card profile-card">
+    <mat-card-header align="center">
+      <mat-card-title>
+        <img class="profile" src="https://happytravel.viajes/wp-content/uploads/2020/04/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+             alt="Landlord profile pic">
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="info">
+      <div>
+        <button mat-flat-button class="card-button" *ngIf="!isEditMode">Change picture</button>
+      </div>
+      <p><mat-icon>home</mat-icon> Reviews: {{opinions.length}}</p>
+      <p><mat-icon>person</mat-icon>{{studentData.firstName}} {{studentData.lastName}}</p>
+      <p><mat-icon>phone</mat-icon> Phone: {{studentData.phone}}</p>
+      <p><mat-icon>email</mat-icon> Email: {{studentData.email}}</p>
+      <br>
+    </mat-card-content>
+  </mat-card>
+  <div class="subDetails">
+    <mat-card style="width: 90%">
+      <mat-card-header>
+        <mat-card-subtitle>Hello! I study in </mat-card-subtitle>
+        <mat-card-title>{{studentData.educationCenterName}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="description-text">
+        <p>  {{studentData.description}}  </p>
+      </mat-card-content>
+    </mat-card>
+    <div style="width: 100%">
+      <div class="section-header">
+        <p class="name-title">
+          <mat-icon>comment</mat-icon>
+          Reviews </p>
+      </div>
+      <mat-card>
+        <mat-card-content>
+        <button mat-flat-button class="card-button" *ngIf="!showQualification" (click)="showQualification = true">
+          <mat-icon>comment</mat-icon> Show comments </button>
+        <button mat-flat-button class="card-button" *ngIf="showQualification" (click)="showQualification = false">
+          <mat-icon>comment</mat-icon> Hide comments </button>
+        </mat-card-content>
+        <mat-card-footer  class="comments" *ngIf="showQualification">
+          <div class="comment" *ngFor="let opinion of opinions">
+            <div  class="comment-info">
+              <img class="profile" [src]="landlordImage" alt="profile image">
+              <p><b>Name of landlord</b></p>
+              <p>xx/xx/xxx xx:xx xx</p>
+              <mat-icon *ngFor="let index of generateArray(opinion.score)">star_rate</mat-icon>
+            </div>
+            <p class="comment-description">{{opinion.content}}</p>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>

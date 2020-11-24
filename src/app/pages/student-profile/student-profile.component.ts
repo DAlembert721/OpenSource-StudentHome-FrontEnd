@@ -27,6 +27,9 @@ export class StudentProfileComponent implements OnInit {
   photoRows: number;
   detailRows: number;
   photoHeight: number;
+  type: any;
+  showQualification = false;
+  landlordImage = 'https://source.unsplash.com/900x900/?face,adult,parent';
 
   constructor(private studentDataService: StudentService,
               private opinionService: OpinionService,
@@ -34,6 +37,7 @@ export class StudentProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.type = localStorage.getItem('type');
     this.initialize();
     this.windowsSize = (window.innerHeight <= 360) ? 3 : 12;
     this.detailCols = (window.innerHeight <= 360) ? 3 : 9;

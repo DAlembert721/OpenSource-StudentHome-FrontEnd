@@ -3,3 +3,4 @@
   <button mat-button class="btn" color="primary" (click)="changeLandlord()" fxLayoutAlign="center">LandLord</button>
 </div>
 <app-property-register *ngIf="type === 'landlord'"></app-property-register>
+<app-search-property *ngIf="type === 'student'"></app-search-property>

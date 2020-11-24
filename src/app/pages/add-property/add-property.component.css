@@ -1,5 +1,5 @@
 .property-editORadd .details-card {
-  width: 70%;
+  width: 80%;
   margin: auto;
   margin-bottom: 30px;
 }
@@ -27,9 +27,6 @@
   box-shadow: darkgray;
 }
 @media only screen and (max-width: 1200px){
-  .property-editORadd .details-card { width: 100%;}
-}
-@media only screen and (max-width: 500px) {
   .property-editORadd .details-card { width: 100%;}
 }
 

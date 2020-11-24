@@ -1,3 +1,7 @@
+.details-container.property mat-divider{
+  margin-left: 10px;
+  margin-right: 10px;
+}
 .side-images{
   padding: 20px;
   display: block;

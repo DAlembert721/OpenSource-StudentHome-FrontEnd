@@ -12,4 +12,7 @@
   .request .grid-card{
     width: 100%;
   }
+  .request mat-card.mat-card.mat-focus-indicator.grid-card.ng-star-inserted {
+    display: block;
+  }
 }

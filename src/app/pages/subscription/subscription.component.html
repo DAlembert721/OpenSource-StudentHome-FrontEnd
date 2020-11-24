@@ -1,7 +1,4 @@
-  <img class="subcribe-side" *ngIf="plan==='None'" src="https://image.freepik.com/foto-gratis/rmb-monedas-apiladas-frente-vivienda-modelo-precios-vivienda-compra-viviendas-bienes-raices-concepto-hipoteca_1387-30.jpg" alt="">
-  <img class="subcribe-side" *ngIf="plan==='Premium'" src="https://image.freepik.com/foto-gratis/manos-agente-cliente-estrechandose-mano-despues-firmar-contrato-comprar-apartamento-nuevo_1150-14835.jpg" alt="">
-  <img class="subcribe-side" *ngIf="plan==='Basic'" src="https://image.freepik.com/foto-gratis/agente-corredores-bienes-raices-que-presenta-consulta-cliente-toma-decisiones-firmar-acuerdo-seguro_1150-15023.jpg" alt="">
-  <div class="">
+  <div class="subscription-plan">
     <div class="section-header">
       <div  class="name-title">
         <mat-icon>monetization_on</mat-icon>
@@ -10,18 +7,18 @@
     </div>
     <div class="details-main-div">
       <mat-card class="details-card subscription">
-        <mat-card-header *ngIf="plan!=='None'" align="center">
+        <mat-card-header *ngIf="plan!=='None'" align="center" [style]="backgroundStyle">
           <mat-icon class="head-icon">sentiment_satisfied</mat-icon>
           <div class="header-plan" (click)="changePlan('None')">
-            <mat-card-title>Actual Plan (basic/premium)</mat-card-title>
-            <mat-card-subtitler>You're at day!</mat-card-subtitler>
+            <mat-card-title>Actual Plan: <b> {{plan}} </b></mat-card-title>
+            <mat-card-subtitler style="color: white">You're at day!</mat-card-subtitler>
           </div>
         </mat-card-header>
-        <mat-card-header *ngIf="plan==='None'" align="center">
+        <mat-card-header *ngIf="plan==='None'" align="center" [style]="backgroundStyle">
           <mat-icon class="head-icon">sentiment_dissatisfied</mat-icon>
           <div class="header-plan">
             <mat-card-title>You're not subscribed to a plan</mat-card-title>
-            <mat-card-subtitle>Please, select a plan</mat-card-subtitle>
+            <mat-card-subtitle style="color: white">Please, select a plan</mat-card-subtitle>
           </div>
         </mat-card-header>
         <mat-divider></mat-divider>
@@ -31,8 +28,8 @@
             Subscribe to our plans... Lorem ipsum dolor sit amet, consectetur adipiscing elit
           </p>
           <div class="details-container">
-            <mat-card>
-              <mat-card-header (click)="changePlan('Premium')">
+            <mat-card [style]="premiumStyle">
+              <mat-card-header>
                 <mat-card-title> &#11088; Premium Plan</mat-card-title>
                 <mat-card-subtitle>Cost S/XX.XX x mes</mat-card-subtitle>
               </mat-card-header>
@@ -42,9 +39,13 @@
                 <p>&#10004; Bennefit Lorem ipsum</p>
                 <p>&#10004; Bennefit Lorem ipsum</p>
               </mat-card-content>
+              <mat-card-actions align="center">
+                <button mat-flat-button class="card-button" (click)="changePlan(2)" >
+                  <mat-icon>done</mat-icon> Subscribe</button>
+              </mat-card-actions>
             </mat-card>
-            <mat-card>
-              <mat-card-header (click)="changePlan('Basic')">
+            <mat-card [style]="basicStyle">
+              <mat-card-header>
                 <mat-card-title>Basic plan</mat-card-title>
                 <mat-card-subtitle>Cost S/XX.XX x mes</mat-card-subtitle>
               </mat-card-header>
@@ -54,13 +55,13 @@
                 <p>&#8226; Bennefit Lorem ipsum</p>
                 <p>&#8226; Bennefit Lorem ipsum</p>
               </mat-card-content>
+              <mat-card-actions align="center">
+                <button mat-flat-button class="card-button"  (click)="changePlan(1)">
+                  <mat-icon>done</mat-icon> Subscribe</button>
+              </mat-card-actions>
             </mat-card>
           </div>
         </mat-card-content>
-        <mat-card-actions align="end" style="margin-right: 20px">
-          <button mat-flat-button class="card-button" >
-            <mat-icon>done</mat-icon> Subscribe</button>
-        </mat-card-actions>
       </mat-card>
     </div>
   </div>

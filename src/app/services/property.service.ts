@@ -54,4 +54,14 @@ export class PropertyService {
   deleteProperty(id): Observable<any> {
     return this.http.delete<Property>(`${this.basePath}/${id}`, this.httpOptions)
   }
+  // Get All Properties By Service Id
+  getAllPropertiesByServiceId(serviceId): Observable<Property>{
+    return this.http.get<Property>(`${this.basePath}/services/${serviceId}/properties`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Get All Active Properties
+  getAllActiveProperties(): Observable<Property>{
+    return this.http.get<Property>(`${this.basePath}/properties/active=${true}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
 }

@@ -1,5 +1,5 @@
 <div class="section-header">
-  <div  class="name-title">
+  <div class="name-title">
     <mat-icon>house</mat-icon>
     <span>Find your ideal place</span>
   </div>
@@ -15,28 +15,48 @@
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-      <form (ngSubmit)="onSubmit()" #propertyForm="ngForm">
+      <form (ngSubmit)="onSubmit()"
+            #propertyForm="ngForm">
         <div>
           <h3>Number of Rooms</h3>
           <mat-form-field>
             <mat-label>Min</mat-label>
-            <input matInput placeholder="Ex. 4" name="minRooms" type="number" required [(ngModel)]="minRooms">
+            <input matInput
+                   placeholder="Ex. 4"
+                   name="minRooms"
+                   type="number"
+                   required
+                   [(ngModel)]="minRooms">
           </mat-form-field>
-         <mat-form-field>
+          <mat-form-field>
             <mat-label>Max</mat-label>
-            <input matInput placeholder="Ex. 4" name="maxRooms" type="number" required [(ngModel)]="maxRooms">
+            <input matInput placeholder="Ex. 4"
+                   name="maxRooms"
+                   type="number"
+                   required
+                   [(ngModel)]="maxRooms">
           </mat-form-field>
         </div>
         <mat-divider></mat-divider>
         <div>
           <h3>Price of the rent</h3>
           <mat-form-field>
-            <mat-label>Min S/. </mat-label>
-            <input matInput placeholder="Ex. 400" name="minCost" type="number" required [(ngModel)]="minCost">
+            <mat-label>Min S/.</mat-label>
+            <input matInput
+                   placeholder="Ex. 400"
+                   name="minCost"
+                   type="number"
+                   required
+                   [(ngModel)]="minCost">
           </mat-form-field>
           <mat-form-field>
             <mat-label>Max</mat-label>
-            <input matInput placeholder="Ex. 2000" name="maxCost" type="number" required [(ngModel)]="maxCost">
+            <input matInput
+                   placeholder="Ex. 2000"
+                   name="maxCost"
+                   type="number"
+                   required
+                   [(ngModel)]="maxCost">
           </mat-form-field>
         </div>
         <mat-divider></mat-divider>
@@ -44,26 +64,39 @@
           <h3>Size of the Property</h3>
           <mat-form-field>
             <mat-label>Min m<sup>2</sup></mat-label>
-            <input matInput placeholder="Ex. 200" name="minSize" type="number" required [(ngModel)]="minSize">
+            <input matInput
+                   placeholder="Ex. 200"
+                   name="minSize"
+                   type="number"
+                   required
+                   [(ngModel)]="minSize">
           </mat-form-field>
           <mat-form-field>
             <mat-label>Max m<sup>2</sup></mat-label>
-            <input matInput placeholder="Ex. 1000" name="maxSize" type="number" required [(ngModel)]="maxSize">
+            <input matInput
+                   placeholder="Ex. 1000"
+                   name="maxSize"
+                   type="number"
+                   required
+                   [(ngModel)]="maxSize">
           </mat-form-field>
         </div>
         <mat-divider></mat-divider>
         <div>
           <h3>Services</h3>
           <div *ngFor="let service of services">
-            <input type="checkbox" [(ngModel)]="servicesSelected[services.indexOf(service)]">
-            <span>{{service}}</span>
+            <input type="checkbox"
+                   name="serviceSelected"
+                   [(ngModel)]="servicesSelected[services.indexOf(service)]">
+            <span>{{service.name}}</span>
           </div>
         </div>
         <mat-divider></mat-divider>
         <div>
           <h3>Filter by Address </h3>
 
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width"
+                          appearance="fill">
             <mat-label>Region</mat-label>
             <mat-select [(value)]="selectedRegion">
               <mat-option *ngFor="let region of regions"
@@ -74,7 +107,8 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width"
+                          appearance="fill">
             <mat-label>Province</mat-label>
             <mat-select [(value)]="selectedProvince">
               <mat-option *ngFor="let province of provinces"
@@ -85,7 +119,8 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width"
+                          appearance="fill">
             <mat-label>District</mat-label>
             <mat-select [(value)]="selectedDistrict">
               <mat-option [value]="district"
@@ -97,14 +132,17 @@
               <li *ngFor="let district of districtsSelected">
                 <p>{{district.name}}</p>
                 <button mat-button>
-                  <mat-icon matChipRemove (click)="removeSelectedDistrict(district)">cancel</mat-icon>
+                  <mat-icon matChipRemove
+                            (click)="removeSelectedDistrict(district)">cancel</mat-icon>
                 </button>
               </li>
             </div>
           </mat-form-field><!-- -->
         </div>
         <div align="center">
-          <button mat-flat-button class="card-button" (click)="filter()">Apply Filters</button>
+          <button mat-flat-button
+                  class="card-button"
+                  (click)="filter()">Apply Filters</button>
         </div>
       </form>
     </mat-card-content>
@@ -119,71 +157,125 @@
     <mat-card-content>
       <mat-form-field style="width: 80%" align="center">
         <mat-label>Filter Results</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. UPC" #input>
+        <input matInput
+               (keyup)="applyFilter($event)"
+               name="filters"
+               placeholder="Ex. UPC" #input>
       </mat-form-field>
-      <table mat-table [dataSource]="dataSource" align="center" >
+      <table mat-table
+             [dataSource]="dataSource"
+             align="center">
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef ></th>
-          <td mat-cell *matCellDef="let element">
-            <img class="datasource-img" [src]="'https://source.unsplash.com/1600x900/?'+'home,'+element.id" alt=""></td>
-        </ng-container >
-        <ng-container matColumnDef="title" >
-          <th mat-header-cell *matHeaderCellDef>Title</th>
-          <td mat-cell *matCellDef="let element" class="td-element">{{ element.title }}</td>
-        </ng-container >
-        <ng-container matColumnDef="description" >
-          <th mat-header-cell *matHeaderCellDef hidden>Description</th>
-          <td mat-cell *matCellDef="let element" hidden>{{ element.description }}</td>
-        </ng-container >
-        <ng-container matColumnDef="cost" >
-          <th mat-header-cell *matHeaderCellDef >Cost</th>
-          <td mat-cell *matCellDef="let element" class="td-element" >S/.{{element.cost}}</td>
-        </ng-container >
-        <ng-container matColumnDef="size" >
-          <th mat-header-cell *matHeaderCellDef >Size</th>
-          <td mat-cell *matCellDef="let element" class="td-element">{{ element.size }}m<sup>2</sup> </td>
-        </ng-container >
-        <ng-container matColumnDef="rooms" >
-          <th mat-header-cell *matHeaderCellDef>Rooms</th>
-          <td mat-cell *matCellDef="let element" class="td-element">{{ element.rooms}} rooms</td>
-        </ng-container >
-        <ng-container matColumnDef="address" >
-          <th mat-header-cell *matHeaderCellDef >Address</th>
-          <td mat-cell *matCellDef="let element" class="td-element">{{ element.address}}</td>
-        </ng-container >
+          <th mat-header-cell
+              *matHeaderCellDef></th>
+          <td mat-cell
+              *matCellDef="let element">
+            <img class="datasource-img"
+                 [src]="'https://source.unsplash.com/1600x900/?'+'home,'+element.id"
+                 alt=""></td>
+        </ng-container>
+        <ng-container matColumnDef="title">
+          <th mat-header-cell
+              *matHeaderCellDef>Title</th>
+          <td mat-cell
+              *matCellDef="let element"
+              class="td-element">{{ element.title }}</td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell
+              *matHeaderCellDef
+              hidden>Description</th>
+          <td mat-cell
+              *matCellDef="let element"
+              hidden>{{ element.description }}</td>
+        </ng-container>
+        <ng-container matColumnDef="cost">
+          <th mat-header-cell
+              *matHeaderCellDef>Cost</th>
+          <td mat-cell
+              *matCellDef="let element"
+              class="td-element">S/.{{element.cost}}</td>
+        </ng-container>
+        <ng-container matColumnDef="size">
+          <th mat-header-cell
+              *matHeaderCellDef>Size</th>
+          <td mat-cell
+              *matCellDef="let element"
+              class="td-element">{{ element.size }}m<sup>2</sup></td>
+        </ng-container>
+        <ng-container matColumnDef="rooms">
+          <th mat-header-cell
+              *matHeaderCellDef>Rooms</th>
+          <td mat-cell
+              *matCellDef="let element"
+              class="td-element">{{ element.rooms}} rooms</td>
+        </ng-container>
+        <ng-container matColumnDef="address">
+          <th mat-header-cell
+              *matHeaderCellDef>Address</th>
+          <td mat-cell
+              *matCellDef="let element"
+              class="td-element">{{ element.address}}</td>
+        </ng-container>
         <ng-container matColumnDef="place">
-          <th mat-header-cell *matHeaderCellDef hidden>Place</th>
-          <td mat-cell *matCellDef="let element" hidden>{{ element.place}}</td>
-        </ng-container >
+          <th mat-header-cell
+              *matHeaderCellDef
+              hidden>Place</th>
+          <td mat-cell
+              *matCellDef="let element"
+              hidden>{{ element.place}}</td>
+        </ng-container>
         <ng-container matColumnDef="landLordId">
-          <th mat-header-cell *matHeaderCellDef hidden>LandLordId</th>
-          <td mat-cell *matCellDef="let element" hidden>{{ element.landLordId }}</td>
+          <th mat-header-cell
+              *matHeaderCellDef
+              hidden>LandLordId</th>
+          <td mat-cell
+              *matCellDef="let element"
+              hidden>{{ element.landLordId }}</td>
         </ng-container>
         <ng-container matColumnDef="landLordFirstName">
-          <th mat-header-cell *matHeaderCellDef hidden>L.FirstName</th>
-          <td mat-cell *matCellDef="let element" hidden>{{ element.landLordFirstName}}</td>
-        </ng-container >
-        <ng-container matColumnDef="landLordLastName" >
-          <th mat-header-cell *matHeaderCellDef hidden>L.LastName </th>
-          <td mat-cell *matCellDef="let element" hidden>{{ element.landLordLastName}}</td>
-        </ng-container >
-        <ng-container matColumnDef="active" >
-          <th mat-header-cell *matHeaderCellDef>Active </th>
-          <td mat-cell *matCellDef="let element" class="td-element">
-            <span *ngIf="element.active"> Active </span>
-            <span *ngIf="!element.active" style="color: red"> Inactive </span>
+          <th mat-header-cell
+              *matHeaderCellDef
+              hidden>L.FirstName</th>
+          <td mat-cell
+              *matCellDef="let element"
+              hidden>{{ element.landLordFirstName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="landLordLastName">
+          <th mat-header-cell
+              *matHeaderCellDef
+              hidden>L.LastName</th>
+          <td mat-cell
+              *matCellDef="let element"
+              hidden>{{ element.landLordLastName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="active">
+          <th mat-header-cell
+              *matHeaderCellDef></th>
+          <td mat-cell
+              *matCellDef="let element"
+              class="td-element">
           </td>
-        </ng-container >
-        <ng-container matColumnDef="actions" class="actions">
-          <mat-header-cell *matHeaderCellDef > </mat-header-cell >
-          <td mat-cell *matCellDef="let element"  class="td-element">
-            <button mat-flat-button class="card-button" (click)="navigateToPropertyDetails(element)" >View</button>
-          </td >
-        </ng-container >
-        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+        </ng-container>
+        <ng-container matColumnDef="actions"
+                      class="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <td mat-cell
+              *matCellDef="let element"
+              class="td-element">
+            <button mat-flat-button
+                    class="card-button"
+                    (click)="navigateToPropertyDetails(element)">View</button>
+          </td>
+        </ng-container>
+        <tr mat-header-row
+            *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row
+            *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSize]="10"
+                     [pageSizeOptions]="[10, 20, 50]"
+                     showFirstLastButtons></mat-paginator>
     </mat-card-content>
   </mat-card>
 

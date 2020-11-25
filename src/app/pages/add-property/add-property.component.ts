@@ -66,17 +66,6 @@ export class AddPropertyComponent implements OnInit {
         this.propertyData = response.content;
       });
   /*No se puede acceder al servicio*/
-    this.propertyData = {
-      id: 1, landLordId: 61,
-      landLordFirstName: 'Landlord',
-      landLordLastName: 'Properties Owner',
-      rooms: 4, size: 300, cost: 750,
-      active: true,
-      address: 'Somewere',
-      title: 'Title',
-      description: 'Description',
-      place: 1
-    };
   }
   retrieveRegions(): void {
     this.locationService.getRegionById()

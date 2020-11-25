@@ -6,6 +6,6 @@ export class Contract {
   createdAt: Date;
   firstNameStudent: string;
   lastNameStudent: string;
-  firstNameLandlord: string;
-  lastNameLandlord: string;
+  studentId: number;
+  propertyId: number;
 }

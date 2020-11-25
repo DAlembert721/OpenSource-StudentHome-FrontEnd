@@ -3,6 +3,7 @@ import {ContractService} from '../../services/contract.service';
 import {PropertyService} from '../../services/property.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Contract} from '../../models/contract';
+import {Property} from '../../models/property';
 
 @Component({
   selector: 'app-contract-list',
@@ -11,7 +12,7 @@ import {Contract} from '../../models/contract';
 })
 export class ContractListComponent implements OnInit {
 
-  contracts: Contract[];
+  contracts: any[];
   id: number;
   type: any;
   constructor(private contractDataService: ContractService,
@@ -20,9 +21,10 @@ export class ContractListComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.type = localStorage.getItem('type');
     this.contracts = [];
     this.initialize();
-    this.contracts.push({
+    /*this.contracts.push({
         amount: 100,
         createdAt: new Date(),
         description: 'Having met the requirements\n' +
@@ -35,7 +37,7 @@ export class ContractListComponent implements OnInit {
         lastNameStudent: 'Veracruz',
         state: false,
         id: 1
-    });
+    });*/
   }
   initialize(): void {
     this.id = Number(this.route.params.subscribe(params => {
@@ -53,17 +55,42 @@ export class ContractListComponent implements OnInit {
   retrieveContractsByStudentId(studentId): void {
     this.contractDataService.getContractsByStudentId(studentId)
       .subscribe((response: any) => {
-        this.contracts = response.content;
-        console.log(response);
+        for (const resource of response.content) {
+          // console.log(resource);
+          this.propertyService.getPropertyById(resource.propertyId)
+            .subscribe((result: any) => {
+              // console.log(result);
+              const data = {
+                id: resource.id,
+                createdAt: resource.createdAt,
+                description: resource.description,
+                studentFullName: resource.firstNameStudent + ' ' + resource.lastNameStudent,
+                landlordFullName: result.landLordFirstName + ' ' + result.landLordLastName,
+                amount: resource.amount
+              };
+              this.contracts.push(data);
+            });
+
+        }
+        // console.log(this.contracts);
       });
   }
-  retrieveContractsByPropertyId(propertyId): void {
-    this.contractDataService.getContractsByPropertyId(propertyId)
+  retrieveContractsByPropertyId(property): void {
+    console.log(property);
+    this.contractDataService.getContractsByPropertyId(property.id)
       .subscribe((response: any) => {
-        for (const item of response.content) {
-          this.contracts.push(item);
+        for (const resource of response.content) {
+          const data = {
+            id: resource.id,
+            createdAt: resource.createdAt,
+            description: resource.description,
+            studentFullName: resource.firstNameStudent + ' ' + resource.lastNameStudent,
+            landlordFullName: property.landLordFirstName + ' ' + property.landLordLastName,
+            amount: resource.amount
+          };
+          this.contracts.push(data);
         }
-        console.log(this.contracts);
+        // console.log(this.contracts);
       });
   }
   retrievePropertiesByLandLordId(landlordId): void {
@@ -71,7 +98,7 @@ export class ContractListComponent implements OnInit {
       .subscribe((response: any) => {
         const properties = response.content;
         for (const property of properties) {
-          this.retrieveContractsByPropertyId(property.id);
+          this.retrieveContractsByPropertyId(property);
         }
       });
   }

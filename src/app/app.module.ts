@@ -34,6 +34,7 @@ import { ContractComponent } from './pages/contract/contract.component';
 import { SearchPropertyComponent } from './pages/search-property/search-property.component';
 import { SubscriptionComponent } from './pages/subscription/subscription.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -17,7 +17,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.change();
-    console.log('here');
+    // console.log('here');
   }
   initializeOptions(): void {
     this.options = [];
@@ -25,7 +25,7 @@ export class NavBarComponent implements OnInit {
     this.options.push({text: 'Profile', icon: 'perm_identity'});
     this.options.push({text: 'Contracts', icon: 'book'});
     this.options.push({text: 'Requests', icon: 'receipt'});
-    console.log(this.options);
+    // console.log(this.options);
     this.options.push({text: 'Subscription', icon: 'monetization_on'});
   }
   change(): void {
@@ -42,7 +42,7 @@ export class NavBarComponent implements OnInit {
   }
   redirectOption(option): void {
     this.change();
-    console.log(option);
+    // console.log(option);
     if (option.text === 'Home') {
       this.router.navigate(['home']).then(() => null);
     }else if (option.text === 'Profile') {

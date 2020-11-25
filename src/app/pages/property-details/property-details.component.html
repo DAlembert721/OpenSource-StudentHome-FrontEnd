@@ -52,28 +52,28 @@
         <div *ngIf="showQualification">
           <div class="comment" *ngFor="let propertyComment of propertyComments">
             <div  class="comment-info">
-              <img class="profile" [src]="studentImage"
+              <img class="profile" [src]="propertyComment.studentImage"
                    [alt]="propertyComment.studentFirstName+' '+propertyComment.studentLastName+' profile image'">
                 <p> <b>{{propertyComment.studentFirstName}} {{propertyComment.studentLastName}}</b></p>
                 <p>{{propertyComment.createdAt}}</p>
                 <div class="comment-star">
-                  <div *ngIf="propertyComment.score<1000">
+                  <div *ngIf="propertyComment.score == 1">
                     <mat-icon>star</mat-icon><mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon>
                     <mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon>
                   </div>
-                  <div *ngIf="propertyComment.score>=1000 && propertyComment.score<2000">
+                  <div *ngIf="propertyComment.score == 2">
                     <mat-icon>star</mat-icon>  <mat-icon>star</mat-icon>
                     <mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon>
                   </div>
-                  <div *ngIf="propertyComment.score>=2000 && propertyComment.score<3000">
+                  <div *ngIf="propertyComment.score == 3">
                     <mat-icon>star</mat-icon><mat-icon>star</mat-icon><mat-icon>star</mat-icon>
                     <mat-icon>star_border</mat-icon><mat-icon>star_border</mat-icon>
                   </div>
-                  <div *ngIf="propertyComment.score>=3000 && propertyComment.score<4000">
+                  <div *ngIf="propertyComment.score == 4">
                     <mat-icon>star</mat-icon><mat-icon>star</mat-icon><mat-icon>star</mat-icon>
                     <mat-icon>star</mat-icon><mat-icon>star_border</mat-icon>
                   </div>
-                  <div *ngIf="propertyComment.score>=4000">
+                  <div *ngIf="propertyComment.score == 5">
                     <mat-icon>star</mat-icon><mat-icon>star</mat-icon><mat-icon>star</mat-icon>
                     <mat-icon>star</mat-icon><mat-icon>star</mat-icon>
                   </div>

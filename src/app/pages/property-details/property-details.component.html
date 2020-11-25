@@ -14,13 +14,13 @@
   <div class="details-main-div">
     <mat-card class="details-card" style="height: 100%">
       <mat-card-header>
-        <mat-card-title> Title of Property<!--{{propertyData.title}}--> </mat-card-title>
+        <mat-card-title> {{ propertyData.title }} </mat-card-title>
         <mat-card-subtitle>Property offered by {{propertyData.landLordFirstName}} {{propertyData.landLordLastName}}</mat-card-subtitle>
       </mat-card-header>
       <img mat-card-image [src]="selectedIng" class="main-img" alt="Property image">
       <mat-card-content class="subDetails">
         <p class="description">
-          {{propertyData.description}} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          {{propertyData.description}}
         </p>
         <div class="details-container">
           <div>
@@ -34,7 +34,7 @@
           <div>
             <h3>Services</h3>
             <p *ngFor="let service of services">
-              &#10004; {{service}}
+              &#10004; {{service.name}}
             </p>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <mat-icon>comment</mat-icon> Show comments </button>
         <button mat-flat-button class="card-button" *ngIf="showQualification" (click)="showQualification = false">
           <mat-icon>comment</mat-icon> Hide comments </button>
-        <button mat-flat-button class="card-button"  (click)="navigateToRequest()" *ngIf="type==='student'">RENT</button>
+        <button mat-flat-button class="card-button"  (click)="navigateToRequest()" *ngIf="type==='student'">Rent</button>
         <button mat-flat-button class="card-button"  (click)="navigateToEdit()"  *ngIf="type==='landlord'">Edit</button>
         <br><br>
       </mat-card-actions>

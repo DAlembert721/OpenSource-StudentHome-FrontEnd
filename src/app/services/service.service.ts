@@ -27,8 +27,19 @@ export class ServiceService {
     }
     return throwError('Something happened with request, please try again later.');
   }
+  // Get All Services
   getAllServices(): Observable<Service> {
     return this.http.get<Service>(`${this.basePath}/services`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Add Service To Properties
+  addServiceToProperty(propertyId, serviceId): Observable<Service>{
+    return this.http.post<Service>(`${this.basePath}/properties/${propertyId}/services/${serviceId}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Get All Services By Property
+  getAllServicesByPropertyId(propertyId): Observable<Service>{
+    return this.http.get<Service>(`${this.basePath}/properties/${propertyId}/services`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

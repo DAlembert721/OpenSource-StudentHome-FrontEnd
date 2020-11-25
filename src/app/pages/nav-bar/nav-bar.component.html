@@ -19,7 +19,9 @@
                   (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
           </button>
-          <img src="../../../assets/logo-horizontal.svg" alt="Student Home" class="logo-navbar">
+          <button mat-icon-button (click)="goToHome()">
+            <img src="../../../assets/logo-horizontal.svg" alt="Student Home" class="logo-navbar">
+          </button>
           <span class="default-spacer"></span>
           <div >
             <a mat-flat-button (click)="changeNull()" style="margin-right: 10px">Log out</a>

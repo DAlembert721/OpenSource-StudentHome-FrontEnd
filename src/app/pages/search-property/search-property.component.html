@@ -15,7 +15,7 @@
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-      <form (ngSubmit)="onSubmit()"
+      <form
             #propertyForm="ngForm">
         <div>
           <h3>Number of Rooms</h3>
@@ -25,7 +25,6 @@
                    placeholder="Ex. 4"
                    name="minRooms"
                    type="number"
-                   required
                    [(ngModel)]="minRooms">
           </mat-form-field>
           <mat-form-field>
@@ -33,7 +32,6 @@
             <input matInput placeholder="Ex. 4"
                    name="maxRooms"
                    type="number"
-                   required
                    [(ngModel)]="maxRooms">
           </mat-form-field>
         </div>
@@ -46,7 +44,6 @@
                    placeholder="Ex. 400"
                    name="minCost"
                    type="number"
-                   required
                    [(ngModel)]="minCost">
           </mat-form-field>
           <mat-form-field>
@@ -55,7 +52,6 @@
                    placeholder="Ex. 2000"
                    name="maxCost"
                    type="number"
-                   required
                    [(ngModel)]="maxCost">
           </mat-form-field>
         </div>
@@ -68,7 +64,6 @@
                    placeholder="Ex. 200"
                    name="minSize"
                    type="number"
-                   required
                    [(ngModel)]="minSize">
           </mat-form-field>
           <mat-form-field>
@@ -77,7 +72,6 @@
                    placeholder="Ex. 1000"
                    name="maxSize"
                    type="number"
-                   required
                    [(ngModel)]="maxSize">
           </mat-form-field>
         </div>
@@ -139,10 +133,13 @@
             </div>
           </mat-form-field><!-- -->
         </div>
-        <div align="center">
+        <div align="center" fxLayout="row">
           <button mat-flat-button
                   class="card-button"
                   (click)="filter()">Apply Filters</button>
+          <button mat-flat-button
+                  class="card-button"
+                  (click)="reset()">Reset Filters</button>
         </div>
       </form>
     </mat-card-content>

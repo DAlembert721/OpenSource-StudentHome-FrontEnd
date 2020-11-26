@@ -12,6 +12,7 @@ import {LocationService} from '../../services/location.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ServiceService} from '../../services/service.service';
 import {Service} from '../../models/service';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-search-property',
@@ -28,15 +29,15 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = ['id', 'active', 'title', 'description', 'rooms', 'size', 'cost', 'address',
     'place', 'landLordId', 'landLordFirstName', 'landLordLastName', 'actions'];
-  minCost: number;
-  maxCost: number;
-  minSize: number;
-  maxSize: number;
-  minRooms: number;
-  maxRooms: number;
-  selectedRegion: Region;
-  selectedProvince: Province;
-  selectedDistrict: District;
+  minCost: number = null;
+  maxCost: number = null;
+  minSize: number = null;
+  maxSize: number =  null;
+  minRooms: number =  null;
+  maxRooms: number = null;
+  selectedRegion: Region = null;
+  selectedProvince: Province = null;
+  selectedDistrict: District = null;
   services: Service[] = [];
   regions: Region[] = [];
   provinces: Province[] = [];
@@ -60,9 +61,6 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
     this.getAllProperties();
     this.retrieveAllServices();
     this.retrieveAllRegions();
-    for (const service of this.services) {
-      this.servicesSelected.push(false);
-    }
   }
 
   ngAfterViewInit(): void {
@@ -85,7 +83,6 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
         // console.log(response.content);
       });
   }
-
   navigateToPropertyDetails(element: Property): void {
     if (element.active) {
       this.router.navigate([`students/${this.studentId}/properties/${element.id}`]).then(() => null);
@@ -94,7 +91,7 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
 
   filter(): void {
     this.filteredProperties = [];
-    if (this.servicesSelected.length > 0) {
+    if (this.servicesSelected.includes(true)) {
       for (let i = 0; i < this.servicesSelected.length; i++) {
         if (this.servicesSelected[i] === true) {
           this.filterByService(this.services[i].id);
@@ -103,53 +100,72 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
     } else {
       this.filteredProperties = this.properties;
     }
+    this.filterByRooms();
     this.filterByCost();
     this.filterBySize();
-    this.filterByRooms();
     this.filterByAddress();
-  }
-
-  onSubmit(): void {
-    if (this.propertyForm.form.valid) {
-      this.filter();
-    } else {
-      console.log('Invalid Data');
+    this.dataSource.data = this.filteredProperties;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
+  reset(): void {
+    this.dataSource.data = this.properties;
+    this.minCost = null;
+    this.maxCost = null;
+    this.minRooms = null;
+    this.maxRooms = null;
+    this.maxSize = null;
+    this.minSize = null;
+    this.selectedRegion = null;
+    this.selectedProvince = null;
+    this.selectedDistrict = null;
+    let index = 0;
+    for (const service of this.services) {
+      this.servicesSelected[index] = false;
+      index++;
+    }
+  }
+
+  onSubmit(): void {
+  }
+
   filterByCost(): void {
-    for (const property of this.filteredProperties) {
-      if (property.cost >= this.minCost && property.cost <= this.maxCost) {
-        this.filteredProperties.push(property);
-      }
+    // console.log(this.minCost);
+    if (this.minCost !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.cost >= this.minCost);
+    }
+    if (this.maxCost  !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.cost <= this.maxCost);
     }
 
   }
 
   filterBySize(): void {
-    for (const property of this.filteredProperties) {
-      if (property.size < this.minSize || property.size > this.maxSize) {
-        const index = this.filteredProperties.map((e) => e.id).indexOf(property.id);
-        this.filteredProperties.splice(index, 1);
-      }
+    if (this.minSize !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.size >= this.minSize);
+    }
+    if (this.maxSize !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.size <= this.maxSize);
     }
   }
 
   filterByRooms(): void {
-    for (const property of this.filteredProperties) {
-      if (property.rooms < this.minRooms || property.rooms > this.maxRooms) {
-        const index = this.filteredProperties.map((e) => e.id).indexOf(property.id);
-        this.filteredProperties.splice(index, 1);
-      }
+    if (this.minRooms !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.rooms >= this.minRooms);
+    }
+    if (this.maxRooms !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.rooms <= this.maxRooms);
     }
   }
 
   filterByAddress(): void {
-    if (this.selectedDistrict) {
+    if (this.selectedDistrict !== null) {
       this.filterByDistrict();
-    } else if (this.selectedProvince) {
+    } else if (this.selectedProvince !== null) {
       this.filterByProvince();
-    } else {
+    } else if (this.selectedRegion !== null){
       this.filterByRegion();
     }
   }
@@ -184,7 +200,13 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
   filterByService(val: any): void {
     this.propertyDataService.getAllPropertiesByServiceId(val)
       .subscribe((response: any) => {
-        this.filteredProperties.concat(response.content);
+        for (const responseElement of response.content) {
+
+          if (!this.filteredProperties.map(value => value.id).includes(responseElement.id)) {
+            this.filteredProperties.push(responseElement);
+          }
+
+        }
       });
   }
 

@@ -42,8 +42,8 @@ export class RequestFormComponent implements OnInit {
       .subscribe((response: Property) => {
         this.propertyData = {} as Property;
         this.propertyData = _.cloneDeep(response);
-        console.log(response);
-        console.log(this.propertyData);
+        // console.log(response);
+        // console.log(this.propertyData);
       });
   }
   retrieveStudentById(id): void {
@@ -51,22 +51,17 @@ export class RequestFormComponent implements OnInit {
       .subscribe((response: Student) => {
         this.studentData = {} as Student;
         this.studentData = _.cloneDeep(response);
-        console.log(response);
-        console.log(this.studentData);
+        // console.log(response);
+        // console.log(this.studentData);
       });
   }
   sendRequest(): void {
     const newRequest = {
       content: this.requestData.content,
-      state: true,
-      firstNameStudent: this.studentData.firstName,
-      lastNameStudent: this.studentData.lastName,
-      firstNameLandlord: this.propertyData.landLordFirstName,
-      lastNameLandlord: this.propertyData.landLordLastName,
     };
     this.requestDataService.createRequest(this.studentId, this.propertyId, newRequest)
       .subscribe((response: any) => {
-        console.log(response);
+        // console.log(response);
         this.navigateToRequests();
       });
   }
@@ -80,7 +75,7 @@ export class RequestFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.requestForm.form.valid) {
-      console.log(this.requestData);
+      // console.log(this.requestData);
       this.sendRequest();
     } else {
       console.log('Invalid Data');

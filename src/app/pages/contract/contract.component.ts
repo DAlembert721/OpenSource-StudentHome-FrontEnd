@@ -4,12 +4,12 @@ import {PropertyService} from '../../services/property.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
 import {NgForm} from '@angular/forms';
-import {Request} from '../../models/request';
 import {Student} from '../../models/student';
 import {RequestService} from '../../services/request.service';
 import {StudentService} from '../../services/student.service';
 import {Contract} from '../../models/contract';
 import {ContractService} from '../../services/contract.service';
+import {RequestState} from '../../models/request-state.enum';
 
 @Component({
   selector: 'app-contract',
@@ -89,7 +89,6 @@ export class ContractComponent implements OnInit {
     const newContract = {
       description: this.contractData.description,
       amount: this.contractData.amount,
-      state: true,
       firstNameStudent: this.contractData.firstNameStudent,
       lastNameStudent: this.contractData.lastNameStudent,
     };
@@ -97,6 +96,8 @@ export class ContractComponent implements OnInit {
       .subscribe((response: any) => {
         console.log(response);
         this.navigateToContracts();
+        this.requestDataService.updateRequestState(this.requestId, RequestState.ACCEPTED)
+          .subscribe(() => console.log('Request Accepted And Contract Created'));
       });
   }
 

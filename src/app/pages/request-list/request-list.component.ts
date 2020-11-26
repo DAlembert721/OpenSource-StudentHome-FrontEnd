@@ -4,6 +4,7 @@ import {RequestService} from '../../services/request.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PropertyService} from '../../services/property.service';
 import {newArray} from '@angular/compiler/src/util';
+import {RequestState} from '../../models/request-state.enum';
 
 @Component({
   selector: 'app-request-list',
@@ -45,7 +46,7 @@ export class RequestListComponent implements OnInit {
     this.requestService.getRequestByStudentId(studentId)
       .subscribe((response: any) => {
         this.requests = response.content;
-        console.log(response);
+        // console.log(response);
       });
   }
   retrieveRequestByPropertyId(propertyId): void {
@@ -66,7 +67,7 @@ export class RequestListComponent implements OnInit {
         }
       });
   }
-  acceptRequest(requestId, request): void {
+  acceptRequest(requestId): void {
     /*this.requestService.updateRequest(requestId, request)
       .subscribe(() => {
         if (this.type !== 'student') {
@@ -75,13 +76,16 @@ export class RequestListComponent implements OnInit {
       });*/
     this.router.navigate([`/landlords/${this.landLordId}/requests/${requestId}`]).then(() => null);
   }
-  deniedRequest(requestId, request): void {
-    this.requestService.updateRequest(requestId, request)
+  denyRequest(requestId): void {
+    this.requestService.updateRequest(requestId, RequestState.DENIED)
       .subscribe(() => {
-        const index = this.requests.indexOf(request);
-        if (index > -1) {
-          this.requests.splice(index, 1);
-        }
+        window.location.reload();
+      });
+  }
+  cancelRequest(requestId): void {
+    this.requestService.updateRequest(requestId, RequestState.CANCELED)
+      .subscribe(() => {
+        window.location.reload();
       });
   }
 

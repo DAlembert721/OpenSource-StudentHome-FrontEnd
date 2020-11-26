@@ -11,6 +11,9 @@ export class Property {
   landLordId: number;
   landLordFirstName: string;
   landLordLastName: string;
+  districtName: string;
+  provinceName: string;
+  regionName: string;
   districtId: number;
   provinceId: number;
   regionId: number;

@@ -53,8 +53,6 @@ export class ContractComponent implements OnInit {
     this.propertyId = 11;
     this.retrievePropertyById(this.propertyId);
     this.retrieveStudentById(this.studentId);
-    this.contractData.firstNameLandlord = this.requestData.firstNameLandlord;
-    this.contractData.lastNameLandlord = this.requestData.lastNameLandlord;
     this.contractData.firstNameStudent = this.requestData.firstNameStudent;
     this.contractData.lastNameStudent = this.requestData.lastNameStudent;
     this.retrieveRequestById(this.requestId);
@@ -94,8 +92,6 @@ export class ContractComponent implements OnInit {
       state: true,
       firstNameStudent: this.contractData.firstNameStudent,
       lastNameStudent: this.contractData.lastNameStudent,
-      firstNameLandlord: this.contractData.firstNameLandlord,
-      lastNameLandlord: this.contractData.lastNameLandlord,
     };
     this.contractDataService.createContract(this.studentId, this.propertyId, newContract)
       .subscribe((response: any) => {

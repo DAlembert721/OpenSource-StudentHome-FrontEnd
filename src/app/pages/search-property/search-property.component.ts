@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Property} from '../../models/property';
 import {MatTableDataSource} from '@angular/material/table';
@@ -10,15 +10,18 @@ import {MatSort} from '@angular/material/sort';
 import {PropertyService} from '../../services/property.service';
 import {LocationService} from '../../services/location.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ServiceService} from '../../services/service.service';
+import {Service} from '../../models/service';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-search-property',
   templateUrl: './search-property.component.html',
   styleUrls: ['./search-property.component.css']
 })
-export class SearchPropertyComponent implements OnInit {
+export class SearchPropertyComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('propertyForm', { static: false })
+  @ViewChild('propertyForm', {static: false})
   studentId: number;
   propertyForm: NgForm;
   properties: Property[] = [];
@@ -26,40 +29,44 @@ export class SearchPropertyComponent implements OnInit {
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = ['id', 'active', 'title', 'description', 'rooms', 'size', 'cost', 'address',
     'place', 'landLordId', 'landLordFirstName', 'landLordLastName', 'actions'];
-  minCost: number;
-  maxCost: number;
-  minSize: number;
-  maxSize: number;
-  minRooms: number;
-  maxRooms: number;
-  selectedRegion: Region;
-  selectedProvince: Province;
-  selectedDistrict: District;
-  services = ['Cable', 'Netflix', 'Internet 4G', 'Estacionamiento', 'Baño propio'];
+  minCost: number = null;
+  maxCost: number = null;
+  minSize: number = null;
+  maxSize: number =  null;
+  minRooms: number =  null;
+  maxRooms: number = null;
+  selectedRegion: Region = null;
+  selectedProvince: Province = null;
+  selectedDistrict: District = null;
+  services: Service[] = [];
   regions: Region[] = [];
   provinces: Province[] = [];
   districts: District[] = [];
   servicesSelected: boolean[] = [];
   districtsSelected: District[] = [];
+  filteredProperties: Property[] = [];
   selectable = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private propertyDataService: PropertyService,
               private locationService: LocationService,
-              private router: Router, private route: ActivatedRoute) { }
+              private serviceService: ServiceService,
+              private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.studentId = Number(this.route.snapshot.paramMap.get('id'));
     this.dataSource.sort = this.sort;
     this.getAllProperties();
-    for (let i = 0; i < this.services.length; i++) {
-      this.servicesSelected.push(false);
-    }
+    this.retrieveAllServices();
+    this.retrieveAllRegions();
   }
+
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
+
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -67,11 +74,13 @@ export class SearchPropertyComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
   getAllProperties(): void {
-    this.propertyDataService.getProperty()
+    this.propertyDataService.getAllActiveProperties()
       .subscribe((response: any) => {
-        this.dataSource.data = response.content;
-        console.log(response.content);
+        this.properties = response.content;
+        this.dataSource.data = this.properties;
+        // console.log(response.content);
       });
   }
   navigateToPropertyDetails(element: Property): void {
@@ -79,44 +88,136 @@ export class SearchPropertyComponent implements OnInit {
       this.router.navigate([`students/${this.studentId}/properties/${element.id}`]).then(() => null);
     }
   }
-  filter(): void{
+
+  filter(): void {
+    this.filteredProperties = [];
+    if (this.servicesSelected.includes(true)) {
+      for (let i = 0; i < this.servicesSelected.length; i++) {
+        if (this.servicesSelected[i] === true) {
+          this.filterByService(this.services[i].id);
+        }
+      }
+    } else {
+      this.filteredProperties = this.properties;
+    }
+    this.filterByRooms();
     this.filterByCost();
     this.filterBySize();
-    this.filterByRooms();
     this.filterByAddress();
-    for (let i = 0; i < this.servicesSelected.length; i++) {
-      if (this.servicesSelected[i] === true) {
-        this.filterByService(this.services[i]);
+    this.dataSource.data = this.filteredProperties;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  reset(): void {
+    this.dataSource.data = this.properties;
+    this.minCost = null;
+    this.maxCost = null;
+    this.minRooms = null;
+    this.maxRooms = null;
+    this.maxSize = null;
+    this.minSize = null;
+    this.selectedRegion = null;
+    this.selectedProvince = null;
+    this.selectedDistrict = null;
+    let index = 0;
+    for (const service of this.services) {
+      this.servicesSelected[index] = false;
+      index++;
+    }
+  }
+
+  onSubmit(): void {
+  }
+
+  filterByCost(): void {
+    // console.log(this.minCost);
+    if (this.minCost !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.cost >= this.minCost);
+    }
+    if (this.maxCost  !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.cost <= this.maxCost);
+    }
+
+  }
+
+  filterBySize(): void {
+    if (this.minSize !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.size >= this.minSize);
+    }
+    if (this.maxSize !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.size <= this.maxSize);
+    }
+  }
+
+  filterByRooms(): void {
+    if (this.minRooms !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.rooms >= this.minRooms);
+    }
+    if (this.maxRooms !== null) {
+      this.filteredProperties = this.filteredProperties.filter((element) => element.rooms <= this.maxRooms);
+    }
+  }
+
+  filterByAddress(): void {
+    if (this.selectedDistrict !== null) {
+      this.filterByDistrict();
+    } else if (this.selectedProvince !== null) {
+      this.filterByProvince();
+    } else if (this.selectedRegion !== null){
+      this.filterByRegion();
+    }
+  }
+
+  filterByRegion(): void {
+    for (const property of this.filteredProperties) {
+      if (this.selectedRegion.id !== property.regionId) {
+        const index = this.filteredProperties.map((e) => e.id).indexOf(property.id);
+        this.filteredProperties.splice(index, 1);
       }
     }
   }
 
-  onSubmit(): void{
-    if (this.propertyForm.form.valid) {
-      this.filter();
-    }
-    else {
-      console.log('Invalid Data');
+  filterByProvince(): void {
+    for (const property of this.filteredProperties) {
+      if (this.selectedProvince.id !== property.provinceId) {
+        const index = this.filteredProperties.map((e) => e.id).indexOf(property.id);
+        this.filteredProperties.splice(index, 1);
+      }
     }
   }
 
-  filterByCost(): void{}
-  filterBySize(): void{}
-  filterByRooms(): void{}
-  filterByAddress(): void{}
-  filterByService(val: any): void{
-    this.propertyDataService.getPropertyById(val).subscribe((response: any) => {
-      this.properties.concat(response.content);
-    });
+  filterByDistrict(): void {
+    for (const property of this.filteredProperties) {
+      if (this.selectedDistrict.id !== property.districtId) {
+        const index = this.filteredProperties.map((e) => e.id).indexOf(property.id);
+        this.filteredProperties.splice(index, 1);
+      }
+    }
   }
 
-  retrieveRegions(): void {
+  filterByService(val: any): void {
+    this.propertyDataService.getAllPropertiesByServiceId(val)
+      .subscribe((response: any) => {
+        for (const responseElement of response.content) {
+
+          if (!this.filteredProperties.map(value => value.id).includes(responseElement.id)) {
+            this.filteredProperties.push(responseElement);
+          }
+
+        }
+      });
+  }
+
+  retrieveAllRegions(): void {
     this.locationService.getRegionById()
       .subscribe((response: any) => {
         this.regions = response.content;
         console.log(response);
       });
   }
+
   retrieveProvinces(regionId): void {
     this.locationService.getProvincesByRegionId(regionId)
       .subscribe((response: any) => {
@@ -124,6 +225,7 @@ export class SearchPropertyComponent implements OnInit {
         console.log(response);
       });
   }
+
   retrieveDistricts(provinceId): void {
     this.locationService.getDistrictsByProvinceId(provinceId)
       .subscribe((response: any) => {
@@ -131,10 +233,21 @@ export class SearchPropertyComponent implements OnInit {
         console.log(response);
       });
   }
-  removeSelectedDistrict(district): void{
+
+  removeSelectedDistrict(district): void {
     const index = this.districts.indexOf(district);
     if (index >= 0) {
       this.districts.splice(index, 1);
     }
+  }
+
+  retrieveAllServices(): void {
+    this.serviceService.getAllServices()
+      .subscribe((response: any) => {
+        this.services = response.content;
+        for (const service of this.services) {
+          this.servicesSelected.push(false);
+        }
+      });
   }
 }

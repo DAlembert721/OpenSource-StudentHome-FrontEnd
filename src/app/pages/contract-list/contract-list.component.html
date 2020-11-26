@@ -20,8 +20,8 @@
             <div class="section-grid">
               <p style="width: 300px">{{contract.description}}</p>
               <div>
-                <p>{{contract.firstNameStudent}}  {{contract.lastNameStudent}}</p>
-                <p>{{contract.firstNameLandlord}}  {{contract.firstNameStudent}}</p>
+                <p *ngIf="type === 'landlord'">Student: {{contract.studentFullName}}</p>
+                <p *ngIf="type === 'student'">Landlord: {{contract.landlordFullName}}</p>
                 <p>Amount: {{contract.amount}}</p>
               </div>
             </div>

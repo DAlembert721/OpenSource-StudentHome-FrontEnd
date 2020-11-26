@@ -10,8 +10,8 @@ import {ContractListComponent} from './pages/contract-list/contract-list.compone
 import {HomeComponent} from './pages/home/home.component';
 import {RequestFormComponent} from './pages/request-form/request-form.component';
 import {ContractComponent} from './pages/contract/contract.component';
-import {SearchPropertyComponent} from "./pages/search-property/search-property.component";
-import {SubscriptionComponent} from "./pages/subscription/subscription.component";
+import {SearchPropertyComponent} from './pages/search-property/search-property.component';
+import {SubscriptionComponent} from './pages/subscription/subscription.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},

@@ -1,8 +1,10 @@
+import {ContractState} from './contract-state.enum';
+
 export class Contract {
   id: number;
   description: string;
   amount: number;
-  state: boolean;
+  state: ContractState;
   createdAt: Date;
   firstNameStudent: string;
   lastNameStudent: string;

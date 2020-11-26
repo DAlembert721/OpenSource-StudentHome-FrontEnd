@@ -86,7 +86,8 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
   }
   navigateToPropertyDetails(element: Property): void {
     if (element.active) {
-      this.router.navigate([`students/${this.studentId}/properties/${element.id}`]).then(() => null);
+      const id = localStorage.getItem('id');
+      this.router.navigate([`students/${id}/properties/${element.id}`]).then(() => null);
     }
   }
 

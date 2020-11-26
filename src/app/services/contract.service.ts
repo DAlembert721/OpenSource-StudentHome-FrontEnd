@@ -4,6 +4,8 @@ import {Observable, throwError} from 'rxjs';
 import {Request} from '../models/request';
 import {catchError, retry} from 'rxjs/operators';
 import {Contract} from '../models/contract';
+import {ContractState} from '../models/contract-state.enum';
+import {RequestState} from '../models/request-state.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -47,15 +49,37 @@ export class ContractService {
       .pipe(retry(2), catchError(this.handleError));
   }
   // Update Contract
-  updateContract(contractsId, contract): Observable<Contract> {
-    return this.http.put<Contract>(`${this.basePath}/contracts/${contractsId}`
+  updateContract(contractId, contract): Observable<Contract> {
+    return this.http.put<Contract>(`${this.basePath}/contracts/${contractId}`
       , JSON.stringify(contract), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
   // Delete Request
-  deleteContract(contractsId): Observable<any> {
-    return this.http.delete(`${this.basePath}/contracts/${contractsId}`
+  deleteContract(contractId): Observable<any> {
+    return this.http.delete(`${this.basePath}/contracts/${contractId}`
       , this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Update Contract State
+  updateContractState(contractId, state: ContractState): Observable<Contract>{
+    let val;
+    switch (state) {
+      case ContractState.ACTIVE:
+        val = 'ACTIVE';
+        break;
+      case ContractState.CANCELED:
+        val = 'CANCELED';
+        break;
+      case ContractState.CONCLUDED:
+        val = 'CONCLUDED';
+        break;
+      case ContractState.UNRESOLVED:
+        val = 'UNRESOLVED';
+        break;
+
+    }
+    return this.http.put<Contract>(`${this.basePath}/contracts/${contractId}/state=${val}`
+      , {}, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

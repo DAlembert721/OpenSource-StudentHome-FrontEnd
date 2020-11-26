@@ -22,14 +22,21 @@
               {{request.content}}
             </mat-card-content>
         </div>
-            <mat-card-actions *ngIf="type === 'landlord'" align="end">
-              <button mat-flat-button  class="card-button" (click)="acceptRequest(request.id,request)">
+            <mat-card-actions align="end">
+              <button mat-flat-button
+                      class="card-button"
+                      *ngIf="type === 'landlord' && request.state === 'UNRESOLVED'"
+                      (click)="acceptRequest(request.id)">
                 <mat-icon>done</mat-icon> Accept</button>
-              <button mat-flat-button  class="card-button" (click)="deniedRequest(request.id,request)">
+              <button mat-flat-button
+                      class="card-button"
+                      *ngIf="type === 'landlord' && request.state === 'UNRESOLVED'"
+                      (click)="denyRequest(request.id)">
                 <mat-icon>clear</mat-icon> Denied</button>
-            </mat-card-actions>
-            <mat-card-actions *ngIf="type === 'student'" align="end">
-              <button mat-flat-button  class="card-button" (click)="deniedRequest(request.id,request)">
+              <button mat-flat-button
+                      class="card-button"
+                      *ngIf="type === 'student' && request.state === 'UNRESOLVED'"
+                      (click)="cancelRequest(request.id)">
                 <mat-icon>clear</mat-icon> Cancel</button>
             </mat-card-actions>
           </mat-card>

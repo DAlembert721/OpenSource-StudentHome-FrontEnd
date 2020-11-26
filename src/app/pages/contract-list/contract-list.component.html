@@ -26,13 +26,32 @@
               </div>
             </div>
           </mat-card-content>
-        <mat-card-actions *ngIf="type === 'landlord'" align="end">
-          <button mat-flat-button  class="card-button" (click)="concludeContract(contract.id,contract)">
+        <mat-card-actions  align="end">
+          <button mat-flat-button
+                  *ngIf="type === 'landlord' && contract.state === 'ACCEPTED'"
+                  class="card-button"
+                  (click)="concludeContract(contract.id)">
             <mat-icon>clear</mat-icon> Conclude</button>
-        </mat-card-actions>
-        <mat-card-actions *ngIf="type === 'student'" align="end">
-          <button mat-flat-button  class="card-button" (click)="addPayment(contract.id)">
-            <mat-icon>clear</mat-icon> Denied</button>
+          <button mat-flat-button
+                  *ngIf="type === 'landlord' && contract.state === 'UNRESOLVED'"
+                  class="card-button"
+                  (click)="cancelContract(contract.id)">
+            <mat-icon>clear</mat-icon> Cancel</button>
+          <button mat-flat-button
+                  class="card-button"
+                  *ngIf="type === 'student' && contract.state === 'UNRESOLVED'"
+                  (click)="acceptContract(contract.id)">
+            <mat-icon>clear</mat-icon> Accept</button>
+          <button mat-flat-button
+                  class="card-button"
+                  *ngIf="type === 'student' && contract.state === 'UNRESOLVED'"
+                  (click)="denyContract(contract.id)">
+            <mat-icon>clear</mat-icon> Deny</button>
+          <button mat-flat-button
+                  class="card-button"
+                  *ngIf="type === 'student' && contract.state === 'ACCEPTED' "
+                  (click)="addPayment(contract.id)">
+            <mat-icon>clear</mat-icon> Pay</button>
         </mat-card-actions>
       </mat-card>
     </ng-template>

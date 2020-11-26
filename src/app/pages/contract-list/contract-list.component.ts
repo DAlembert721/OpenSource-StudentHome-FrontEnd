@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ContractService} from '../../services/contract.service';
 import {PropertyService} from '../../services/property.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Contract} from '../../models/contract';
-import {Property} from '../../models/property';
+import {ContractState} from '../../models/contract-state.enum';
 
 @Component({
   selector: 'app-contract-list',
@@ -64,6 +63,7 @@ export class ContractListComponent implements OnInit {
                 id: resource.id,
                 createdAt: resource.createdAt,
                 description: resource.description,
+                state: resource.state,
                 studentFullName: resource.firstNameStudent + ' ' + resource.lastNameStudent,
                 landlordFullName: result.landLordFirstName + ' ' + result.landLordLastName,
                 amount: resource.amount
@@ -71,12 +71,13 @@ export class ContractListComponent implements OnInit {
               this.contracts.push(data);
             });
 
+
         }
         // console.log(this.contracts);
       });
   }
   retrieveContractsByPropertyId(property): void {
-    console.log(property);
+    // console.log(property);
     this.contractDataService.getContractsByPropertyId(property.id)
       .subscribe((response: any) => {
         for (const resource of response.content) {
@@ -84,12 +85,15 @@ export class ContractListComponent implements OnInit {
             id: resource.id,
             createdAt: resource.createdAt,
             description: resource.description,
+            state: resource.state,
             studentFullName: resource.firstNameStudent + ' ' + resource.lastNameStudent,
             landlordFullName: property.landLordFirstName + ' ' + property.landLordLastName,
             amount: resource.amount
           };
           this.contracts.push(data);
         }
+
+        console.log(ContractState.CANCELED.toString());
         // console.log(this.contracts);
       });
   }
@@ -102,14 +106,43 @@ export class ContractListComponent implements OnInit {
         }
       });
   }
-  concludeContract(contractId, contract): void {
-    this.contractDataService.updateContract(contractId, contract)
+  concludeContract(contractId): void {
+    this.contractDataService.updateContractState(contractId, ContractState.CONCLUDED)
       .subscribe((response: any) => {
-        const index = this.contracts.indexOf(contract);
-        this.contracts[index] = response;
+        // const index = this.contracts.indexOf(contract);
+        // this.contracts[index] = response;
+        console.log('Contract Has Concluded', response);
+        window.location.reload();
+      });
+  }
+  acceptContract(contractId): void{
+    this.contractDataService.updateContractState(contractId, ContractState.ACTIVE)
+      .subscribe((response: any) => {
+        // const index = this.contracts.indexOf(contract);
+        // this.contracts[index] = response;
+        console.log('Contract Has Been Accepted', response);
+        window.location.reload();
+      });
+  }
+  denyContract(contractId): void{
+    this.contractDataService.updateContractState(contractId, ContractState.CANCELED)
+      .subscribe((response: any) => {
+        // const index = this.contracts.indexOf(contract);
+        // this.contracts[index] = response;
+        console.log('Contract Has Been Canceled', response);
+        window.location.reload();
+      });
+  }
+  cancelContract(contractId): void{
+    this.contractDataService.updateContractState(contractId, ContractState.CANCELED)
+      .subscribe((response: any) => {
+        // const index = this.contracts.indexOf(contract);
+        // this.contracts[index] = response;
+        console.log('Contract Has Been Canceled', response);
+        window.location.reload();
       });
   }
   addPayment(contractId): void {
-    return;
+    console.log(ContractState.CANCELED.toString());
   }
 }

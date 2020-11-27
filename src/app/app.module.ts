@@ -33,6 +33,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { ContractComponent } from './pages/contract/contract.component';
 import { SearchPropertyComponent } from './pages/search-property/search-property.component';
 import { SubscriptionComponent } from './pages/subscription/subscription.component';
+import { RentHistoryComponent } from './pages/rent-history/rent-history.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { SubscriptionComponent } from './pages/subscription/subscription.compone
     ContractComponent,
     SearchPropertyComponent,
     SubscriptionComponent,
+    RentHistoryComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

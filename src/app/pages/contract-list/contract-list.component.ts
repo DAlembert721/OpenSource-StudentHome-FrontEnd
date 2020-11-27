@@ -82,6 +82,9 @@ export class ContractListComponent implements OnInit {
         this.contracts[index] = response;
       });
   }
+  viewContract(id): void{
+      this.router.navigate([`/contracts/${id}`]).then(() => null);
+  }
   addPayment(contractId): void {
     return;
   }

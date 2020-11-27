@@ -18,20 +18,19 @@
           <mat-divider></mat-divider><br>
           <mat-card-content class="grid-content" style="margin-left: 15px">
             <div class="section-grid">
-              <p style="width: 300px">{{contract.description}}</p>
-              <div>
                 <p>{{contract.firstNameStudent}}  {{contract.lastNameStudent}}</p>
                 <p>{{contract.firstNameLandlord}}  {{contract.firstNameStudent}}</p>
                 <p>Amount: {{contract.amount}}</p>
-              </div>
             </div>
           </mat-card-content>
-        <mat-card-actions *ngIf="type === 'landlord'" align="end">
-          <button mat-flat-button  class="card-button" (click)="concludeContract(contract.id,contract)">
+        <mat-card-actions align="end">
+          <button mat-flat-button  class="card-button" (click)="viewContract(contract.id)">
+            <mat-icon>visibility</mat-icon> View </button>
+          <button mat-flat-button  class="card-button" *ngIf="type === 'landlord'"
+                  (click)="concludeContract(contract.id,contract)">
             <mat-icon>clear</mat-icon> Conclude</button>
-        </mat-card-actions>
-        <mat-card-actions *ngIf="type === 'student'" align="end">
-          <button mat-flat-button  class="card-button" (click)="addPayment(contract.id)">
+          <button mat-flat-button  class="card-button" *ngIf="type === 'student'"
+                  (click)="addPayment(contract.id)">
             <mat-icon>clear</mat-icon> Denied</button>
         </mat-card-actions>
       </mat-card>

@@ -37,6 +37,8 @@ export class ContractComponent implements OnInit {
   studentData: Student;
   propertyData: Property;
   contractData: Contract = new Contract();
+  contractId: number;
+  isView = false;
 
   constructor(private requestDataService: RequestService,
               private studentDataService: StudentService,
@@ -58,8 +60,19 @@ export class ContractComponent implements OnInit {
     this.contractData.firstNameStudent = this.requestData.firstNameStudent;
     this.contractData.lastNameStudent = this.requestData.lastNameStudent;
     this.retrieveRequestById(this.requestId);
+    this.contractId = Number(this.route.snapshot.paramMap.get('contractId'));
+    console.log(this.contractId);
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if ( this.contractId === 0) {
+        this.isView = false; }
+      else {
+        this.isView = true;
+      }});
+    console.log(this.isView);
+  }
   retrieveStudentById(id): void {
     this.studentDataService.getStudentByStudentId(id)
       .subscribe((response: Student) => {
@@ -110,7 +123,9 @@ export class ContractComponent implements OnInit {
   navigateToRequests(): void {
     this.router.navigate([`landlords/${this.landlordId}/requests`]).then(() => null);
   }
-
+  addPayment(): void{
+    this.router.navigate([`/contracts/${this.contractId}/payments/add`]).then(() => null);
+  }
   onSubmit(): void {
     if (this.contractForm.form.valid) {
       console.log(this.contractData);

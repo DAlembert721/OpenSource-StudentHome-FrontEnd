@@ -12,6 +12,8 @@ import {RequestFormComponent} from './pages/request-form/request-form.component'
 import {ContractComponent} from './pages/contract/contract.component';
 import {SearchPropertyComponent} from "./pages/search-property/search-property.component";
 import {SubscriptionComponent} from "./pages/subscription/subscription.component";
+import {RentHistoryComponent} from "./pages/rent-history/rent-history.component";
+import {PaymentComponent} from "./pages/payment/payment.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -29,10 +31,15 @@ const routes: Routes = [
   { path: 'landlords/:id/requests', component: RequestListComponent},
   { path: 'students/:id/contracts', component: ContractListComponent},
   { path: 'landlords/:id/contracts', component: ContractListComponent},
+  { path: 'contracts/:contractId', component: ContractComponent},
   { path: 'students/:studentId/requests/:propertyId', component: RequestFormComponent},
   { path: 'landlords/:landlordId/requests/:requestId', component: ContractComponent},
   { path: 'students/:id/search_property', component: SearchPropertyComponent},
   { path: 'landlords/:id/subscription', component: SubscriptionComponent},
+  { path: 'landlords/:id/payment_history', component: RentHistoryComponent},
+  { path: 'students/:id/payment_history', component: RentHistoryComponent},
+  { path: 'contracts/:contractId/payments/:paymentId', component: PaymentComponent},
+  { path: 'contracts/:contractId/payments/add', component: PaymentComponent},
 ];
 
 @NgModule({

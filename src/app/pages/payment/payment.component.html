@@ -13,13 +13,6 @@
     <br><mat-divider></mat-divider>
     <mat-divider></mat-divider><br>
     <mat-card-content>
-      <div style="width: 100%" *ngIf="isView">
-        <p>
-          <img src="https://www.b-payment.com/docs/images/securepay/securepay_17_EN_successful_payment.jpeg"
-               alt="Payment reference photo" width="100%">
-        </p>
-        <p>Comment from the landlord</p>
-      </div>
       <div class="subDetails">
         <div>
           <h3>Student: Name and Last Name</h3>
@@ -35,6 +28,14 @@
         </div>
       </div>
       <mat-divider></mat-divider><br>
+      <div style="width: 100%" *ngIf="isView">
+        <p>Comment from the landlord</p>
+        <p><b>Amount: S/.XXXX.XX</b></p>
+        <p>
+          <img src="https://www.b-payment.com/docs/images/securepay/securepay_17_EN_successful_payment.jpeg"
+               alt="Payment reference photo" width="100%">
+        </p>
+      </div>
       <form #contractForm="ngForm" *ngIf="!isView">
         <p>
           <mat-form-field class="long-field">

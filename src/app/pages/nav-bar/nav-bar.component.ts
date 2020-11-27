@@ -42,9 +42,11 @@ export class NavBarComponent implements OnInit {
 
   changeNull(): void {
     this.router.navigate(['home']).then(() => {
-      localStorage.setItem('id', '');
-      localStorage.setItem('userId', '');
-      localStorage.setItem('type', null);
+      localStorage.clear();
+      window.location.reload();
+      // localStorage.setItem('id', '');
+      // localStorage.setItem('userId', '');
+      // localStorage.setItem('type', null);
     });
   }
 

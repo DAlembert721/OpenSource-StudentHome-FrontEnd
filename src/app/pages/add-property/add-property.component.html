@@ -21,7 +21,8 @@
       <mat-divider></mat-divider>
       <br>
       <mat-card-content>
-        <form (ngSubmit)="onSubmit()" #propertyForm="ngForm">
+        <form
+              #propertyForm="ngForm">
           <p>
             <mat-form-field class="long-field">
               <mat-label>Title</mat-label>
@@ -128,13 +129,15 @@
               </div>
             </div>
           </div>
-          <div align="end">
-            <button mat-flat-button class="card-button" *ngIf="!isEdit" (click)="addOrUpdateProperty()">Add</button>
-            <button mat-flat-button class="card-button" *ngIf="isEdit" (click)="addOrUpdateProperty()">Accept</button>
-            <button mat-flat-button class="card-button" (click)="navigateToProperties()">Cancel</button>
-          </div>
         </form>
       </mat-card-content>
+      <mat-card-actions>
+        <div align="end">
+          <button mat-flat-button type="submit" class="card-button" (click)="addOrUpdateProperty()" *ngIf="!isEdit">Add</button>
+          <button mat-flat-button type="submit" class="card-button" (click)="addOrUpdateProperty()" *ngIf="isEdit">Accept</button>
+          <button mat-flat-button type="reset" class="card-button" (click)="navigateToPropertiesList()">Cancel</button>
+        </div>
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

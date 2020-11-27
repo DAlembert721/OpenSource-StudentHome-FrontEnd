@@ -19,7 +19,7 @@
             </mat-card-subtitle>
           </mat-card-header>
           <mat-card-content class="grid-content">
-            <img [src]="imgUrl" alt="property image">
+            <img [src]="getImage(property.id)" alt="property image">
             <p>Size: {{property["size"]}} m<sup>2</sup> <br>
               Its monthly price is S/.{{property["cost"]}}</p>
               Location: {{property["address"]}}

@@ -14,6 +14,7 @@ import {ServiceService} from '../../services/service.service';
 import {Service} from '../../models/service';
 import {element} from 'protractor';
 import {map} from 'rxjs/operators';
+import {PropertyImageService} from '../../services/property-image.service';
 
 @Component({
   selector: 'app-search-property',
@@ -47,12 +48,14 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
   districtsSelected: District[] = [];
   filteredProperties: Property[] = [];
   selectable = true;
+  images: any[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private propertyDataService: PropertyService,
               private locationService: LocationService,
               private serviceService: ServiceService,
+              private propertyImageService: PropertyImageService,
               private router: Router, private route: ActivatedRoute) {
   }
 
@@ -80,6 +83,9 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
     this.propertyDataService.getAllActiveProperties()
       .subscribe((response: any) => {
         this.properties = response.content;
+        for (const property of this.properties) {
+          this.retrieveImagesByPropertyId(property.id);
+        }
         this.dataSource.data = this.properties.slice();
         // console.log(response.content);
       });
@@ -216,6 +222,9 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
               }
             }
             this.filteredProperties = elements;
+            for (const element1 of elements) {
+              this.retrieveImagesByPropertyId(element1.id);
+            }
             this.dataSource.data = this.filteredProperties;
             if (this.dataSource.paginator) {
               this.dataSource.paginator.firstPage();
@@ -266,5 +275,24 @@ export class SearchPropertyComponent implements OnInit, AfterViewInit {
           this.servicesSelected.push(false);
         }
       });
+  }
+
+  retrieveImagesByPropertyId(propertyId): void {
+    this.propertyImageService.getAllPropertyImagesByPropertyId(propertyId)
+      .subscribe((response: any) => {
+        const images = response.content;
+        for (const image of images) {
+          const data = {
+            id: propertyId,
+            url: image.url,
+          };
+          this.images.push(data);
+        }
+      });
+  }
+  getImage(propertyId): string {
+    const image = this.images.filter(v => v.id === propertyId);
+    return image[0].url;
+    // https://source.unsplash.com/1600x900/?'+'home,'+element.id
   }
 }

@@ -1,0 +1,67 @@
+<div class="section-header">
+  <div  class="name-title">
+    <mat-icon>payment</mat-icon>
+    <span>Payment</span>
+  </div>
+</div>
+<div class="details-main-div contract">
+  <mat-card class="details-card">
+    <mat-card-header>
+      <mat-card-title>Payment Data </mat-card-title>
+      <mat-card-subtitle>Created at: xx/xx/xx</mat-card-subtitle>
+    </mat-card-header>
+    <br><mat-divider></mat-divider>
+    <mat-divider></mat-divider><br>
+    <mat-card-content>
+      <div style="width: 100%" *ngIf="isView">
+        <p>
+          <img src="https://www.b-payment.com/docs/images/securepay/securepay_17_EN_successful_payment.jpeg"
+               alt="Payment reference photo" width="100%">
+        </p>
+        <p>Comment from the landlord</p>
+      </div>
+      <div class="subDetails">
+        <div>
+          <h3>Student: Name and Last Name</h3>
+          <p>Dni: xxxxxxxx }</p>
+          <p>Phone: XXX XXX XXX </p>
+          <p>Email: xxxx@xx.com </p>
+        </div>
+        <div>
+          <h3>Property: Title od Propety</h3>
+          <p>Cost: S/XXXX.XX</p>
+          <p>Size: 200 m<sup>2</sup> </p>
+          <p>Address: Address of property</p>
+        </div>
+      </div>
+      <mat-divider></mat-divider><br>
+      <form #contractForm="ngForm" *ngIf="!isView">
+        <p>
+          <mat-form-field class="long-field">
+            <mat-label>Comment</mat-label>
+            <textarea matInput placeholder="Ex. I accept... ." name="content" required> Comment of the landlord </textarea>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <mat-label>Amount (S/.)</mat-label>
+            <input matInput placeholder="Ex. 1000" name="cost" type="number" value="1000">
+          </mat-form-field>
+        </p>
+        <div>
+          <button button mat-flat-button class="card-button">Update Image</button>
+          <p align="center">
+            <img width="50%" src="https://www.b-payment.com/docs/images/securepay/securepay_17_EN_successful_payment.jpeg" alt="">
+          </p>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end" style="height: auto; padding-bottom: 10px" *ngIf="!isView">
+      <button button mat-flat-button class="card-button">Accept</button>
+      <button button mat-flat-button class="card-button">Cancel</button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="isView">
+      <button button mat-flat-button class="card-button" (click)="isView=false">Edit</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

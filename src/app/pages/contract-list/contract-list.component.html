@@ -18,15 +18,14 @@
           <mat-divider></mat-divider><br>
           <mat-card-content class="grid-content" style="margin-left: 15px">
             <div class="section-grid">
-              <p style="width: 300px">{{contract.description}}</p>
-              <div>
                 <p *ngIf="type === 'landlord'">Student: {{contract.studentFullName}}</p>
                 <p *ngIf="type === 'student'">Landlord: {{contract.landlordFullName}}</p>
                 <p>Amount: {{contract.amount}}</p>
-              </div>
             </div>
           </mat-card-content>
         <mat-card-actions  align="end">
+          <button mat-flat-button  class="card-button" (click)="viewContract(contract.id)">
+            <mat-icon>visibility</mat-icon> View </button>
           <button mat-flat-button
                   *ngIf="type === 'landlord' && contract.state === 'ACCEPTED'"
                   class="card-button"

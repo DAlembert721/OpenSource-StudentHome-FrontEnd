@@ -33,6 +33,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { ContractComponent } from './pages/contract/contract.component';
 import { SearchPropertyComponent } from './pages/search-property/search-property.component';
 import { SubscriptionComponent } from './pages/subscription/subscription.component';
+import { PaymentComponent } from './pages/payment/payment.component';
+import { RentHistoryComponent } from './pages/rent-history/rent-history.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 @NgModule({
@@ -51,6 +55,8 @@ import { SubscriptionComponent } from './pages/subscription/subscription.compone
     ContractComponent,
     SearchPropertyComponent,
     SubscriptionComponent,
+    PaymentComponent,
+    RentHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +82,8 @@ import { SubscriptionComponent } from './pages/subscription/subscription.compone
     MatListModule,
     FlexLayoutModule,
     MatSidenavModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

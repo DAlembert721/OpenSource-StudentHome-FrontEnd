@@ -145,4 +145,7 @@ export class ContractListComponent implements OnInit {
   addPayment(contractId): void {
     console.log(ContractState.CANCELED.toString());
   }
+  viewContract(id): void{
+    this.router.navigate([`/contracts/${id}`]).then(() => null);
+  }
 }

@@ -1,13 +1,14 @@
 <div class="section-header">
   <div  class="name-title">
     <mat-icon>book</mat-icon>
-    <span>Making Contract</span>
+    <span *ngIf="!isView">Making</span> Contract
   </div>
 </div>
 <div class="details-main-div contract">
   <mat-card class="details-card">
     <mat-card-header>
-      <mat-card-title>Accept request - Make Contract </mat-card-title>
+      <mat-card-title *ngIf="!isView">Accept request - Make Contract </mat-card-title>
+      <mat-card-title *ngIf="isView">Contract {{contractId}}</mat-card-title>
       <mat-card-subtitle>Created at: {{requestData.createdAt}}</mat-card-subtitle>
     </mat-card-header>
     <br><mat-divider></mat-divider>
@@ -18,7 +19,7 @@
     </div>
     <mat-divider></mat-divider><br>
     <mat-card-content>
-      <p> {{requestData.content}} </p>
+      <p *ngIf="!isView"> {{requestData.content}} </p>
       <div class="subDetails">
         <div>
           <h3>Sender: {{studentData.firstName}} {{studentData.lastName}}</h3>
@@ -34,7 +35,12 @@
         </div>
       </div>
       <mat-divider></mat-divider><br>
-      <form (ngSubmit)="onSubmit()" #contractForm="ngForm">
+      <div *ngIf="isView">
+        <p>Created at: {{contractData.createdAt}}</p>
+        <p>{{contractData.description}}</p>
+        <p>Amount: S/. {{contractData.amount}}</p>
+      </div>
+      <form (ngSubmit)="onSubmit()" #contractForm="ngForm" *ngIf="!isView">
           <p>
             <mat-form-field class="long-field">
               <mat-label>Description</mat-label>
@@ -50,9 +56,12 @@
           </p>
       </form>
     </mat-card-content>
-    <mat-card-actions align="end" style="height: auto; padding-bottom: 10px">
+    <mat-card-actions align="end" style="height: auto; padding-bottom: 10px" *ngIf="!isView">
       <button button mat-flat-button class="card-button" (click)="acceptRequest()">Add</button>
       <button button mat-flat-button class="card-button" (click)="navigateToRequests()">Cancel</button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="isView">
+      <button button mat-flat-button class="card-button" (click)="addPayment()">Add Patment</button>
     </mat-card-actions>
   </mat-card>
 </div>

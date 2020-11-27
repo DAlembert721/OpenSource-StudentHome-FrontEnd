@@ -23,7 +23,7 @@ const routes: Routes = [
   // { path: 'landlords/:landlordId/properties', component: PropertiesComponent},
   { path: 'landlords/:landlordId/properties/add', component: AddPropertyComponent},
   { path: 'landlords/:id/properties/:propertyId', component: PropertyDetailsComponent},
-  { path: 'landlords/:id/properties/:propertyId/edit', component: AddPropertyComponent},
+  { path: 'landlords/:landlordId/properties/:propertyId/edit', component: AddPropertyComponent},
   { path: 'students/:id/properties/:propertyId', component: PropertyDetailsComponent},
   { path: 'students/:id', component: StudentProfileComponent},
   { path: 'users/:userId/students/:studentId', component: StudentProfileComponent},

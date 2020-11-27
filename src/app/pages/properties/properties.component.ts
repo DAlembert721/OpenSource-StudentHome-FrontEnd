@@ -3,6 +3,8 @@ import { Property } from '../../models/property';
 import { PropertyService } from '../../services/property.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
+import {ServiceService} from '../../services/service.service';
+import {PropertyImageService} from '../../services/property-image.service';
 
 @Component({
   selector: 'app-property-register',
@@ -17,8 +19,11 @@ export class PropertiesComponent implements OnInit {
   type: any;
   imgUrl = 'https://source.unsplash.com/1600x900/?bedroom,house';
   properties: Property[] = [];
+  images: any[] = [];
   constructor(private propertyDataService: PropertyService,
-              private router: Router, private route: ActivatedRoute) { }
+              private propertyImageService: PropertyImageService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // this.landlordId = Number(this.route.snapshot.paramMap.get('landlordId'));
@@ -30,7 +35,28 @@ export class PropertiesComponent implements OnInit {
     this.propertyDataService.getPropertiesByLandlordId(id)
       .subscribe((response: any) => {
         this.properties = response.content;
+        for (const property of this.properties) {
+          this.retrieveImagesByPropertyId(property.id);
+        }
       });
+  }
+
+  retrieveImagesByPropertyId(propertyId): void {
+    this.propertyImageService.getAllPropertyImagesByPropertyId(propertyId)
+      .subscribe((response: any) => {
+        const images = response.content;
+        for (const image of images) {
+          const data = {
+            id: propertyId,
+            url: image.url,
+          };
+          this.images.push(data);
+        }
+      });
+  }
+  getImage(propertyId): string {
+    const image = this.images.filter(v => v.id === propertyId);
+    return image[0].url;
   }
   navigateToAddProperty(): void {
     if (this.type === 'landlord') {

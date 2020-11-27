@@ -53,13 +53,20 @@ export class AddPropertyComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.landlordId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(this.propertyData);
+    // this.initialize();
+    this.landlordId = Number(this.route.snapshot.paramMap.get('landlordId'));
+    this.propertyId = Number(this.route.snapshot.paramMap.get('propertyId'));
+    console.log(this.propertyData);
+    // console.log(this.landlordId);
     this.retrieveRegions();
   }
 
   ngAfterViewInit(): void {
-    this.propertyId = Number(this.route.snapshot.paramMap.get('propertyId'));
     // console.log(this.propertyId);
+    // console.log(this.isEdit);
+  }
+  checkMode(): void {
     setTimeout(() => {
       if (this.propertyId === 0) {
         this.isEdit = false;
@@ -69,7 +76,26 @@ export class AddPropertyComponent implements OnInit, AfterViewInit {
       }
       this.retrieveAllServices();
     });
-    // console.log(this.isEdit);
+  }
+  initialize(): void {
+    this.propertyData.title = null;
+    this.propertyData.id = null;
+    this.propertyData.provinceName = null;
+    this.propertyData.regionName = null;
+    this.propertyData.districtName = null;
+    this.propertyData.rooms = null;
+    this.propertyData.size = null;
+    this.propertyData.place = null;
+    this.propertyData.landLordLastName = null;
+    this.propertyData.landLordFirstName = null;
+    this.propertyData.address = null;
+    this.propertyData.landLordId = null;
+    this.propertyData.description = null;
+    this.propertyData.active = null;
+    this.propertyData.cost = null;
+    this.propertyData.districtId = null;
+    this.propertyData.provinceId = null;
+    this.propertyData.regionId = null;
   }
 
   retrieveProperty(): void {
@@ -88,6 +114,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit {
     this.locationService.getRegionById()
       .subscribe((response: any) => {
         this.regions = response.content;
+        this.checkMode();
       });
   }
 
@@ -128,9 +155,10 @@ export class AddPropertyComponent implements OnInit, AfterViewInit {
     };
     // console.log(this.landlordId);
     if (!this.isEdit) {
+      // console.log(this.landlordId);
       this.propertyDataService.createProperty(this.landlordId, newProperty)
         .subscribe((response: any) => {
-          console.log(response);
+          // console.log(response);
           for (const selectElement of this.servicesSelected) {
             this.serviceService.addServiceToProperty(response.id, this.services[this.servicesSelected.indexOf(selectElement)].id)
               .subscribe((result: any) => {
@@ -146,7 +174,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit {
                 // console.log(result);
               });
           }
-          this.navigateToProperties();
+          this.navigateToProperty(response.id);
         });
     } else {
       this.propertyDataService.updateProperty(this.landlordId, this.propertyData.id, newProperty)
@@ -167,16 +195,18 @@ export class AddPropertyComponent implements OnInit, AfterViewInit {
                 console.log(result);
               });
           }
-          this.navigateToProperties();
+          this.navigateToProperty(response.id);
         });
     }
     // this.navigateToProperties();
   }
 
-  navigateToProperties(): void {
-    this.router.navigate([`/landlords/${this.landlordId}/properties/${this.propertyId}`]).then(() => null);
+  navigateToProperty(propertyId): void {
+    this.router.navigate([`/landlords/${this.landlordId}/properties/${propertyId}`]).then(() => null);
   }
-
+  navigateToPropertiesList(): void {
+    this.router.navigate([`/home`]).then(() => null);
+  }
   onSubmit(): void {
     if (this.propertyForm.form.valid) {
       // console.log(this.propertyData);

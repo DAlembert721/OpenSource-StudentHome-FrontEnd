@@ -11,8 +11,10 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // this.type = localStorage.getItem('type');
-    this.type = null;
+    this.type = localStorage.getItem('type');
+    if (!this.type){
+      this.type = null;
+    }
   }
 
   changeStudent(): void {

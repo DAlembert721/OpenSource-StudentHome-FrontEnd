@@ -35,6 +35,8 @@ import { SearchPropertyComponent } from './pages/search-property/search-property
 import { SubscriptionComponent } from './pages/subscription/subscription.component';
 import { RentHistoryComponent } from './pages/rent-history/rent-history.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { PaymentComponent } from './pages/payment/payment.component';
     MatListModule,
     FlexLayoutModule,
     MatSidenavModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

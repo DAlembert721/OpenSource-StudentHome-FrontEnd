@@ -11,13 +11,15 @@
   <!--  List of results-->
   <mat-card class="result">
     <mat-card-header>
-      <mat-card-title>Search Property</mat-card-title>
+      <mat-card-title>Payments - Use filters to search </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field style="width: 80%" align="center">
+      <div align="center">
+      <mat-form-field style="width: 80%">
         <mat-label>Filter Results</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. UPC" #input>
       </mat-form-field>
+      <p>
       <mat-form-field appearance="fill">
         <mat-label>By Property</mat-label>
         <mat-select>
@@ -42,6 +44,23 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      </p>
+      <p style="margin-top: -10px">
+        <mat-form-field appearance="fill">
+          <mat-label>From (created)</mat-label>
+          <input matInput [matDatepicker]="pickerStart">
+          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>To (updated)</mat-label>
+          <input matInput [matDatepicker]="pickerEnd">
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+        <button mat-flat-button class="card-button" style="padding-left: 20px">Search</button>
+      </p>
+      </div>
       <table mat-table [dataSource]="dataSource" align="center" >
         <ng-container matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef ></th>
@@ -63,6 +82,14 @@
         <ng-container matColumnDef="comment" >
           <th mat-header-cell *matHeaderCellDef >Comment</th>
           <td mat-cell *matCellDef="let element" class="td-element">{{ element.comment }}</td>
+        </ng-container >
+        <ng-container matColumnDef="createdAt" >
+          <th mat-header-cell *matHeaderCellDef >CreatedAt</th>
+          <td mat-cell *matCellDef="let element" class="td-element">Created At <br>{{ element.createdAt }}</td>
+        </ng-container >
+        <ng-container matColumnDef="updatedAt" >
+          <th mat-header-cell *matHeaderCellDef >UpdatedAt</th>
+          <td mat-cell *matCellDef="let element" class="td-element">Updated At <br>{{ element.updatedAt }}</td>
         </ng-container >
         <ng-container matColumnDef="actions" class="actions">
           <mat-header-cell *matHeaderCellDef > </mat-header-cell >

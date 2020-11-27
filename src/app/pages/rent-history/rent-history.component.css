@@ -1,9 +1,4 @@
 /*-----Datasource-----*/
-
-.result{
-  width: 80%;
-  margin-right: -10%;
-}
 .result td img.datasource-img{
   height: 100px;
   width: 100px;
@@ -11,7 +6,9 @@
 }
 .result td{
   text-align: center;
-  min-width: 80px;
+  min-width: 60px;
+  max-width: 90px;
+  padding: 10px;
 }
 .result tr {
   height: 48px;
@@ -44,6 +41,7 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
   .result  .td-element{
     display: block;
     border-bottom-width: 0px;
+    padding: 0px;
   }
   .result th.mat-header-cell:last-of-type,
   .result td.mat-cell:last-of-type,

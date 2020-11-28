@@ -24,13 +24,14 @@ export class NavBarComponent implements OnInit {
   }
 
   initializeOptions(): void {
+    this.type = localStorage.getItem("type");
     this.options = [];
     this.options.push({text: 'Home', icon: 'home'});
     this.options.push({text: 'Profile', icon: 'perm_identity'});
     this.options.push({text: 'Contracts And Payments', icon: 'book'});
     this.options.push({text: 'Requests', icon: 'receipt'});
     // console.log(this.options);
-    if (this.type === 'landlord'){
+    if (this.type !== 'student'){
       this.options.push({text: 'Subscription', icon: 'monetization_on'});
     }
   }

@@ -28,5 +28,6 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('type', this.type);
     localStorage.setItem('id', '61');
     localStorage.setItem('userId', '51');
+    localStorage.setItem('subscription', 'Premium');
   }
 }

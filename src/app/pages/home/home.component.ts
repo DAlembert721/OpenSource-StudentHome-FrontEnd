@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         window.sessionStorage.setItem('type', account.type);
         window.localStorage.setItem('id', account.id);
         window.localStorage.setItem('userId', account.id);
+        this.type = window.localStorage.getItem('type');
       });
   }
 }

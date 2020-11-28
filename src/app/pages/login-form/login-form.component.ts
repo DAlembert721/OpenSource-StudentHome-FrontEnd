@@ -39,6 +39,9 @@ export class LoginFormComponent implements OnInit {
     window.location.reload();
   }
   onSubmit(): void {
+    if (window.localStorage.getItem('type') !== null){
+      this.navigateToHome();
+    }
     if (this.loginForm.invalid) {
       return;
     }
@@ -77,5 +80,8 @@ export class LoginFormComponent implements OnInit {
         sessionStorage.setItem('id', account.id);
         sessionStorage.setItem('userId', account.id);
       });
+  }
+  navigateToHome(): void{
+    this.router.navigate([`/home`]).then(() => null);
   }
 }

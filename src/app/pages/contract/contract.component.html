@@ -60,8 +60,9 @@
       <button button mat-flat-button class="card-button" (click)="acceptRequest()">Add</button>
       <button button mat-flat-button class="card-button" (click)="navigateToRequests()">Cancel</button>
     </mat-card-actions>
-    <mat-card-actions *ngIf="isView">
-      <button button mat-flat-button class="card-button" (click)="addPayment()">Add Patment</button>
+    <mat-card-actions align="center" *ngIf="isView">
+      <button button mat-flat-button class="card-button" (click)="addPayment()">Add Payment</button>
+      <button button mat-flat-button class="card-button" (click)="navigateToList()">See payments</button>
     </mat-card-actions>
   </mat-card>
 </div>

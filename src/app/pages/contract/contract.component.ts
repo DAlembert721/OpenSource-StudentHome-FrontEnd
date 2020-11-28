@@ -123,6 +123,9 @@ export class ContractComponent implements OnInit {
   addPayment(): void{
     this.router.navigate([`/contracts/${this.contractId}/payments/add`]).then(() => null);
   }
+  navigateToList(): void {
+    this.router.navigate([`/contracts/${this.contractId}/payment_history`]).then(() => null);
+  }
   onSubmit(): void {
     if (this.contractForm.form.valid) {
       console.log(this.contractData);

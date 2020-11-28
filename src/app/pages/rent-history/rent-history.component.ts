@@ -1,31 +1,45 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatDatepicker} from '@angular/material/datepicker';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatTableDataSource} from '@angular/material/table';
+import {PaymentService} from '../../services/payment.service';
+import {Payment} from '../../models/payment';
+import {ContractService} from '../../services/contract.service';
+import {PropertyService} from '../../services/property.service';
 
 @Component({
   selector: 'app-rent-history',
   templateUrl: './rent-history.component.html',
   styleUrls: ['./rent-history.component.css']
 })
-export class RentHistoryComponent implements OnInit {
-  type: any;
+export class RentHistoryComponent implements OnInit, AfterViewInit {
+  type: string;
+  payments: any[] = [];
+  accountId: number;
+  contractId: number;
   dataSource = new MatTableDataSource();
-  displayedColumns: string[] = [ 'image', 'id', 'contract', 'amount', 'comment', 'createdAt', 'updatedAt', 'actions'];
+  displayedColumns: string[] = [ 'image', 'id', 'pay', 'comment', 'createdAt', 'updatedAt', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
 
   constructor(
-    private router: Router, private route: ActivatedRoute) {
+    private paymentService: PaymentService,
+    private contractService: ContractService,
+    private propertyService: PropertyService,
+    private router: Router,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.contractId = Number(params.contractId);
+      this.retrievePayments();
+    });
     this.dataSource.sort = this.sort;
-    this.getAllPPayments();
-    this.type = localStorage.getItem('type');
+    // this.getAllPPayments();
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -37,22 +51,28 @@ export class RentHistoryComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  navigateToPayment(element): void{
-    this.router.navigate([`/contracts/${element.contract}/payments/${element.id}`]).then(() => null);
+  navigateToPayment(paymentId): void{
+    this.router.navigate([`/contracts/${this.contractId}/payment_history/${paymentId}`]).then(() => null);
   }
-  getAllPPayments(): void {
-    this.dataSource.data = [
-      {id: 1, contract: 'c1', amount: '1000', comment: 'Quiet student' , createdAt: 'xx/xx/xx',
-        image: 'https://source.unsplash.com/1600x900/?receipt,1', updatedAt: 'xx/xx/xx xx:xx'},
-      {id: 2, contract: 'c1', amount: '1000', comment: 'Did not pay in time, but say sorry ' , createdAt: 'xx/xx/xx',
-        image: 'https://source.unsplash.com/1600x900/?receipt,2', updatedAt: 'xx/xx/xx xx:xx'},
-      {id: 3, contract: 'c2', amount: '1000', comment: '' , createdAt: 'xx/xx/xx',
-        image: 'https://source.unsplash.com/1600x900/?receipt,3', updatedAt: 'xx/xx/xx xx:xx'},
-      {id: 4, contract: 'c2', amount: '1000', comment: 'Is going to travel next month' , createdAt: 'xx/xx/xx',
-        image: 'https://source.unsplash.com/1600x900/?receipt,4', updatedAt: 'xx/xx/xx xx:xx'},
-      {id: 5, contract: 'c3', amount: '1000', comment: 'Quiet student' , createdAt: 'xx/xx/xx',
-        image: 'https://source.unsplash.com/1600x900/?receipt,5', updatedAt: 'xx/xx/xx xx:xx'},
-      {id: 6, contract: 'c3', amount: '1000', comment: 'Quiet student' , createdAt: 'xx/xx/xx',
-        image: 'https://source.unsplash.com/1600x900/?receipt,6', updatedAt: 'xx/xx/xx xx:xx'}];
+  retrievePayments(): void {
+    this.paymentService.getPaymentsByContractId(this.contractId)
+      .subscribe((response: any) => {
+        const results = response.content;
+        for (const result of results) {
+          const data = {
+            id: result.id,
+            pay: result.pay,
+            image: result.image,
+            createdAt: result.createdAt,
+            updatedAt: result.updatedAt
+          };
+          this.payments.push(data);
+        }
+        console.log(this.payments);
+        this.dataSource.data = this.payments;
+        console.log(this.dataSource.data);
+      });
+
   }
+
 }

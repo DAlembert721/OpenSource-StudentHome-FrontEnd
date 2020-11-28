@@ -15,11 +15,11 @@ export class NavBarComponent implements OnInit {
   userId: string;
 
   constructor(private router: Router) {
-    this.initializeOptions();
   }
 
   ngOnInit(): void {
     this.change();
+    this.initializeOptions();
     // console.log('here');
   }
 
@@ -27,11 +27,12 @@ export class NavBarComponent implements OnInit {
     this.options = [];
     this.options.push({text: 'Home', icon: 'home'});
     this.options.push({text: 'Profile', icon: 'perm_identity'});
-    this.options.push({text: 'Contracts', icon: 'book'});
+    this.options.push({text: 'Contracts And Payments', icon: 'book'});
     this.options.push({text: 'Requests', icon: 'receipt'});
     // console.log(this.options);
-    this.options.push({text: 'Subscription', icon: 'monetization_on'});
-    this.options.push({text: 'History', icon: 'payment'});
+    if (this.type === 'landlord'){
+      this.options.push({text: 'Subscription', icon: 'monetization_on'});
+    }
   }
 
   change(): void {
@@ -61,7 +62,7 @@ export class NavBarComponent implements OnInit {
       } else {
         this.router.navigate([`users/${this.userId}/landlords/${this.id}`]).then(() => null);
       }
-    } else if (option.text === 'Contracts') {
+    } else if (option.text === 'Contracts And Payments') {
       if (this.type === 'student') {
         this.router.navigate([`students/${this.id}/contracts`]).then(() => null);
       } else {
@@ -75,13 +76,6 @@ export class NavBarComponent implements OnInit {
       }
     } else if (option.text === 'Subscription') {
       this.router.navigate([`landlords/${this.id}/subscription`]).then(() => null);
-    }
-    else if (option.text === 'History') {
-      if (this.type === 'student') {
-        this.router.navigate([`students/${this.id}/payment_history`]).then(() => null);
-      } else {
-        this.router.navigate([`landlords/${this.id}/payment_history`]).then(() => null);
-      }
     }
   }
 

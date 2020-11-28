@@ -36,6 +36,12 @@ export class ContractService {
       , JSON.stringify(contract), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
+  // Get Contract By Id
+  getContractsById(contractId): Observable<Contract> {
+    return this.http.get<Contract>(`${this.basePath}/contracts/${contractId}`
+      , this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
   // Get Contract By StudentId
   getContractsByStudentId(studentId): Observable<Contract> {
     return this.http.get<Contract>(`${this.basePath}/students/${studentId}/contracts`

@@ -8,7 +8,8 @@ import {Property} from '../models/property';
   providedIn: 'root'
 })
 export class PropertyService {
-// Students endpoints
+
+  // Properties endpoints
   basePath = 'https://student-home-open-source.herokuapp.com/api';
 
   constructor(private http: HttpClient) {

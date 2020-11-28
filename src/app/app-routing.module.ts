@@ -36,9 +36,8 @@ const routes: Routes = [
   { path: 'students/:id/search_property', component: SearchPropertyComponent},
   { path: 'landlords/:id/subscription', component: SubscriptionComponent},
   { path: 'contracts/:contractId', component: ContractComponent},
-  { path: 'landlords/:id/payment_history', component: RentHistoryComponent},
-  { path: 'students/:id/payment_history', component: RentHistoryComponent},
-  { path: 'contracts/:contractId/payments/:paymentId', component: PaymentComponent},
+  { path: 'contracts/:contractId/payment_history', component: RentHistoryComponent},
+  { path: 'contracts/:contractId/payment_history/:paymentId', component: PaymentComponent},
   { path: 'contracts/:contractId/payments/add', component: PaymentComponent},
 ];
 

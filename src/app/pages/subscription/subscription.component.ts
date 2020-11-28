@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Subscription} from '../../models/subscription';
+import {SubscriptionService} from '../../services/subscription.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-subscription',
@@ -18,12 +21,20 @@ export class SubscriptionComponent implements OnInit {
   basicStyle: string;
   selectedStyle = 'background-color: whitesmoke; margin-bottom:20px';
   notSelectedStyle = 'background-color: white; margin-bottom:15px';
+  subscriptions: Subscription[] = [];
+  currentSubscription: string;
 
-  constructor() { }
+  constructor(
+    private subscriptionService: SubscriptionService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.plan = this.plans[0];
+    this.currentSubscription = localStorage.getItem('subscription');
+    console.log(this.currentSubscription);
     this.backgroundStyle = this.style(0);
+    this.retrieveSubscriptions();
   }
   changePlan(value): void{
     this.plan = this.plans[value];
@@ -49,5 +60,26 @@ export class SubscriptionComponent implements OnInit {
       'background-position: center -120px; ' +
       'background-repeat: no-repeat; ' +
       'background-size: cover;';
+  }
+  retrieveSubscriptions(): void{
+    this.subscriptionService.getAllSubscriptions()
+      .subscribe((response: any) => {
+        this.subscriptions = response.content;
+      });
+  }
+  getButtonStyle(subscription): string{
+    if (subscription.id === 11){
+      return 'margin-top: 20px';
+    }
+    else {
+      return '';
+    }
+  }
+  getDescription(): string{
+    for (const subscription of this.subscriptions) {
+      if (subscription.name === this.currentSubscription){
+        return subscription.description;
+      }
+    }
   }
 }

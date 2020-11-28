@@ -29,6 +29,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { ContractListComponent } from './pages/contract-list/contract-list.component';
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { LoginFormComponent } from './pages/login-form/login-form.component';
+import { RegisterFormComponent } from './pages/register-form/register-form.component';
+import {MatRadioModule} from '@angular/material/radio';
 import { HomeComponent } from './pages/home/home.component';
 import { ContractComponent } from './pages/contract/contract.component';
 import { SearchPropertyComponent } from './pages/search-property/search-property.component';
@@ -51,6 +54,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     RequestListComponent,
     ContractListComponent,
     NavBarComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
     HomeComponent,
     ContractComponent,
     SearchPropertyComponent,
@@ -82,6 +87,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatListModule,
     FlexLayoutModule,
     MatSidenavModule,
+    MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule
   ],

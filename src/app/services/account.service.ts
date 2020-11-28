@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Student} from '../models/student';
+import {Account} from '../models/account';
 import {catchError, retry} from 'rxjs/operators';
-import {User} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  // User endpoints
-  basePath = 'http://localhost:3000/api/users';
+export class AccountService {
+  basePath = 'https://student-home-open-source.herokuapp.com/api';
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,24 +25,24 @@ export class UserService {
     }
     return throwError('Something happened with request, please try again later.');
   }
-  // Create User
-  createUser(user): Observable<User> {
-    return this.http.post<User>(`${this.basePath}`, JSON.stringify(user), this.httpOptions)
+  // Create Account
+  createAccount(userId, account): Observable<Account> {
+    return this.http.post<Account>(`${this.basePath}/users/${userId}/accounts`, JSON.stringify(account), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Get User By Id
-  getUserById(userId): Observable<User> {
-    return this.http.get<User>(`${this.basePath}/${userId}`, this.httpOptions)
+  // Get Account By Id and UserId
+  getAccountByUserId(userId, accountId): Observable<Account> {
+    return this.http.get<Account>(`${this.basePath}/users/${userId}/accounts/${accountId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Update User
-  updateUser(userId, user): Observable<User> {
-    return this.http.put<User>(`${this.basePath}/${userId}`, JSON.stringify(user), this.httpOptions)
+  // Update Account
+  updateAccount(accountId, userId, account): Observable<Account> {
+    return this.http.put<Account>(`${this.basePath}/users/${userId}/accounts/${accountId}`, JSON.stringify(account), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
-  // Delete User
-  deleteUser(userId): Observable<any> {
-    return this.http.delete(`${this.basePath}/${userId}`, this.httpOptions)
+  // Delete Account
+  deleteAccount(userId, accountId): Observable<any> {
+    return this.http.delete(`${this.basePath}/users/${userId}/accounts/${accountId}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

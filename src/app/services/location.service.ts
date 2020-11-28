@@ -12,7 +12,7 @@ import {District} from '../models/district';
 export class LocationService {
 
   // Location endpoints
-  basePath = 'https://student-home-open-source.herokuapp.com/api';
+  basePath = 'https://student-home-open-source.herokuapp.com/api/location';
   constructor(private http: HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({

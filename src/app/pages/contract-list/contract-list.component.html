@@ -1,55 +1,57 @@
-<mat-card class="principal-card">
-  <mat-card-content>
-    <div *ngIf="contracts?.length === 0; else contractListView">
-      <h1 style="color: black; text-align: center;margin-top: 50px;font-size: 50px">You don't have any contract</h1>
+<div class="principal-card request">
+  <div class="section-header">
+    <div  class="name-title">
+      <mat-icon>book</mat-icon>
+      <span>Your Contracts</span>
     </div>
-
-    <ng-template #contractListView>
-      <div class="margin-card" *ngFor="let contract of contracts">
-        <div fxLayout="row" fxLayoutAlign="center">
-          <mat-card class="example-card">
-            <mat-card-header class="main-header">
-              <div fxLayout="row">
-                <mat-card-title *ngIf="type==='landlord'"
-                                style="margin-bottom: 0">
-                  Student Name:
-                  <h3 >{{contract.firstNameStudent}}  {{contract.lastNameStudent}}</h3>
-                </mat-card-title>
-
-                <mat-card-title *ngIf="type==='student'"
-                                style="margin-bottom: 0">
-                  Landlord Name:
-                  <h3 >{{contract.firstNameLandlord}}  {{contract.lastNameLandlord}}</h3>
-                </mat-card-title>
-
-              </div>
-            </mat-card-header>
-            <mat-divider class="default-spacer"></mat-divider>
-            <mat-card-content>
-              <div fxLayoutAlign="right"
-                   fxLayout="column">
-                <h2 style="margin-bottom: 2px">Description:</h2>
-                <p style="margin-left: 5%">{{contract.description}}</p>
-              </div>
-
-            </mat-card-content>
-            <mat-card-actions fxLayoutAlign="end"
-                              style="margin-right: 20px;"
-                              align="right">
-              <button *ngIf="type === 'landlord'"
-                      mat-button class="ok-btn"
-                      (click)="concludeContract(contract.id,contract)">
-                Concluded</button>
-              <button *ngIf="type === 'student'"
-                      mat-button class="deny-btn"
-                      (click)="addPayment(contract.id)" style="margin-left: 5px">
-                Denied</button>
-            </mat-card-actions>
-          </mat-card>
-        </div>
-
-      </div>
+  </div>
+  <div  class="content section-grid">
+    <div class="name-title" *ngIf="contracts?.length === 0; else contractListView">
+      <span >You don't have any contract</span>
+    </div>
+    <ng-template  #contractListView>
+      <mat-card class="grid-card" *ngFor="let contract of contracts">
+        <mat-card-header  class="grid-title">
+            <mat-card-title> Contract {{contract.id}}</mat-card-title>
+            <mat-card-subtitle>{{contract.createdAt}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-divider></mat-divider><br>
+          <mat-card-content class="grid-content" style="margin-left: 15px">
+            <div class="section-grid">
+                <p *ngIf="type === 'landlord'">Student: {{contract.studentFullName}}</p>
+                <p *ngIf="type === 'student'">Landlord: {{contract.landlordFullName}}</p>
+                <p>Amount: {{contract.amount}}</p>
+            </div>
+          </mat-card-content>
+        <mat-card-actions  align="end">
+          <button mat-flat-button  class="card-button" (click)="viewContract(contract.id)">
+            <mat-icon>visibility</mat-icon> View </button>
+          <button mat-flat-button
+                  *ngIf="type === 'landlord' && contract.state === 'ACCEPTED'"
+                  class="card-button"
+                  (click)="concludeContract(contract.id)">
+            <mat-icon>clear</mat-icon> Conclude</button>
+          <button mat-flat-button
+                  *ngIf="type === 'landlord' && contract.state === 'UNRESOLVED'"
+                  class="card-button"
+                  (click)="cancelContract(contract.id)">
+            <mat-icon>clear</mat-icon> Cancel</button>
+          <button mat-flat-button
+                  class="card-button"
+                  *ngIf="type === 'student' && contract.state === 'UNRESOLVED'"
+                  (click)="acceptContract(contract.id)">
+            <mat-icon>clear</mat-icon> Accept</button>
+          <button mat-flat-button
+                  class="card-button"
+                  *ngIf="type === 'student' && contract.state === 'UNRESOLVED'"
+                  (click)="denyContract(contract.id)">
+            <mat-icon>clear</mat-icon> Deny</button>
+          <button mat-flat-button
+                  class="card-button"
+                  *ngIf="type === 'student' && contract.state === 'ACCEPTED' "
+                  (click)="addPayment(contract.id)">
+            <mat-icon>clear</mat-icon> Pay</button>
+        </mat-card-actions>
+      </mat-card>
     </ng-template>
-  </mat-card-content>
-
-</mat-card>
+  </div>

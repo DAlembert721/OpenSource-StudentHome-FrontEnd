@@ -5,6 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
 import {NgForm} from '@angular/forms';
 import {Property} from '../../models/property';
+import {PropertyService} from '../../services/property.service';
+import {PropertyImageService} from '../../services/property-image.service';
+import {strict} from 'assert';
 
 
 @Component({
@@ -20,15 +23,22 @@ export class LandlordProfileComponent implements OnInit {
   isEditMode = false;
   userId: number;
   properties: Property[];
-
+  type: any;
+  imgUrl = 'https://source.unsplash.com/1600x900/?room,house,home';
+  images: any[] = [];
   constructor(private landlordDataService: LandlordService,
-              private router: Router, private route: ActivatedRoute) {
+              private propertyService: PropertyService,
+              private propertyImageService: PropertyImageService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.type = localStorage.getItem('type');
     this.landlordId = Number(this.route.params.subscribe(params => {
       let id;
       if (params.id) {
+        console.log('un solo id');
         id = params.id;
         console.log(id);
         this.retrieveLandlordByLandlordId(id);
@@ -43,6 +53,7 @@ export class LandlordProfileComponent implements OnInit {
  //       this.isEditMode = true;
         this.userId = userId;
       }
+      this.retrievePropertiesByLandlordId(id);
       return id;
     }));
   }
@@ -66,6 +77,33 @@ export class LandlordProfileComponent implements OnInit {
         console.log(this.landlordData);
       });
   }
+  retrievePropertiesByLandlordId(landlordId): void {
+    this.propertyService.getPropertiesByLandlordId(landlordId)
+      .subscribe((response: any) => {
+        this.properties = response.content;
+        console.log(this.properties);
+        for (const property of this.properties) {
+          this.retrieveImagesByPropertyId(property.id);
+        }
+      });
+  }
+  retrieveImagesByPropertyId(propertyId): void {
+    this.propertyImageService.getAllPropertyImagesByPropertyId(propertyId)
+      .subscribe((response: any) => {
+        const images = response.content;
+        for (const image of images) {
+          const data = {
+            id: propertyId,
+            url: image.url,
+          };
+          this.images.push(data);
+        }
+      });
+  }
+  getImage(propertyId): string {
+    const image = this.images.filter(v => v.id === propertyId);
+    return image[0].url;
+  }
 
   updateLandlord(): void {
     this.landlordDataService.updateLandlord(this.userId, this.landlordData.id, this.landlordData as Landlord);
@@ -82,5 +120,8 @@ export class LandlordProfileComponent implements OnInit {
     } else {
       console.log('Invalid Data');
     }
+  }
+  navigateToPropertyDetails(element: Property): void {
+    this.router.navigate([`/landlords/${this.landlordId}/properties/${element.id}`]).then(() => null);
   }
 }

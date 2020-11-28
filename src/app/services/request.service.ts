@@ -3,6 +3,8 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {Request} from '../models/request';
+import {Property} from "../models/property";
+import {RequestState} from '../models/request-state.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +47,11 @@ export class RequestService {
       , this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
+  // Get Request By Id
+  getRequestById(requestId): Observable<Request> {
+    return this.http.get<Request>(`${this.basePath}/properties/${requestId}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
   // Update Request
   updateRequest(requestId, request): Observable<Request> {
     return this.http.put<Request>(`${this.basePath}/requests/${requestId}`
@@ -55,6 +62,28 @@ export class RequestService {
   deleteRequest(requestId): Observable<any> {
     return this.http.delete(`${this.basePath}/requests/${requestId}`
       , this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+  // Update Request State
+  updateRequestState(requestId, state: RequestState): Observable<Request> {
+    let val;
+    switch (state) {
+      case RequestState.ACCEPTED:
+        val = 'ACCEPTED';
+        break;
+      case RequestState.CANCELED:
+        val = 'CANCELED';
+        break;
+      case RequestState.DENIED:
+        val = 'DENIED';
+        break;
+      case RequestState.UNRESOLVED:
+        val = 'UNRESOLVED';
+        break;
+
+    }
+    return this.http.put<Request>(`${this.basePath}/requests/${requestId}/state=${val}`
+      , {}, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

@@ -4,6 +4,7 @@ import {RequestService} from '../../services/request.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PropertyService} from '../../services/property.service';
 import {newArray} from '@angular/compiler/src/util';
+import {RequestState} from '../../models/request-state.enum';
 
 @Component({
   selector: 'app-request-list',
@@ -14,6 +15,7 @@ export class RequestListComponent implements OnInit {
   requests: Request[];
   id: number;
   type: any;
+  landLordId: number;
   constructor(private requestService: RequestService,
               private propertyService: PropertyService,
               private router: Router,
@@ -35,6 +37,7 @@ export class RequestListComponent implements OnInit {
       }
       else {
         this.retrievePropertiesByLandLordId(id);
+        this.landLordId = id;
       }
       return id;
     }));
@@ -43,7 +46,7 @@ export class RequestListComponent implements OnInit {
     this.requestService.getRequestByStudentId(studentId)
       .subscribe((response: any) => {
         this.requests = response.content;
-        console.log(response);
+        // console.log(response);
       });
   }
   retrieveRequestByPropertyId(propertyId): void {
@@ -64,24 +67,25 @@ export class RequestListComponent implements OnInit {
         }
       });
   }
-  acceptRequest(requestId, request): void {
-    this.requestService.updateRequest(requestId, request)
+  acceptRequest(requestId): void {
+    /*this.requestService.updateRequest(requestId, request)
       .subscribe(() => {
-        if (this.type === 'student') {
+        if (this.type !== 'student') {
           this.retrieveRequestByStudentId(this.id);
         }
-        else {
-          this.retrievePropertiesByLandLordId(this.id);
-        }
+      });*/
+    this.router.navigate([`/landlords/${this.landLordId}/requests/${requestId}`]).then(() => null);
+  }
+  denyRequest(requestId): void {
+    this.requestService.updateRequest(requestId, RequestState.DENIED)
+      .subscribe(() => {
+        window.location.reload();
       });
   }
-  deniedRequest(requestId, request): void {
-    this.requestService.updateRequest(requestId, request)
+  cancelRequest(requestId): void {
+    this.requestService.updateRequest(requestId, RequestState.CANCELED)
       .subscribe(() => {
-        const index = this.requests.indexOf(request);
-        if (index > -1) {
-          this.requests.splice(index, 1);
-        }
+        window.location.reload();
       });
   }
 

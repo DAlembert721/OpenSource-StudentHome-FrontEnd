@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ContractService} from '../../services/contract.service';
 import {PropertyService} from '../../services/property.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Contract} from '../../models/contract';
+import {ContractState} from '../../models/contract-state.enum';
 
 @Component({
   selector: 'app-contract-list',
@@ -11,7 +11,7 @@ import {Contract} from '../../models/contract';
 })
 export class ContractListComponent implements OnInit {
 
-  contracts: Contract[];
+  contracts: any[];
   id: number;
   type: any;
   constructor(private contractDataService: ContractService,
@@ -20,8 +20,23 @@ export class ContractListComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.type = localStorage.getItem('type');
     this.contracts = [];
     this.initialize();
+    /*this.contracts.push({
+        amount: 100,
+        createdAt: new Date(),
+        description: 'Having met the requirements\n' +
+          'I ... Name, Surname, confirm the contract of ... Student Student Last name\n' +
+          'The monthly charge will be S / XXX.XX ....\n' +
+          'Additional clauses are...',
+        firstNameLandlord: 'Mephisto',
+        firstNameStudent: 'Samael',
+        lastNameLandlord: 'Pheles',
+        lastNameStudent: 'Veracruz',
+        state: false,
+        id: 1
+    });*/
   }
   initialize(): void {
     this.id = Number(this.route.params.subscribe(params => {
@@ -39,17 +54,47 @@ export class ContractListComponent implements OnInit {
   retrieveContractsByStudentId(studentId): void {
     this.contractDataService.getContractsByStudentId(studentId)
       .subscribe((response: any) => {
-        this.contracts = response.content;
-        console.log(response);
+        for (const resource of response.content) {
+          // console.log(resource);
+          this.propertyService.getPropertyById(resource.propertyId)
+            .subscribe((result: any) => {
+              // console.log(result);
+              const data = {
+                id: resource.id,
+                createdAt: resource.createdAt,
+                description: resource.description,
+                state: resource.state,
+                studentFullName: resource.firstNameStudent + ' ' + resource.lastNameStudent,
+                landlordFullName: result.landLordFirstName + ' ' + result.landLordLastName,
+                amount: resource.amount
+              };
+              this.contracts.push(data);
+            });
+
+
+        }
+        // console.log(this.contracts);
       });
   }
-  retrieveContractsByPropertyId(propertyId): void {
-    this.contractDataService.getContractsByPropertyId(propertyId)
+  retrieveContractsByPropertyId(property): void {
+    // console.log(property);
+    this.contractDataService.getContractsByPropertyId(property.id)
       .subscribe((response: any) => {
-        for (const item of response.content) {
-          this.contracts.push(item);
+        for (const resource of response.content) {
+          const data = {
+            id: resource.id,
+            createdAt: resource.createdAt,
+            description: resource.description,
+            state: resource.state,
+            studentFullName: resource.firstNameStudent + ' ' + resource.lastNameStudent,
+            landlordFullName: property.landLordFirstName + ' ' + property.landLordLastName,
+            amount: resource.amount
+          };
+          this.contracts.push(data);
         }
-        console.log(this.contracts);
+
+        console.log(ContractState.CANCELED.toString());
+        // console.log(this.contracts);
       });
   }
   retrievePropertiesByLandLordId(landlordId): void {
@@ -57,18 +102,50 @@ export class ContractListComponent implements OnInit {
       .subscribe((response: any) => {
         const properties = response.content;
         for (const property of properties) {
-          this.retrieveContractsByPropertyId(property.id);
+          this.retrieveContractsByPropertyId(property);
         }
       });
   }
-  concludeContract(contractId, contract): void {
-    this.contractDataService.updateContract(contractId, contract)
+  concludeContract(contractId): void {
+    this.contractDataService.updateContractState(contractId, ContractState.CONCLUDED)
       .subscribe((response: any) => {
-        const index = this.contracts.indexOf(contract);
-        this.contracts[index] = response;
+        // const index = this.contracts.indexOf(contract);
+        // this.contracts[index] = response;
+        console.log('Contract Has Concluded', response);
+        window.location.reload();
+      });
+  }
+  acceptContract(contractId): void{
+    this.contractDataService.updateContractState(contractId, ContractState.ACTIVE)
+      .subscribe((response: any) => {
+        // const index = this.contracts.indexOf(contract);
+        // this.contracts[index] = response;
+        console.log('Contract Has Been Accepted', response);
+        window.location.reload();
+      });
+  }
+  denyContract(contractId): void{
+    this.contractDataService.updateContractState(contractId, ContractState.CANCELED)
+      .subscribe((response: any) => {
+        // const index = this.contracts.indexOf(contract);
+        // this.contracts[index] = response;
+        console.log('Contract Has Been Canceled', response);
+        window.location.reload();
+      });
+  }
+  cancelContract(contractId): void{
+    this.contractDataService.updateContractState(contractId, ContractState.CANCELED)
+      .subscribe((response: any) => {
+        // const index = this.contracts.indexOf(contract);
+        // this.contracts[index] = response;
+        console.log('Contract Has Been Canceled', response);
+        window.location.reload();
       });
   }
   addPayment(contractId): void {
-    return;
+    console.log(ContractState.CANCELED.toString());
+  }
+  viewContract(id): void{
+    this.router.navigate([`/contracts/${id}`]).then(() => null);
   }
 }

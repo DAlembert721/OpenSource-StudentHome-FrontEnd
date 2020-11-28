@@ -22,17 +22,25 @@ import { PropertyDetailsComponent } from './pages/property-details/property-deta
 import { AddPropertyComponent } from './pages/add-property/add-property.component';
 import {MatSelectModule} from '@angular/material/select';
 import {StudentProfileComponent} from './pages/student-profile/student-profile.component';
-import {MatList, MatListModule} from '@angular/material/list';
+import {MatListModule} from '@angular/material/list';
 import { RequestFormComponent } from './pages/request-form/request-form.component';
 import { RequestListComponent } from './pages/request-list/request-list.component';
-import {LayoutModule} from '@angular/cdk/layout';
-import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import { ContractListComponent } from './pages/contract-list/contract-list.component';
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { LoginFormComponent } from './pages/login-form/login-form.component';
 import { RegisterFormComponent } from './pages/register-form/register-form.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { HomeComponent } from './pages/home/home.component';
+import { ContractComponent } from './pages/contract/contract.component';
+import { SearchPropertyComponent } from './pages/search-property/search-property.component';
+import { SubscriptionComponent } from './pages/subscription/subscription.component';
+import { PaymentComponent } from './pages/payment/payment.component';
+import { RentHistoryComponent } from './pages/rent-history/rent-history.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -48,6 +56,12 @@ import {MatRadioModule} from '@angular/material/radio';
     NavBarComponent,
     LoginFormComponent,
     RegisterFormComponent
+    HomeComponent,
+    ContractComponent,
+    SearchPropertyComponent,
+    SubscriptionComponent,
+    PaymentComponent,
+    RentHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +88,8 @@ import {MatRadioModule} from '@angular/material/radio';
     FlexLayoutModule,
     MatSidenavModule,
     MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

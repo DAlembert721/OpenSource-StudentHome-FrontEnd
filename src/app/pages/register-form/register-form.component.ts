@@ -9,6 +9,14 @@ import {Account} from '../../models/account';
 import {Student} from '../../models/student';
 import {Landlord} from '../../models/landlord';
 import {AccountService} from '../../services/account.service';
+import {Region} from '../../models/region';
+import {Province} from '../../models/province';
+import {District} from '../../models/district';
+import {Service} from '../../models/service';
+import {LocationService} from '../../services/location.service';
+import {EducationCenterService} from '../../services/education-center.service';
+import {EducationCenter} from '../../models/education-center';
+import {AuthService} from '../../services/auth.service';
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -20,11 +28,25 @@ export class RegisterFormComponent implements OnInit {
   accountData: Account = new Account();
   studentData: Student = new Student();
   landlordData: Landlord = new Landlord();
+  selectedRegion: Region = null;
+  selectedProvince: Province = null;
+  selectedDistrict: District = null;
+  selectedEducationCenter: EducationCenter = null;
+  educationCenters: EducationCenter[] = [];
+  regions: Region[] = [];
+  provinces: Province[] = [];
+  districts: District[] = [];
   selectedUser: string;
   isStudent = true;
-  constructor(private formBuilder: FormBuilder, private userDataService: UserService,
-              private accountDataService: AccountService, private landlordDataService: LandlordService,
-              private studentDataService: StudentService, private router: Router,
+  constructor(private formBuilder: FormBuilder,
+              private userDataService: UserService,
+              private accountDataService: AccountService,
+              private landlordDataService: LandlordService,
+              private studentDataService: StudentService,
+              private locationService: LocationService,
+              private authService: AuthService,
+              private educationCenterService: EducationCenterService,
+              private router: Router,
               private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -36,6 +58,8 @@ export class RegisterFormComponent implements OnInit {
       phone: [null, [Validators.required, Validators.minLength(9)]],
       address: [null, [Validators.required, Validators.minLength(5)]]
     });
+    this.retrieveAllRegions();
+    this.retrieveEducationCenter();
     this.selectedUser = 'None';
   }
   onSubmit(): void {
@@ -47,58 +71,58 @@ export class RegisterFormComponent implements OnInit {
   addUser(): void {
     const newUser = {
       email: this.userData.email,
+      username: this.userData.email,
       password: this.userData.password
     };
-    this.userDataService.createUser(newUser)
+    this.authService.register(newUser)
       .subscribe((response: any) => {
         console.log(response);
+        const credentials = {
+          username: newUser.email,
+          password: newUser.password
+        };
+        this.authService.login(credentials)
+          .subscribe((response: any) => {
+            this.createAccount(response.id);
+          });
       });
-    const newAccount = {
-      firstName: this.accountData.firstName,
-      lastName: this.accountData.lastName,
-      dni: this.accountData.dni,
-      phone: this.accountData.phone,
-      description: 'Hello, this is my description',
-      image: 'image.jpg',
-      userId: 3
-    };
-    this.accountDataService.createAccount(newAccount.userId, newAccount)
-      .subscribe((response: any) => {
-      console.log(response);
-    });
+  }
+  createAccount(userId): void{
     if (this.isStudent) {
       const newStudent = {
-        firstName: newAccount.firstName,
-        lastName: newAccount.lastName,
-        dni: newAccount.dni,
-        phone: newAccount.phone,
-        image: newAccount.image,
-        description: newAccount.description,
+        firstName: this.accountData.firstName,
+        lastName: this.accountData.lastName,
+        dni: this.accountData.dni,
+        phone: this.accountData.phone,
+        description: 'Hello, this is my description',
+        image: 'image.jpg',
         address: this.studentData.address,
-        userId: newAccount.userId
+        districtId: this.selectedDistrict.id,
+        educationCenterId: this.selectedEducationCenter.id,
       };
-      this.studentDataService.createStudent(newAccount.userId, newStudent)
+      this.studentDataService.createStudent(userId, newStudent)
         .subscribe((response: any) => {
-        console.log(response);
-        this.navigateToLogin();
-      });
+          console.log(response);
+          this.navigateToLogin();
+        });
     }
     else {
       const newLandlord = {
-        firstName: newAccount.firstName,
-        lastName: newAccount.lastName,
-        dni: newAccount.dni,
-        phone: newAccount.phone,
-        email: newUser.email,
-        description: newAccount.description,
-        userId: newAccount.userId
+        firstName: this.accountData.firstName,
+        lastName: this.accountData.lastName,
+        dni: this.accountData.dni,
+        phone: this.accountData.phone,
+        description: 'Hello, this is my description',
+        image: 'image.jpg',
+        subscriptionId: 1,
       };
-      this.landlordDataService.createLandlord(newAccount.userId, newLandlord)
+      this.landlordDataService.createLandlord(userId, newLandlord)
         .subscribe((response: any) => {
-        console.log(response);
-        this.navigateToLogin();
-      });
+          console.log(response);
+          this.navigateToLogin();
+        });
     }
+
   }
   navigateToLogin(): void {
     this.router.navigate([`/login`]).then(() => null);
@@ -110,5 +134,34 @@ export class RegisterFormComponent implements OnInit {
   selectLandlord(): void {
     this.isStudent = false;
     this.registerForm.controls.address.disable();
+  }
+  retrieveAllRegions(): void {
+    this.locationService.getRegionById()
+      .subscribe((response: any) => {
+        this.regions = response.content;
+        // console.log(response);
+      });
+  }
+
+  retrieveProvinces(regionId): void {
+    this.locationService.getProvincesByRegionId(regionId)
+      .subscribe((response: any) => {
+        this.provinces = response.content;
+        // console.log(response);
+      });
+  }
+
+  retrieveDistricts(provinceId): void {
+    this.locationService.getDistrictsByProvinceId(provinceId)
+      .subscribe((response: any) => {
+        this.districts = response.content;
+        // console.log(response);
+      });
+  }
+  retrieveEducationCenter(): void {
+    this.educationCenterService.getEducationCenters()
+      .subscribe((response: any) => {
+        this.educationCenters = response.content;
+      });
   }
 }

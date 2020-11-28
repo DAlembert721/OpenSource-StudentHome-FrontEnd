@@ -14,9 +14,13 @@ import {SearchPropertyComponent} from './pages/search-property/search-property.c
 import {SubscriptionComponent} from './pages/subscription/subscription.component';
 import {RentHistoryComponent} from './pages/rent-history/rent-history.component';
 import {PaymentComponent} from './pages/payment/payment.component';
+import {LoginFormComponent} from './pages/login-form/login-form.component';
+import {RegisterFormComponent} from './pages/register-form/register-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: 'login', component: LoginFormComponent},
+  { path: 'register', component: RegisterFormComponent},
   { path: 'home', component: HomeComponent},
   { path: 'landlords/:id', component: LandlordProfileComponent },
   { path: 'users/:userId/landlords/:landlordId', component: LandlordProfileComponent},

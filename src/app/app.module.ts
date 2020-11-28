@@ -55,7 +55,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     ContractListComponent,
     NavBarComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
     HomeComponent,
     ContractComponent,
     SearchPropertyComponent,

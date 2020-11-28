@@ -74,6 +74,53 @@
             <span *ngIf="registerForm.controls.address.errors.minlength">Your address should have at least 5 characters!</span>
           </mat-error>
         </mat-form-field>
+        <div>
+          <mat-form-field class="example-full-width"
+                          appearance="fill">
+            <mat-label>Region</mat-label>
+            <mat-select [(value)]="selectedRegion">
+              <mat-option *ngFor="let region of regions"
+                          (onSelectionChange)="retrieveProvinces(region.id)"
+                          [value]="region"
+                          >
+                {{region.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width"
+                          appearance="fill">
+            <mat-label>Province</mat-label>
+            <mat-select [(value)]="selectedProvince">
+              <mat-option *ngFor="let province of provinces"
+                          [value]="province"
+                          (onSelectionChange)="retrieveDistricts(province.id)">
+                {{province.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="example-full-width"
+                          appearance="fill">
+            <mat-label>District</mat-label>
+            <mat-select [(value)]="selectedDistrict">
+              <mat-option [value]="district"
+                          *ngFor="let district of districts">
+                {{district.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width"
+                          appearance="fill">
+            <mat-label>Education Center</mat-label>
+            <mat-select [(value)]="selectedEducationCenter">
+              <mat-option [value]="educationCenter"
+                          *ngFor="let educationCenter of educationCenters">
+                {{educationCenter.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </mat-card-content>
       <mat-card-actions align="center">
         <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid" (click)="addUser()">Register</button>

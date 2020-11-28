@@ -63,6 +63,9 @@ export class RegisterFormComponent implements OnInit {
     this.selectedUser = 'None';
   }
   onSubmit(): void {
+    if (window.localStorage.getItem('type') !== null) {
+      this.navigateToHome();
+    }
     if (this.registerForm.invalid) {
       return;
     }
@@ -163,5 +166,8 @@ export class RegisterFormComponent implements OnInit {
       .subscribe((response: any) => {
         this.educationCenters = response.content;
       });
+  }
+  navigateToHome(): void{
+    this.router.navigate([`/home`]).then(() => null);
   }
 }

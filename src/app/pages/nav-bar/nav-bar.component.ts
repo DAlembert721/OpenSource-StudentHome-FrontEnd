@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {TokenStorageService} from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,7 +15,7 @@ export class NavBarComponent implements OnInit {
   options: Array<any>;
   userId: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -44,6 +45,7 @@ export class NavBarComponent implements OnInit {
 
   changeNull(): void {
     this.router.navigate(['home']).then(() => {
+      this.tokenStorageService.signOut();
       localStorage.clear();
       window.location.reload();
       // localStorage.setItem('id', '');
